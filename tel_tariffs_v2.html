@@ -206,7 +206,7 @@ body { font-family: 'Onest', sans-serif; background: var(--bg); color: var(--tex
 .dm-filter-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 7px; }
 .dm-filter-title i { color: var(--accent); }
 .dm-filter-groups { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: flex-start; }
-.dm-filter-group { min-width: 160px; }
+.dm-filter-group { min-width: 150px; }
 .dm-filter-label { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 7px; }
 .dm-chips { display: flex; flex-wrap: wrap; gap: 5px; }
 .dm-chip { font-family: inherit; font-size: 12px; font-weight: 500; padding: 4px 11px; border-radius: 14px; border: 1px solid var(--border2); background: var(--surface); color: var(--text2); cursor: pointer; transition: all .14s; white-space: nowrap; }
@@ -220,8 +220,6 @@ body { font-family: 'Onest', sans-serif; background: var(--bg); color: var(--tex
 .dm-range-unit { font-size: 12px; color: var(--text3); }
 .dm-reset-btn { font-family: inherit; font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border2); background: var(--surface); color: var(--text2); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all .14s; }
 .dm-reset-btn:hover { border-color: #c0392b; color: #c0392b; background: #fdf3f2; }
-
-/* domophone catalog */
 .dm-results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .dm-results-count { font-size: 12px; color: var(--text3); font-weight: 500; }
 .dm-catalog { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
@@ -235,15 +233,19 @@ body { font-family: 'Onest', sans-serif; background: var(--bg); color: var(--tex
 .dm-item-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
 .dm-item-desc { font-size: 11px; color: var(--text2); line-height: 1.4; margin-bottom: 8px; }
 .dm-item-specs { display: flex; flex-direction: column; gap: 3px; margin-bottom: 8px; }
-.dm-spec { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text2); }
-.dm-spec i { width: 12px; text-align: center; color: var(--text3); flex-shrink: 0; }
+.dm-spec { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text3); }
+.dm-spec i { width: 12px; text-align: center; flex-shrink: 0; }
+.dm-spec.has { color: var(--text2); }
 .dm-spec.has i { color: var(--green); }
-.dm-spec.has { color: var(--text); }
 .dm-color-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 1px solid rgba(0,0,0,.15); flex-shrink: 0; }
 .dm-item-price { font-size: 16px; font-weight: 600; color: var(--text); font-family: 'JetBrains Mono', monospace; }
 .dm-item-price span { font-size: 11px; font-weight: 400; color: var(--text3); font-family: 'Onest', sans-serif; }
 .dm-empty { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 2.5rem 1rem; color: var(--text3); font-size: 14px; text-align: center; }
 .dm-empty i { font-size: 28px; }
+
+@media (max-width: 600px) {
+  .dm-catalog { grid-template-columns: 1fr 1fr; }
+}
 
 /* footer */
 .footer { max-width: 900px; margin: 2rem auto 0; text-align: center; font-size: 12px; color: var(--text3); }
@@ -699,12 +701,10 @@ body { font-family: 'Onest', sans-serif; background: var(--bg); color: var(--tex
     <!-- FILTER PANEL -->
     <div class="dm-filter-panel">
       <div class="dm-filter-title"><i class="fa-solid fa-sliders"></i> Фильтры</div>
-
       <div class="dm-filter-groups">
 
-        <!-- Тип -->
         <div class="dm-filter-group">
-          <div class="dm-filter-label">Тип сигнала</div>
+          <div class="dm-filter-label">Тип домофона</div>
           <div class="dm-chips" id="f-type">
             <button class="dm-chip active" data-val="">Все</button>
             <button class="dm-chip" data-val="audio">Аудио</button>
@@ -712,9 +712,8 @@ body { font-family: 'Onest', sans-serif; background: var(--bg); color: var(--tex
           </div>
         </div>
 
-        <!-- Приложение -->
         <div class="dm-filter-group">
-          <div class="dm-filter-label">Приложение для телефона</div>
+          <div class="dm-filter-label">Приложение на телефон</div>
           <div class="dm-chips" id="f-app">
             <button class="dm-chip active" data-val="">Не важно</button>
             <button class="dm-chip" data-val="yes">Есть</button>
@@ -722,9 +721,8 @@ body { font-family: 'Onest', sans-serif; background: var(--bg); color: var(--tex
           </div>
         </div>
 
-        <!-- Панель при входе -->
         <div class="dm-filter-group">
-          <div class="dm-filter-label">Видеопанель при входе</div>
+          <div class="dm-filter-label">Вызывная панель</div>
           <div class="dm-chips" id="f-panel">
             <button class="dm-chip active" data-val="">Не важно</button>
             <button class="dm-chip" data-val="yes">Есть</button>
@@ -732,49 +730,41 @@ body { font-family: 'Onest', sans-serif; background: var(--bg); color: var(--tex
           </div>
         </div>
 
-        <!-- Цвет корпуса -->
         <div class="dm-filter-group">
           <div class="dm-filter-label">Цвет корпуса</div>
           <div class="dm-chips" id="f-color">
             <button class="dm-chip active" data-val="">Все</button>
-            <button class="dm-chip" data-val="silver">Серебристый</button>
             <button class="dm-chip" data-val="black">Чёрный</button>
             <button class="dm-chip" data-val="white">Белый</button>
-            <button class="dm-chip" data-val="gold">Золотой</button>
           </div>
         </div>
 
-        <!-- Размер экрана -->
         <div class="dm-filter-group">
           <div class="dm-filter-label">Размер экрана монитора</div>
           <div class="dm-screen-range">
             <div class="dm-range-row">
               <span class="dm-range-lbl">от</span>
-              <input type="number" id="f-screen-min" class="dm-range-input" placeholder="0" min="0" max="15" step="0.1" oninput="applyDmFilters()"/>
+              <input type="number" id="f-screen-min" class="dm-range-input" placeholder="3.5" min="3.5" max="16" step="0.1" oninput="applyDmFilters()"/>
               <span class="dm-range-unit">"</span>
             </div>
             <div class="dm-range-row">
               <span class="dm-range-lbl">до</span>
-              <input type="number" id="f-screen-max" class="dm-range-input" placeholder="15" min="0" max="15" step="0.1" oninput="applyDmFilters()"/>
+              <input type="number" id="f-screen-max" class="dm-range-input" placeholder="16" min="3.5" max="16" step="0.1" oninput="applyDmFilters()"/>
               <span class="dm-range-unit">"</span>
             </div>
-            <button class="dm-chip" id="f-screen-no" style="margin-top:2px" onclick="toggleScreenFilter(this)" data-val="">Без экрана</button>
           </div>
         </div>
 
-        <!-- Сброс -->
         <div class="dm-filter-group" style="align-self:flex-end">
           <button class="dm-reset-btn" onclick="resetDmFilters()"><i class="fa-solid fa-rotate-left"></i> Сбросить</button>
         </div>
 
-      </div><!-- /dm-filter-groups -->
-    </div><!-- /dm-filter-panel -->
+      </div>
+    </div>
 
-    <!-- RESULTS -->
     <div class="dm-results-header">
       <span class="dm-results-count" id="dm-results-count">Показано: все модели</span>
     </div>
-
     <div class="dm-catalog" id="dm-catalog"></div>
     <div class="dm-empty" id="dm-empty" style="display:none">
       <i class="fa-solid fa-filter-circle-xmark"></i>
@@ -782,7 +772,7 @@ body { font-family: 'Onest', sans-serif; background: var(--bg); color: var(--tex
     </div>
 
     <!-- Downloads -->
-    <div class="downloads" style="margin-top:1.25rem">
+    <div class="downloads">
       <a class="dl-btn" href="#" onclick="fakeDownload(event,'Схема_разводки_домофона_TEL.pdf')">
         <i class="fa-solid fa-file-pdf"></i>
         Схема разводки (для прораба)
@@ -914,36 +904,33 @@ const DATA = {
     {name:'Snom 300',           desc:'6 SIP-линий, XML-браузер, BLF, PoE',      price:6800, unit:'₽'},
   ],
   domophones: [
-    // АУДИО
-    {id:'dm01', name:'Commax DP-LA01',        type:'audio', screen:0,    app:false, panel:true,  color:'silver', colorLabel:'Серебристый',
+    {id:'dm01', name:'Commax DP-LA01',           type:'audio', screen:0,   app:false, panel:true,  color:'white',  colorLabel:'Белый',
      desc:'Классическая аудиотрубка, металлическая вызывная панель', price:3500},
-    {id:'dm02', name:'Vizit БВД-434FCP',       type:'audio', screen:0,    app:false, panel:true,  color:'white',  colorLabel:'Белый',
+    {id:'dm02', name:'Vizit БВД-434FCP',          type:'audio', screen:0,   app:false, panel:true,  color:'white',  colorLabel:'Белый',
      desc:'Аудиотрубка с подсветкой кнопок, встроенный блок питания', price:4200},
-    {id:'dm03', name:'Eltis DP300-RW16',       type:'audio', screen:0,    app:false, panel:true,  color:'silver', colorLabel:'Серебристый',
+    {id:'dm03', name:'Eltis DP300-RW16',          type:'audio', screen:0,   app:false, panel:true,  color:'black',  colorLabel:'Чёрный',
      desc:'Антивандальная вызывная панель + трубка, IP54', price:5800},
-    {id:'dm04', name:'Falcon Eye FE-2057AHD',  type:'audio', screen:0,    app:false, panel:false, color:'white',  colorLabel:'Белый',
-     desc:'Аудиодомофон без панели, комплект из 2 трубок', price:4800},
-    // ВИДЕО — без приложения
-    {id:'dm05', name:'Commax CDV-35HM',        type:'video', screen:3.5,  app:false, panel:true,  color:'silver', colorLabel:'Серебристый',
+    {id:'dm04', name:'Falcon Eye FE-2057AHD',     type:'audio', screen:0,   app:false, panel:false, color:'white',  colorLabel:'Белый',
+     desc:'Аудиодомофон без вызывной панели, комплект из 2 трубок', price:4800},
+    {id:'dm05', name:'Commax CDV-35HM',           type:'video', screen:3.5, app:false, panel:true,  color:'white',  colorLabel:'Белый',
      desc:'Монитор 3.5" TFT, цветная вызывная панель, угол обзора 92°', price:5500},
-    {id:'dm06', name:'Commax CDV-70H2',        type:'video', screen:7,    app:false, panel:true,  color:'black',  colorLabel:'Чёрный',
+    {id:'dm06', name:'Commax CDV-70H2',           type:'video', screen:7,   app:false, panel:true,  color:'black',  colorLabel:'Чёрный',
      desc:'Монитор 7" TFT, FullHD, OSD меню, разблокировка ворот', price:7800},
-    {id:'dm07', name:'Tantos Amelie HD',       type:'video', screen:7,    app:false, panel:true,  color:'white',  colorLabel:'Белый',
-     desc:'7" TFT, FullHD панель, слот SD, 2 канала', price:9800},
-    {id:'dm08', name:'Slinex ML-20HD',         type:'video', screen:10,   app:false, panel:true,  color:'black',  colorLabel:'Чёрный',
-     desc:'10" IPS монитор, Full HD 2 Мп панель, HDMI', price:14500},
-    {id:'dm09', name:'Kenwei E703FC-W128G',    type:'video', screen:7,    app:false, panel:true,  color:'gold',   colorLabel:'Золотой',
-     desc:'7" IPS, 128 Гб встроенной памяти, 2 Мп, IP65 панель', price:11200},
-    // ВИДЕО + ПРИЛОЖЕНИЕ (смарт)
-    {id:'dm10', name:'Hikvision DS-KV6113-WPE1',type:'video',screen:0,   app:true,  panel:true,  color:'silver', colorLabel:'Серебристый',
-     desc:'IP вызывная панель 2 Мп, PoE, мобильное приложение Hik-Connect', price:12000},
-    {id:'dm11', name:'Beward DS06M',            type:'video', screen:0,   app:true,  panel:true,  color:'silver', colorLabel:'Серебристый',
+    {id:'dm07', name:'Tantos Amelie HD',          type:'video', screen:7,   app:false, panel:true,  color:'white',  colorLabel:'Белый',
+     desc:'7" TFT, FullHD панель, слот SD, 2 канала подключения', price:9800},
+    {id:'dm08', name:'Slinex ML-20HD',            type:'video', screen:10,  app:false, panel:true,  color:'black',  colorLabel:'Чёрный',
+     desc:'10" IPS монитор, Full HD 2 Мп панель, выход HDMI', price:14500},
+    {id:'dm09', name:'Kenwei E703FC-W128G',       type:'video', screen:7,   app:false, panel:true,  color:'white',  colorLabel:'Белый',
+     desc:'7" IPS, 128 ГБ встроенной памяти, 2 Мп, IP65 панель', price:11200},
+    {id:'dm10', name:'Hikvision DS-KV6113-WPE1', type:'video', screen:0,   app:true,  panel:true,  color:'black',  colorLabel:'Чёрный',
+     desc:'IP вызывная панель 2 Мп, PoE, приложение Hik-Connect', price:12000},
+    {id:'dm11', name:'Beward DS06M',              type:'video', screen:0,   app:true,  panel:true,  color:'black',  colorLabel:'Чёрный',
      desc:'2 Мп, SIP, iOS/Android, вандалозащищённая, PoE', price:9500},
-    {id:'dm12', name:'Dahua DHI-VTO2111D-WP',  type:'video', screen:0,   app:true,  panel:true,  color:'white',  colorLabel:'Белый',
+    {id:'dm12', name:'Dahua DHI-VTO2111D-WP',    type:'video', screen:0,   app:true,  panel:true,  color:'white',  colorLabel:'Белый',
      desc:'2 Мп WiFi-панель, приложение Dahua DMSS, IP65', price:11500},
-    {id:'dm13', name:'Hikvision DS-KIS603-P',  type:'video', screen:7,   app:true,  panel:true,  color:'white',  colorLabel:'Белый',
-     desc:'Комплект: 2 Мп IP панель + 7" монитор, iVMS-4500', price:15000},
-    {id:'dm14', name:'Akuvox R29C',            type:'video', screen:0,   app:true,  panel:true,  color:'black',  colorLabel:'Чёрный',
+    {id:'dm13', name:'Hikvision DS-KIS603-P',    type:'video', screen:7,   app:true,  panel:true,  color:'white',  colorLabel:'Белый',
+     desc:'Комплект: 2 Мп IP панель + 7" монитор, приложение iVMS-4500', price:15000},
+    {id:'dm14', name:'Akuvox R29C',              type:'video', screen:0,   app:true,  panel:true,  color:'black',  colorLabel:'Чёрный',
      desc:'2 Мп, Android, SIP, NFC ключи, приложение SmartPlus', price:18500},
   ],
   cameras_indoor: [
@@ -1015,37 +1002,24 @@ function switchEqTab(el, panelId) {
   recalcAll();
 }
 
-function showDmCat(cat) {
-  ['audio','video','smart'].forEach(c => document.getElementById('dm-'+c) && document.getElementById('dm-'+c).classList.remove('visible'));
-  const el = document.getElementById('dm-'+cat);
-  if (el) el.classList.add('visible');
-  delete SEL['dm-dev'];
-  updateDmSum();
-}
-
 /* ---- DOMOPHONE FILTER ENGINE ---- */
-const dmFilters = { type:'', app:'', panel:'', color:'', screenMin:null, screenMax:null, screenNoDisplay:false };
+const dmFilters = { type:'', app:'', panel:'', color:'', screenMin:null, screenMax:null };
+const COLOR_HEX = { black:'#2a2a2a', white:'#e0e0e0' };
 
 function initDmChips() {
-  ['f-type','f-app','f-panel','f-color'].forEach(groupId => {
-    const group = document.getElementById(groupId);
-    if (!group) return;
-    group.querySelectorAll('.dm-chip').forEach(chip => {
+  ['f-type','f-app','f-panel','f-color'].forEach(gid => {
+    const grp = document.getElementById(gid);
+    if (!grp) return;
+    grp.querySelectorAll('.dm-chip').forEach(chip => {
       chip.addEventListener('click', function() {
-        group.querySelectorAll('.dm-chip').forEach(c => c.classList.remove('active'));
+        grp.querySelectorAll('.dm-chip').forEach(c => c.classList.remove('active'));
         this.classList.add('active');
-        const key = groupId.replace('f-','');
-        dmFilters[key === 'type' ? 'type' : key === 'app' ? 'app' : key === 'panel' ? 'panel' : 'color'] = this.dataset.val;
+        const key = gid === 'f-type' ? 'type' : gid === 'f-app' ? 'app' : gid === 'f-panel' ? 'panel' : 'color';
+        dmFilters[key] = this.dataset.val;
         applyDmFilters();
       });
     });
   });
-}
-
-function toggleScreenFilter(btn) {
-  dmFilters.screenNoDisplay = !dmFilters.screenNoDisplay;
-  btn.classList.toggle('active', dmFilters.screenNoDisplay);
-  applyDmFilters();
 }
 
 function applyDmFilters() {
@@ -1055,29 +1029,24 @@ function applyDmFilters() {
   dmFilters.screenMax = maxRaw !== '' ? parseFloat(maxRaw) : null;
 
   const items = DATA.domophones.filter(d => {
-    if (dmFilters.type && d.type !== dmFilters.type) return false;
-    if (dmFilters.app === 'yes' && !d.app) return false;
-    if (dmFilters.app === 'no'  &&  d.app) return false;
-    if (dmFilters.panel === 'yes' && !d.panel) return false;
-    if (dmFilters.panel === 'no'  &&  d.panel) return false;
-    if (dmFilters.color && d.color !== dmFilters.color) return false;
-    if (dmFilters.screenNoDisplay && d.screen !== 0) return false;
-    if (!dmFilters.screenNoDisplay) {
-      if (dmFilters.screenMin !== null && d.screen < dmFilters.screenMin) return false;
-      if (dmFilters.screenMax !== null && d.screen > dmFilters.screenMax) return false;
-    }
+    if (dmFilters.type   && d.type  !== dmFilters.type)              return false;
+    if (dmFilters.app   === 'yes'   && !d.app)                       return false;
+    if (dmFilters.app   === 'no'    &&  d.app)                       return false;
+    if (dmFilters.panel === 'yes'   && !d.panel)                     return false;
+    if (dmFilters.panel === 'no'    &&  d.panel)                     return false;
+    if (dmFilters.color  && d.color !== dmFilters.color)             return false;
+    if (dmFilters.screenMin !== null && d.screen !== 0 && d.screen < dmFilters.screenMin) return false;
+    if (dmFilters.screenMax !== null && d.screen !== 0 && d.screen > dmFilters.screenMax) return false;
     return true;
   });
-
   renderDmCatalog(items);
 }
 
 function resetDmFilters() {
   dmFilters.type = ''; dmFilters.app = ''; dmFilters.panel = ''; dmFilters.color = '';
-  dmFilters.screenMin = null; dmFilters.screenMax = null; dmFilters.screenNoDisplay = false;
+  dmFilters.screenMin = null; dmFilters.screenMax = null;
   document.getElementById('f-screen-min').value = '';
   document.getElementById('f-screen-max').value = '';
-  document.getElementById('f-screen-no').classList.remove('active');
   ['f-type','f-app','f-panel','f-color'].forEach(gid => {
     const g = document.getElementById(gid);
     if (!g) return;
@@ -1086,12 +1055,11 @@ function resetDmFilters() {
   applyDmFilters();
 }
 
-const COLOR_MAP = { silver:'#b0b0b0', black:'#2a2a2a', white:'#e8e8e8', gold:'#c9a227' };
-
 function renderDmCatalog(items) {
   const catalog = document.getElementById('dm-catalog');
   const empty   = document.getElementById('dm-empty');
   const count   = document.getElementById('dm-results-count');
+  if (!catalog) return;
 
   if (!items.length) {
     catalog.innerHTML = '';
@@ -1100,7 +1068,8 @@ function renderDmCatalog(items) {
     return;
   }
   empty.style.display = 'none';
-  count.textContent = `Показано: ${items.length} ${items.length===1?'модель':items.length<5?'модели':'моделей'}`;
+  const n = items.length;
+  count.textContent = `Показано: ${n} ${n===1?'модель':n<5?'модели':'моделей'}`;
 
   const selId = SEL['dm-dev'] ? SEL['dm-dev'].id : null;
 
@@ -1108,19 +1077,17 @@ function renderDmCatalog(items) {
     const isSel = d.id === selId;
     const typeLabel = d.type === 'audio' ? 'Аудио' : 'Видео';
     const typeColor = d.type === 'audio' ? 'badge-blue' : 'badge-teal';
-    const colorDot = `<span class="dm-color-dot" style="background:${COLOR_MAP[d.color]||'#ccc'}"></span>`;
-
-    const specApp   = `<div class="dm-spec ${d.app?'has':''}"><i class="fa-solid fa-mobile-screen"></i>${d.app ? 'Приложение iOS/Android' : 'Без мобильного приложения'}</div>`;
-    const specPanel = `<div class="dm-spec ${d.panel?'has':''}"><i class="fa-solid fa-door-open"></i>${d.panel ? 'Видеопанель при входе' : 'Без вызывной панели'}</div>`;
+    const dot = `<span class="dm-color-dot" style="background:${COLOR_HEX[d.color]||'#ccc'}"></span>`;
+    const specApp    = `<div class="dm-spec${d.app?' has':''}"><i class="fa-solid fa-mobile-screen"></i>${d.app?'Приложение iOS/Android':'Без приложения'}</div>`;
+    const specPanel  = `<div class="dm-spec${d.panel?' has':''}"><i class="fa-solid fa-door-open"></i>${d.panel?'Вызывная панель в комплекте':'Без вызывной панели'}</div>`;
     const specScreen = d.screen > 0
-      ? `<div class="dm-spec has"><i class="fa-solid fa-display"></i>Монитор ${d.screen}"</div>`
-      : `<div class="dm-spec"><i class="fa-solid fa-display"></i>Без экрана монитора</div>`;
-    const specColor = `<div class="dm-spec has"><i class="fa-solid fa-palette"></i>${colorDot} ${d.colorLabel}</div>`;
-
+      ? `<div class="dm-spec has"><i class="fa-solid fa-display"></i>Экран монитора ${d.screen}"</div>`
+      : `<div class="dm-spec"><i class="fa-solid fa-display"></i>Без экрана</div>`;
+    const specColor  = `<div class="dm-spec has"><i class="fa-solid fa-palette"></i>${dot} ${d.colorLabel}</div>`;
     return `<div class="dm-item${isSel?' selected':''}" onclick="selDmItem(this,'${d.id}',${d.price},'${d.name}')">
       <div class="dm-item-badges">
-        <span class="badge ${typeColor}" style="font-family:'Onest',sans-serif;font-size:10px">${typeLabel}</span>
-        ${d.app ? '<span class="badge badge-purple" style="font-family:\'Onest\',sans-serif;font-size:10px">Приложение</span>' : ''}
+        <span class="badge ${typeColor}" style="font-size:10px;font-family:'Onest',sans-serif">${typeLabel}</span>
+        ${d.app?'<span class="badge badge-purple" style="font-size:10px;font-family:\'Onest\',sans-serif">Приложение</span>':''}
       </div>
       <div class="dm-item-name">${d.name}</div>
       <div class="dm-item-desc">${d.desc}</div>
@@ -1348,7 +1315,6 @@ makeEqCards('vi-indoor-cards',  DATA.cameras_indoor,   'vi-cam');
 makeEqCards('vi-outdoor-cards', DATA.cameras_outdoor,  'vi-cam');
 makeEqCards('vi-ptz-cards',     DATA.cameras_ptz,      'vi-cam');
 
-// Init domophone filter catalog
 initDmChips();
 applyDmFilters();
 
