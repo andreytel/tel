@@ -197,8 +197,37 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 /* HOBBIES */
 .hb{margin-bottom:16px}
-.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.hb-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
 .tag{font-size:11px;padding:4px 11px;border-radius:20px;background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
+.tag-rm{font-size:11px;padding:4px 10px;border-radius:20px;background:var(--green-bg);color:var(--green-dk);border:1px solid rgba(45,106,79,.2);display:inline-flex;align-items:center;gap:5px}
+.tag-rm .x{font-size:13px;line-height:1;cursor:pointer;opacity:.6;font-weight:500}
+.tag-rm .x:hover{opacity:1}
+
+/* HOBBY CLOUD PICKER */
+.hobby-picker{margin-top:10px}
+.hobby-picker-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:6px}
+.hobby-cloud{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.hobby-cloud-tag{font-size:11px;padding:4px 11px;border-radius:20px;background:var(--surface2);color:var(--text2);border:1px solid var(--border);cursor:pointer;transition:all .15s;user-select:none;-webkit-user-select:none}
+.hobby-cloud-tag:hover,.hobby-cloud-tag:active{border-color:var(--green);color:var(--green);background:var(--green-bg)}
+.hobby-cloud-tag.used{opacity:.35;cursor:default;pointer-events:none}
+.hobby-divider{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em}
+.hobby-divider::before,.hobby-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.hobby-add-row{display:flex;gap:6px}
+.hobby-add-row input{flex:1;min-width:0;padding:7px 10px;border:1px solid var(--border-md);border-radius:var(--rsm);font-family:'DM Sans',sans-serif;font-size:12px;background:var(--surface);color:var(--text);outline:none;-webkit-appearance:none}
+.hobby-add-row input:focus{border-color:var(--green)}
+.hobby-add-btn{font-size:12px;padding:7px 14px;border-radius:40px;border:none;background:var(--green);color:#fff;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif}
+
+/* SUBSTITUTE EDIT */
+.sub-link{color:var(--green);text-decoration:none;font-weight:inherit;cursor:pointer}
+.sub-link:hover{text-decoration:underline}
+.sub-edit-row{display:flex;gap:6px;align-items:center;margin-top:4px}
+.sub-edit-row input{flex:1;min-width:0;padding:6px 10px;border:1px solid var(--border-md);border-radius:var(--rsm);font-family:'DM Sans',sans-serif;font-size:12px;background:var(--surface);color:var(--text);outline:none;-webkit-appearance:none}
+.sub-edit-row input:focus{border-color:var(--green)}
+.sub-save{font-size:11px;padding:5px 12px;border-radius:20px;border:none;background:var(--green);color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.sub-cancel{font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid var(--border-md);background:transparent;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif}
+.sub-pencil{font-size:11px;color:var(--text3);cursor:pointer;margin-left:4px;opacity:.7}
+.sub-pencil:hover{opacity:1;color:var(--green)}
 
 /* ACTIONS */
 .macts{display:flex;gap:8px;flex-wrap:wrap}
@@ -211,6 +240,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .chart-title{font-family:'Fraunces',serif;font-size:15px;font-weight:500;color:var(--text);margin-bottom:3px}
 .chart-sub{font-size:11px;color:var(--text3);margin-bottom:16px}
 .chart-svg{width:100%;overflow:visible;display:block}
+.analytics-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+.an-stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:4px}
+.an-stat-n{font-family:'Fraunces',serif;font-size:36px;font-weight:300;line-height:1;color:var(--text)}
+.an-stat-l{font-size:11px;color:var(--text3)}
 
 /* COMPANY COLORS */
 .co-tktel{background:#E6F1FB;color:#0C447C}.co-centr{background:#EEE9F8;color:#3D2E6B}
@@ -225,6 +258,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 @media(max-width:500px){
   .stats{grid-template-columns:repeat(2,1fr);gap:6px}
   .sc-n{font-size:22px}
+  .analytics-stats{grid-template-columns:1fr 1fr}
   .grid{grid-template-columns:repeat(2,1fr);gap:8px}
   .charts-wrap{grid-template-columns:1fr}
   .macts{flex-direction:column}
@@ -263,16 +297,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <main class="main">
 
 <div class="tab-pane active" id="tab-people">
-  <div class="stats">
-    <div class="sc"><div class="sc-n" id="st-total">200</div><div class="sc-l">сотрудников</div></div>
-    <div class="sc"><div class="sc-n" id="st-avg">—</div><div class="sc-l">ср. стаж, лет</div></div>
-    <div class="sc click" id="sc-vac" onclick="toggleAbs('vacation')">
-      <div class="sc-n" id="st-vac">—</div><div class="sc-l">в отпуске</div>
-    </div>
-    <div class="sc click" id="sc-sick" onclick="toggleAbs('sick')">
-      <div class="sc-n" id="st-sick">—</div><div class="sc-l">на больничном</div>
-    </div>
-  </div>
 
   <div class="search-row">
     <svg class="si" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -301,6 +325,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 <div class="tab-pane" id="tab-charts">
+  <div class="analytics-stats">
+    <div class="an-stat">
+      <div class="an-stat-n" id="an-total">200</div>
+      <div class="an-stat-l">сотрудников всего</div>
+    </div>
+    <div class="an-stat">
+      <div class="an-stat-n" id="an-avg-tenure">—</div>
+      <div class="an-stat-l">средний стаж, лет</div>
+    </div>
+  </div>
   <div class="charts-wrap">
     <div class="chart-card">
       <div class="chart-title">Численность персонала</div>
@@ -311,6 +345,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="chart-title">Средний возраст</div>
       <div class="chart-sub">Средний возраст с 1997 года</div>
       <svg class="chart-svg" id="svg-age" viewBox="0 0 480 200"></svg>
+    </div>
+    <div class="chart-card" style="grid-column:1/-1">
+      <div class="chart-title">Средний стаж</div>
+      <div class="chart-sub">Средний стаж сотрудников (лет) с 1997 года</div>
+      <svg class="chart-svg" id="svg-tenure" viewBox="0 0 980 200"></svg>
     </div>
   </div>
 </div>
@@ -392,6 +431,8 @@ EMP[20].absence={type:'sick',until:rndFut(1,7,mkRng(77)),substitute:'Павел 
 
 // ── STATE ──────────────────────────────────────────────────────────────────
 var contactEdits={};
+var hobbyEdits={};   // id -> string[]
+var absEdits={};     // id -> {substitute:string}
 var photos={};
 var upId=null,fCo='Все',fOff='Все',fDept='Все',fAbs='Все',fPres='Все',pg=1;
 var PER=30;
@@ -446,7 +487,8 @@ function getFiltered(){
     if(fPres==='remote'&&isInOffice(e))return false;
     if(!q)return true;
     var ct=getContacts(e);
-    var searchIn=[e.name,e.role,e.dept,e.co,e.office,ct.tg,ct.vk,ct.email,e.absence?e.absence.substitute:'',e.absence&&e.absence.type==='vacation'?'отпуск':e.absence&&e.absence.type==='sick'?'больничный':''];
+    var hobbies=getHobbies(e);
+    var searchIn=[e.name,e.role,e.dept,e.co,e.office,ct.tg,ct.vk,ct.email,e.absence?e.absence.substitute:'',e.absence&&e.absence.type==='vacation'?'отпуск':e.absence&&e.absence.type==='sick'?'больничный':'',hobbies.join(' ')];
     return searchIn.some(function(s){return s&&s.toLowerCase().indexOf(q)>=0});
   });
 }
@@ -569,7 +611,10 @@ function buildFilters(){
   ['Все'].concat(DEPTS).forEach(function(v){wrap.appendChild(mkBtn(v,v===fDept,'',function(val){return function(){fDept=val;pg=1;buildFilters();renderAll()}}(v)))});
   // absence
   wrap=document.getElementById('f-abs');wrap.innerHTML='';
-  [['Все','Все',''],['Отпуск','vacation','f-vac'],['Больничный','sick','f-sick'],['Все отсутствующие','absent','']].forEach(function(row){
+  var vacCnt=EMP.filter(function(e){return e.absence&&e.absence.type==='vacation'}).length;
+  var sickCnt=EMP.filter(function(e){return e.absence&&e.absence.type==='sick'}).length;
+  var absentCnt=EMP.filter(function(e){return !!e.absence}).length;
+  [['Все','Все',''],['Отпуск ('+vacCnt+')','vacation','f-vac'],['Больничный ('+sickCnt+')','sick','f-sick'],['Все отсутствующие ('+absentCnt+')','absent','']].forEach(function(row){
     wrap.appendChild(mkBtn(row[0],row[1]===fAbs,row[2],function(val){return function(){fAbs=val;pg=1;buildFilters();renderAll()}}(row[1])));
   });
   // presence
@@ -582,8 +627,6 @@ function buildFilters(){
 
 function toggleAbs(type){
   fAbs=fAbs===type?'Все':type;pg=1;buildFilters();renderAll();
-  document.getElementById('sc-vac').classList.toggle('active-stat',fAbs==='vacation');
-  document.getElementById('sc-sick').classList.toggle('active-stat',fAbs==='sick');
 }
 function onSearch(){pg=1;renderAll()}
 
@@ -620,7 +663,26 @@ function renderModal(id){
   else if(ev.bs)bns='<div class="bnr bn-bday">ДР — <strong>'+dlbl(ev.bD)+'</strong> ('+fmtUntil(e.born)+')</div>';
 
   var absBlock='';
-  if(e.absence){var isV=e.absence.type==='vacation';absBlock='<div class="abs-block '+e.absence.type+'"><div class="abs-block-title">'+(isV?'✈ В отпуске':'🤒 На больничном')+'</div><div class="abs-block-row">До: <b>'+fmtUntil(e.absence.until)+'</b></div><div class="abs-block-row">Замещает: <b>'+e.absence.substitute+'</b></div></div>';}
+  if(e.absence){
+    var isV=e.absence.type==='vacation';
+    var sub=(absEdits[e.id]&&absEdits[e.id].substitute!==undefined)?absEdits[e.id].substitute:e.absence.substitute;
+    var subEmp=EMP.find(function(x){return x.name===sub});
+    var subLink=subEmp
+      ?'<a class="sub-link" href="#" onclick="event.preventDefault();closeModal();setTimeout(function(){openModal('+subEmp.id+')},50)">'+sub+'</a>'
+      :'<span>'+sub+'</span>';
+    absBlock='<div class="abs-block '+e.absence.type+'" id="abs-block-'+e.id+'">'+
+      '<div class="abs-block-title">'+(isV?'✈ В отпуске':'🤒 На больничном')+'</div>'+
+      '<div class="abs-block-row">До: <b>'+fmtUntil(e.absence.until)+'</b></div>'+
+      '<div class="abs-block-row" id="sub-view-'+e.id+'">Замещает: <b>'+subLink+'</b><span class="sub-pencil" onclick="openSubEdit('+e.id+')" title="Изменить">✏️</span></div>'+
+      '<div id="sub-edit-'+e.id+'" style="display:none">'+
+        '<div class="sub-edit-row">'+
+          '<input id="sub-inp-'+e.id+'" value="'+sub+'" placeholder="Имя Фамилия" list="emp-names-list">'+
+          '<button class="sub-save" onclick="saveSubstitute('+e.id+')">Сохранить</button>'+
+          '<button class="sub-cancel" onclick="closeSubEdit('+e.id+')">✕</button>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }
 
   var inOff=isInOffice(e);
   var presBar='<div class="presence-bar"><div class="pdot '+(inOff?'in':'out')+'"></div><div class="ptxt"><strong>'+(inOff?'В офисе · '+e.office:'Не в офисе · удалённо')+'</strong></div>'+(e.lastSeenIP?'<span class="pip">'+e.lastSeenIP+'</span>':'')+'</div>';
@@ -658,7 +720,7 @@ function renderModal(id){
         '<div><div class="il">Офис</div><div class="iv">'+e.office+'</div></div>'+
         '<div class="full"><div class="il">Руководитель</div><div class="iv">'+e.manager+'</div></div>'+
       '</div>'+
-      '<div class="hb"><div class="il">Хобби и увлечения</div><div class="tags">'+e.hobbies.map(function(h){return '<span class="tag">'+h+'</span>'}).join('')+'</div></div>'+
+      '<div class="hb" id="hb-block-'+e.id+'">'+renderHobbies(e)+'</div>'+
       '<div class="macts"><button class="btn pr" id="btn-cong">Написать поздравление</button><button class="btn" id="btn-game">Игра «Угадай»</button></div>'+
     '</div>'+
     '<div id="mpane-contacts" style="display:'+(modalTab==='contacts'?'block':'none')+'">'+
@@ -672,6 +734,10 @@ function renderModal(id){
 
   document.getElementById('btn-cong').onclick=function(){alert('Поздравление с '+cgt+' для '+e.name)};
   document.getElementById('btn-game').onclick=function(){alert('Игра: угадай — '+e.name)};
+
+  // inject datalist for employee name autocomplete
+  var dl=document.getElementById('emp-names-list');
+  if(!dl){dl=document.createElement('datalist');dl.id='emp-names-list';EMP.forEach(function(x){var op=document.createElement('option');op.value=x.name;dl.appendChild(op)});document.body.appendChild(dl);}
 }
 
 function switchMTab(id,tab){
@@ -681,7 +747,118 @@ function switchMTab(id,tab){
   document.getElementById('mpane-contacts').style.display=tab==='contacts'?'block':'none';
 }
 
-// ── CONTACT EDITING ────────────────────────────────────────────────────────
+// ── HOBBY EDITING ──────────────────────────────────────────────────────────
+function getHobbies(e){return hobbyEdits[e.id]?hobbyEdits[e.id]:e.hobbies.slice()}
+
+// Build global hobby pool from all employees (union of all hobbies)
+function getAllHobbies(){
+  var seen={};
+  EMP.forEach(function(e){
+    getHobbies(e).forEach(function(h){seen[h]=true});
+  });
+  HPOOL.forEach(function(h){seen[h]=true});
+  return Object.keys(seen).sort(function(a,b){return a.localeCompare(b,'ru')});
+}
+
+function renderHobbies(e){
+  var current=getHobbies(e);
+  var all=getAllHobbies();
+
+  var tagsHtml=current.map(function(h,i){
+    return '<span class="tag-rm">'+h+'<span class="x" onclick="removeHobby('+e.id+','+i+')" title="Удалить">×</span></span>';
+  }).join('');
+
+  // cloud: all hobbies not yet selected
+  var cloudHtml=all.map(function(h){
+    var used=current.indexOf(h)>=0;
+    return '<span class="hobby-cloud-tag'+(used?' used':'')+'"'+(used?'':' onclick="pickHobby('+e.id+',\''+h.replace(/'/g,"\\'")+'\')"')+'>'+h+'</span>';
+  }).join('');
+
+  return '<div class="hb-head"><div class="il">Хобби и увлечения</div></div>'+
+    '<div class="tags" id="hobby-tags-'+e.id+'">'+(tagsHtml||'<span style="font-size:12px;color:var(--text3)">Пока не добавлено</span>')+'</div>'+
+    '<div class="hobby-picker">'+
+      '<div class="hobby-picker-lbl">Выбрать из облака</div>'+
+      '<div class="hobby-cloud" id="hobby-cloud-'+e.id+'">'+cloudHtml+'</div>'+
+      '<div class="hobby-divider">или добавить своё</div>'+
+      '<div class="hobby-add-row">'+
+        '<input id="hobby-inp-'+e.id+'" placeholder="Например: Сёрфинг" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addHobby('+e.id+')}">'+
+        '<button class="hobby-add-btn" onclick="addHobby('+e.id+')">Добавить</button>'+
+      '</div>'+
+    '</div>';
+}
+
+function refreshHobbiesBlock(eid){
+  var block=document.getElementById('hb-block-'+eid);
+  if(!block)return;
+  var e=EMP.find(function(x){return x.id===eid});
+  block.innerHTML=renderHobbies(e);
+}
+
+function pickHobby(eid,hobby){
+  var e=EMP.find(function(x){return x.id===eid});
+  var h=getHobbies(e);
+  if(h.indexOf(hobby)<0)h.push(hobby);
+  hobbyEdits[eid]=h;
+  refreshHobbiesBlock(eid);
+  renderAll();
+}
+
+function addHobby(eid){
+  var inp=document.getElementById('hobby-inp-'+eid);
+  if(!inp)return;
+  var val=inp.value.trim();
+  if(!val)return;
+  var e=EMP.find(function(x){return x.id===eid});
+  var h=getHobbies(e);
+  if(h.indexOf(val)<0)h.push(val);
+  hobbyEdits[eid]=h;
+  inp.value='';
+  refreshHobbiesBlock(eid);
+  renderAll();
+}
+
+function removeHobby(eid,idx){
+  var e=EMP.find(function(x){return x.id===eid});
+  var h=getHobbies(e);
+  h.splice(idx,1);
+  hobbyEdits[eid]=h;
+  refreshHobbiesBlock(eid);
+  renderAll();
+}
+
+// ── SUBSTITUTE EDITING ─────────────────────────────────────────────────────
+function openSubEdit(eid){
+  var view=document.getElementById('sub-view-'+eid);
+  var edit=document.getElementById('sub-edit-'+eid);
+  if(view)view.style.display='none';
+  if(edit)edit.style.display='block';
+  var inp=document.getElementById('sub-inp-'+eid);
+  if(inp){inp.focus();inp.select();}
+}
+
+function closeSubEdit(eid){
+  var view=document.getElementById('sub-view-'+eid);
+  var edit=document.getElementById('sub-edit-'+eid);
+  if(view)view.style.display='';
+  if(edit)edit.style.display='none';
+}
+
+function saveSubstitute(eid){
+  var inp=document.getElementById('sub-inp-'+eid);
+  if(!inp)return;
+  var val=inp.value.trim();
+  if(!val)return;
+  if(!absEdits[eid])absEdits[eid]={};
+  absEdits[eid].substitute=val;
+  // rebuild the substitute row
+  var subEmp=EMP.find(function(x){return x.name===val});
+  var subLink=subEmp
+    ?'<a class="sub-link" href="#" onclick="event.preventDefault();closeModal();setTimeout(function(){openModal('+subEmp.id+')},50)">'+val+'</a>'
+    :'<span>'+val+'</span>';
+  var view=document.getElementById('sub-view-'+eid);
+  if(view)view.innerHTML='Замещает: <b>'+subLink+'</b><span class="sub-pencil" onclick="openSubEdit('+eid+')" title="Изменить">✏️</span>';
+  closeSubEdit(eid);
+}
 function toggleEdit(id){
   var ef=document.getElementById('contacts-edit');
   var cv=document.getElementById('contacts-view');
@@ -763,17 +940,21 @@ function switchTab(name){
 
 // ── STATS ──────────────────────────────────────────────────────────────────
 function computeStats(){
-  var avg=EMP.reduce(function(s,e){return s+yAt(e.joined)},0)/EMP.length;
-  document.getElementById('st-avg').textContent=avg.toFixed(1);
-  document.getElementById('st-total').textContent=EMP.length;
-  document.getElementById('st-vac').textContent=EMP.filter(function(e){return e.absence&&e.absence.type==='vacation'}).length;
-  document.getElementById('st-sick').textContent=EMP.filter(function(e){return e.absence&&e.absence.type==='sick'}).length;
+  var total=EMP.length;
+  var avg=EMP.reduce(function(s,e){return s+yAt(e.joined)},0)/total;
+  document.getElementById('an-total').textContent=total;
+  document.getElementById('an-avg-tenure').textContent=avg.toFixed(1);
 }
 
 // ── CHARTS ─────────────────────────────────────────────────────────────────
 var CHART_YEARS=(function(){var a=[];for(var y=1997;y<=2024;y++)a.push(y);return a})();
 var HC_DATA=(function(){var base=[3,5,8,12,18,25,34,45,58,70,82,95,105,115,122,130,138,145,152,160,168,175,182,190,196,200,200,200];return CHART_YEARS.map(function(y,i){return {year:y,value:base[i]||200}})})();
 var AGE_DATA=(function(){var ages=[27,28,28,29,29,30,30,31,31,32,32,33,33,33,34,34,34,35,35,35,36,36,36,36,37,37,37,37];return CHART_YEARS.map(function(y,i){return {year:y,value:ages[i]||37}})})();
+// Average tenure: company young in 1997, avg tenure grows as team stabilises, with dips when big batches were hired
+var TENURE_DATA=(function(){
+  var vals=[0.3,0.8,1.2,1.5,1.9,2.3,2.8,3.1,3.4,3.2,3.5,3.8,4.1,4.4,4.2,4.5,4.8,5.0,4.6,4.9,5.2,5.4,5.1,5.5,5.7,5.9,6.1,6.3];
+  return CHART_YEARS.map(function(y,i){return {year:y,value:vals[i]||6}});
+})();
 
 function drawChart(svgId,data,color,unit){
   var svg=document.getElementById(svgId);if(!svg)return;
@@ -795,7 +976,19 @@ function drawChart(svgId,data,color,unit){
   svg.innerHTML='<defs><linearGradient id="g-'+svgId+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+color+'" stop-opacity=".15"/><stop offset="100%" stop-color="'+color+'" stop-opacity=".01"/></linearGradient></defs>'+gl+yl+xl+'<line x1="'+PL+'" y1="'+PT+'" x2="'+PL+'" y2="'+(PT+cH)+'" stroke="#F0EDE8" stroke-width="1"/><path d="'+aD+'" fill="url(#g-'+svgId+')"/><path d="'+lD+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+dots+'<circle cx="'+lx.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="4" fill="'+color+'"/><text x="'+(lx-4).toFixed(1)+'" y="'+(ly-8).toFixed(1)+'" text-anchor="end" font-size="10" font-weight="500" fill="'+color+'">'+lv+unit+'</text>';
 }
 
-function renderCharts(){if(chartsDrawn)return;chartsDrawn=true;setTimeout(function(){drawChart('svg-hc',HC_DATA,'#2D6A4F',' чел.');drawChart('svg-age',AGE_DATA,'#5E4A8B',' лет')},50)}
+function renderCharts(){
+  if(chartsDrawn)return;chartsDrawn=true;
+  // refresh live stats in analytics tab
+  var total=EMP.length;
+  var avg=EMP.reduce(function(s,e){return s+yAt(e.joined)},0)/total;
+  document.getElementById('an-total').textContent=total;
+  document.getElementById('an-avg-tenure').textContent=avg.toFixed(1);
+  setTimeout(function(){
+    drawChart('svg-hc',HC_DATA,'#2D6A4F',' чел.');
+    drawChart('svg-age',AGE_DATA,'#5E4A8B',' лет');
+    drawChart('svg-tenure',TENURE_DATA,'#C17435',' лет');
+  },50);
+}
 
 // ── INIT ───────────────────────────────────────────────────────────────────
 try{
