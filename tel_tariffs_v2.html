@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TEL — Подбор тарифов и оборудования</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root {
+  --bg: #f4f2ee;
+  --surface: #ffffff;
+  --surface2: #f9f8f5;
+  --border: rgba(0,0,0,0.1);
+  --border2: rgba(0,0,0,0.18);
+  --text: #1a1a1a;
+  --text2: #666;
+  --text3: #999;
+  --accent: #1a4fd6;
+  --accent-bg: #e8edfb;
+  --accent-text: #1a3a8a;
+  --green: #1a7a4a;
+  --green-bg: #e6f4ec;
+  --amber: #8a5a00;
+  --amber-bg: #fef3dc;
+  --teal: #0a6b5a;
+  --teal-bg: #e0f4ef;
+  --purple: #5a32a3;
+  --purple-bg: #eeebfb;
+  --orange: #c45000;
+  --orange-bg: #fff0e6;
+  --orange-border: #f97316;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Onest', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1rem; }
+
+/* header */
+.site-header { max-width: 900px; margin: 0 auto 2rem; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; color: var(--accent); }
+.logo span { color: var(--text); }
+.header-phone { font-size: 13px; color: var(--text2); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+.header-phone:hover { color: var(--text); }
+
+/* main card */
+.card-main { max-width: 900px; margin: 0 auto; background: var(--surface); border-radius: 20px; box-shadow: var(--shadow-md); overflow: hidden; }
+
+/* address bar */
+.addr-bar { padding: 1.5rem 1.75rem; border-bottom: 1px solid var(--border); background: var(--surface2); display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.addr-label { font-size: 12px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: .06em; flex-shrink: 0; }
+.addr-field { flex: 1; min-width: 200px; display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 8px 12px; }
+.addr-field i { color: var(--accent); font-size: 14px; }
+.addr-field input { border: none; outline: none; font-family: inherit; font-size: 14px; font-weight: 500; color: var(--text); background: transparent; flex: 1; }
+.addr-ok { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--green); font-weight: 500; flex-shrink: 0; }
+.addr-ok i { font-size: 14px; }
+
+/* promo bar */
+.promo-bar { padding: .9rem 1.75rem; border-bottom: 1px solid var(--border); background: var(--surface); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.promo-label { font-size: 12px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: .06em; flex-shrink: 0; }
+.promo-field { display: flex; align-items: center; gap: 0; }
+.promo-field input { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: 7px 12px; border: 1px solid var(--border2); border-right: none; border-radius: var(--radius-sm) 0 0 var(--radius-sm); outline: none; width: 160px; color: var(--text); background: var(--surface2); }
+.promo-field input::placeholder { color: var(--text3); font-weight: 400; letter-spacing: 0; text-transform: none; }
+.promo-field input:focus { border-color: var(--accent); background: var(--surface); }
+.promo-btn { font-family: inherit; font-size: 13px; font-weight: 500; padding: 7px 14px; border: 1px solid var(--border2); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; background: var(--surface); color: var(--text2); cursor: pointer; transition: all .15s; }
+.promo-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.promo-status { font-size: 12px; display: none; }
+.promo-status.ok { color: var(--green); display: flex; align-items: center; gap: 5px; }
+.promo-status.err { color: #c0392b; display: flex; align-items: center; gap: 5px; }
+
+/* tabs */
+.tab-bar { padding: 1.25rem 1.75rem; border-bottom: 1px solid var(--border); display: flex; gap: 6px; flex-wrap: wrap; }
+.tab-btn { font-family: inherit; font-size: 13px; font-weight: 500; padding: 7px 16px; border-radius: 20px; border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; transition: all .18s; white-space: nowrap; }
+.tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* section */
+.section { display: none; padding: 1.75rem; }
+.section.visible { display: block; }
+
+/* hint */
+.hint { display: flex; align-items: flex-start; gap: 10px; background: var(--accent-bg); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--accent-text); margin-bottom: 1.5rem; line-height: 1.5; }
+.hint i { margin-top: 1px; flex-shrink: 0; }
+
+/* cat title */
+.cat-title { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; margin-top: 1.5rem; }
+.cat-title:first-child { margin-top: 0; }
+
+/* cards grid */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 10px; margin-bottom: .5rem; }
+
+/* normal card */
+.card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 1rem; cursor: pointer; transition: border-color .15s, box-shadow .15s; position: relative; }
+.card:hover { border-color: rgba(26,79,214,.35); box-shadow: var(--shadow); }
+.card.selected { border-color: var(--accent); background: #fafbff; }
+
+/* premium card */
+.card.premium { border-color: var(--orange-border); background: linear-gradient(135deg, #fff7f0 0%, #fff 60%); }
+.card.premium:hover { border-color: #ea580c; box-shadow: 0 2px 8px rgba(249,115,22,.15); }
+.card.premium.selected { border-color: #ea580c; background: #fff4ec; }
+.card.premium .card-name { color: var(--orange); }
+.card.premium .card-price { color: var(--orange); }
+.premium-crown { position: absolute; top: 9px; right: 30px; font-size: 13px; }
+
+/* card label ribbon */
+.card-ribbon { position: absolute; top: -1px; left: 12px; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 0 0 6px 6px; text-transform: uppercase; letter-spacing: .05em; }
+.ribbon-popular { background: var(--accent); color: #fff; }
+.ribbon-optimal { background: var(--green); color: #fff; }
+.ribbon-promo   { background: #e02020; color: #fff; }
+
+/* badge */
+.badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; border-radius: 5px; padding: 2px 8px; margin-bottom: 7px; font-family: 'JetBrains Mono', monospace; }
+.badge-blue   { background: var(--accent-bg); color: var(--accent-text); }
+.badge-green  { background: var(--green-bg); color: var(--green); }
+.badge-amber  { background: var(--amber-bg); color: var(--amber); }
+.badge-teal   { background: var(--teal-bg); color: var(--teal); }
+.badge-purple { background: var(--purple-bg); color: var(--purple); }
+.badge-orange { background: var(--orange-bg); color: var(--orange); }
+
+.card-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.card-desc { font-size: 12px; color: var(--text2); line-height: 1.4; }
+
+/* price with strikethrough */
+.card-price { margin-top: 8px; font-family: 'JetBrains Mono', monospace; }
+.price-old { font-size: 12px; color: var(--text3); text-decoration: line-through; display: block; font-weight: 400; line-height: 1.2; }
+.price-new { font-size: 16px; font-weight: 600; color: var(--text); }
+.price-new.orange { color: var(--orange); }
+.price-suffix { font-size: 11px; font-weight: 400; color: var(--text3); font-family: 'Onest', sans-serif; }
+.price-discount { display: inline-block; font-size: 10px; font-weight: 600; background: #d4edda; color: #155724; border-radius: 4px; padding: 1px 6px; margin-left: 4px; font-family: 'Onest', sans-serif; vertical-align: middle; }
+
+.card-check { position: absolute; top: 9px; right: 9px; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); display: none; align-items: center; justify-content: center; }
+.card.selected .card-check { display: flex; }
+.card-check i { font-size: 9px; color: #fff; }
+
+/* premium manager badge */
+.premium-manager { display: flex; align-items: center; gap: 5px; margin-top: 6px; font-size: 11px; color: var(--orange); font-weight: 500; }
+.premium-manager i { font-size: 11px; }
+
+/* eq block */
+.eq-block { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.25rem; margin-top: 1.25rem; }
+.eq-block-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.eq-block-title i { color: var(--accent); }
+.eq-tabs { display: flex; gap: 5px; margin-bottom: 12px; flex-wrap: wrap; }
+.eq-tab { font-family: inherit; font-size: 12px; font-weight: 500; padding: 4px 13px; border-radius: 14px; border: 1px solid var(--border2); background: var(--surface); color: var(--text2); cursor: pointer; transition: all .15s; }
+.eq-tab:hover { border-color: var(--accent); color: var(--accent); }
+.eq-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.eq-panel { display: none; }
+.eq-panel.visible { display: block; }
+.eq-none { font-size: 13px; color: var(--text2); padding: 4px 2px; line-height: 1.5; }
+.eq-none strong { color: var(--green); }
+
+.eq-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 8px; }
+.eq-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: .75rem; cursor: pointer; position: relative; transition: border-color .15s, box-shadow .15s; }
+.eq-card:hover { border-color: rgba(26,79,214,.35); box-shadow: var(--shadow); }
+.eq-card.selected { border-color: var(--accent); background: #fafbff; }
+.eq-card .card-check { width: 15px; height: 15px; top: 7px; right: 7px; }
+.eq-card .card-check i { font-size: 8px; }
+.eq-card.selected .card-check { display: flex; }
+.eq-name { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 2px; line-height: 1.3; }
+.eq-desc { font-size: 11px; color: var(--text2); line-height: 1.35; }
+.eq-price { font-size: 13px; font-weight: 600; color: var(--text); margin-top: 5px; font-family: 'JetBrains Mono', monospace; }
+.eq-price span { font-size: 11px; font-weight: 400; color: var(--text3); font-family: 'Onest', sans-serif; }
+.eq-vpn { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; color: var(--teal); background: var(--teal-bg); border-radius: 3px; padding: 1px 5px; margin-top: 4px; font-weight: 500; }
+
+/* summary */
+.summary { background: var(--text); color: #fff; border-radius: var(--radius); padding: 1.25rem; margin-top: 1.5rem; }
+.summary-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: rgba(255,255,255,.5); margin-bottom: 12px; }
+.sum-row { display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,.7); margin-bottom: 5px; }
+.sum-row .val { font-family: 'JetBrains Mono', monospace; color: rgba(255,255,255,.9); }
+.sum-total { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid rgba(255,255,255,.15); padding-top: 10px; margin-top: 6px; }
+.sum-total-label { font-size: 13px; color: rgba(255,255,255,.6); }
+.sum-total-val { font-size: 20px; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+.sum-once-row { display: none; }
+.sum-note { font-size: 11px; color: rgba(255,255,255,.45); margin-top: 8px; }
+.sum-promo { font-size: 12px; color: #6ee7b7; margin-top: 6px; display: none; }
+.cta-btn { display: block; width: 100%; margin-top: 14px; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s, transform .1s; text-align: center; }
+.cta-btn:hover { background: #1540b0; }
+.cta-btn:active { transform: scale(.99); }
+
+/* manager form (domophone) */
+.manager-form-block { background: #fff8f0; border: 1px solid #fde8d0; border-radius: var(--radius); padding: 1.25rem; margin-top: 1.25rem; }
+.manager-form-title { font-size: 14px; font-weight: 600; color: var(--orange); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.manager-form-sub { font-size: 12px; color: var(--text2); margin-bottom: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.form-row.single { grid-template-columns: 1fr; }
+.form-input { font-family: inherit; font-size: 13px; padding: 9px 12px; border: 1px solid var(--border2); border-radius: var(--radius-sm); outline: none; color: var(--text); background: var(--surface); width: 100%; }
+.form-input:focus { border-color: var(--orange-border); }
+.form-textarea { font-family: inherit; font-size: 13px; padding: 9px 12px; border: 1px solid var(--border2); border-radius: var(--radius-sm); outline: none; color: var(--text); background: var(--surface); width: 100%; resize: vertical; min-height: 60px; }
+.form-textarea:focus { border-color: var(--orange-border); }
+.form-submit { font-family: inherit; font-size: 13px; font-weight: 600; padding: 9px 20px; background: var(--orange); color: #fff; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: background .15s; }
+.form-submit:hover { background: #a33e00; }
+.form-success { display: none; color: var(--green); font-size: 13px; font-weight: 500; padding: 8px 0; }
+
+/* downloads */
+.downloads { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 1.25rem; }
+.dl-btn { display: flex; align-items: center; gap: 8px; padding: 9px 16px; border: 1px solid var(--border2); border-radius: var(--radius-sm); background: var(--surface); font-size: 13px; font-weight: 500; color: var(--text2); text-decoration: none; cursor: pointer; transition: all .15s; }
+.dl-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.dl-btn i { font-size: 14px; color: #e02020; }
+
+/* footer */
+.footer { max-width: 900px; margin: 2rem auto 0; text-align: center; font-size: 12px; color: var(--text3); }
+.footer a { color: var(--text2); text-decoration: none; }
+.footer a:hover { color: var(--text); }
+
+@media (max-width: 600px) {
+  body { padding: 1rem .5rem; }
+  .addr-bar, .tab-bar, .section, .promo-bar { padding: 1rem; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .eq-cards { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">TEL<span>.ru</span></div>
+  <a href="tel:+74957874207" class="header-phone">
+    <i class="fa-solid fa-phone-volume fa-xs"></i>
+    +7 495 787-42-07
+  </a>
+</header>
+
+<div class="card-main">
+
+  <!-- Address -->
+  <div class="addr-bar">
+    <div class="addr-label">Адрес</div>
+    <div class="addr-field">
+      <i class="fa-solid fa-location-dot"></i>
+      <input type="text" value="Кочновский проезд, 4" readonly/>
+    </div>
+    <div class="addr-ok">
+      <i class="fa-solid fa-circle-check"></i>
+      Подключение доступно
+    </div>
+  </div>
+
+  <!-- Promo code -->
+  <div class="promo-bar">
+    <div class="promo-label">Промокод</div>
+    <div class="promo-field">
+      <input type="text" id="promo-input" placeholder="Введите промокод" maxlength="20"/>
+      <button class="promo-btn" onclick="applyPromo()">Применить</button>
+    </div>
+    <div class="promo-status ok" id="promo-ok"><i class="fa-solid fa-circle-check"></i> <span id="promo-ok-text"></span></div>
+    <div class="promo-status err" id="promo-err"><i class="fa-solid fa-circle-xmark"></i> Промокод не найден</div>
+  </div>
+
+  <!-- Tabs — КТВ first -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('ic',this)">Интернет + КТВ</button>
+    <button class="tab-btn" onclick="showTab('ii',this)">Интернет + IPTV</button>
+    <button class="tab-btn" onclick="showTab('co',this)">Только КТВ</button>
+    <button class="tab-btn" onclick="showTab('io',this)">Только интернет</button>
+    <button class="tab-btn" onclick="showTab('ph',this)">Телефония</button>
+    <button class="tab-btn" onclick="showTab('dm',this)">Домофония</button>
+    <button class="tab-btn" onclick="showTab('vi',this)">Видеонаблюдение</button>
+  </div>
+
+  <!-- ===== ИНТЕРНЕТ + КТВ (первый) ===== -->
+  <div id="tab-ic" class="section visible">
+    <div class="hint">
+      <i class="fa-solid fa-circle-info"></i>
+      КТВ подключается отдельным коаксиальным кабелем — приставка не нужна. Пакетная цена на интернет ниже на 10% при одновременном подключении КТВ.
+    </div>
+
+    <div class="cat-title">Тариф интернета</div>
+    <div class="cards">
+      <div class="card selected" onclick="selCard(this,'ic-inet',441,'Интернет 100 Мбит/с (пакет)')">
+        <div class="card-ribbon ribbon-popular">Популярно</div>
+        <div class="badge badge-green">100 Мбит/с</div>
+        <div class="card-name">Старт</div>
+        <div class="card-desc">Для одного устройства</div>
+        <div class="card-price">
+          <span class="price-old">490 ₽/мес</span>
+          <span class="price-new">441 <span class="price-suffix">₽/мес</span></span>
+          <span class="price-discount">−10%</span>
+        </div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'ic-inet',621,'Интернет 300 Мбит/с (пакет)')">
+        <div class="card-ribbon ribbon-optimal">Оптимально</div>
+        <div class="badge badge-green">300 Мбит/с</div>
+        <div class="card-name">Комфорт</div>
+        <div class="card-desc">Для семьи с несколькими устройствами</div>
+        <div class="card-price">
+          <span class="price-old">690 ₽/мес</span>
+          <span class="price-new">621 <span class="price-suffix">₽/мес</span></span>
+          <span class="price-discount">−10%</span>
+        </div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'ic-inet',801,'Интернет 600 Мбит/с (пакет)')">
+        <div class="badge badge-green">600 Мбит/с</div>
+        <div class="card-name">Максимум</div>
+        <div class="card-desc">Для активных пользователей и геймеров</div>
+        <div class="card-price">
+          <span class="price-old">890 ₽/мес</span>
+          <span class="price-new">801 <span class="price-suffix">₽/мес</span></span>
+          <span class="price-discount">−10%</span>
+        </div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+    </div>
+
+    <div class="cat-title">Кабельное ТВ</div>
+    <div class="cards">
+      <div class="card selected" onclick="selCard(this,'ic-ctv',290,'КТВ Базовый')">
+        <div class="badge badge-amber">59 каналов</div>
+        <div class="card-name">КТВ Базовый</div>
+        <div class="card-desc">Аналоговые, без приставки</div>
+        <div class="card-price"><span class="price-new">290 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'ic-ctv',390,'КТВ Расширенный')">
+        <div class="card-ribbon ribbon-promo">Выгодно</div>
+        <div class="badge badge-amber">100+ каналов</div>
+        <div class="card-name">КТВ Расширенный</div>
+        <div class="card-desc">+ цифровые каналы DVB-C для современных ТВ</div>
+        <div class="card-price"><span class="price-new">390 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+    </div>
+
+    <!-- Router -->
+    <div class="eq-block">
+      <div class="eq-block-title"><i class="fa-solid fa-wifi"></i> Роутер</div>
+      <div class="eq-tabs">
+        <button class="eq-tab active" onclick="switchEqTab(this,'ic-r-none')">Без роутера</button>
+        <button class="eq-tab" onclick="switchEqTab(this,'ic-r-rent')">Аренда</button>
+        <button class="eq-tab" onclick="switchEqTab(this,'ic-r-buy')">Покупка</button>
+      </div>
+      <div id="ic-r-none" class="eq-panel visible"><div class="eq-none">Роутер не нужен — у меня уже есть. <strong>+0 ₽</strong></div></div>
+      <div id="ic-r-rent" class="eq-panel"><div class="eq-cards" id="ic-r-rent-cards"></div></div>
+      <div id="ic-r-buy" class="eq-panel"><div class="eq-cards" id="ic-r-buy-cards"></div></div>
+    </div>
+
+    <div class="summary">
+      <div class="summary-title">Итого</div>
+      <div id="sum-ic-rows"></div>
+      <div class="sum-total">
+        <span class="sum-total-label">В месяц</span>
+        <span class="sum-total-val" id="sum-ic-mo">731 ₽</span>
+      </div>
+      <div class="sum-once-row" id="sum-ic-once-row">
+        <div class="sum-row" style="margin-top:4px"><span>Единовременно</span><span class="val" id="sum-ic-once"></span></div>
+      </div>
+      <div class="sum-promo" id="sum-ic-promo"></div>
+      <button class="cta-btn">Оформить заявку →</button>
+    </div>
+  </div>
+
+  <!-- ===== ИНТЕРНЕТ + IPTV (второй) ===== -->
+  <div id="tab-ii" class="section">
+    <div class="hint">
+      <i class="fa-solid fa-circle-info"></i>
+      IPTV работает через интернет-соединение TEL. Пакетная цена на интернет ниже на 10%. Для просмотра нужна приставка или приложение Смотрёшка на Smart TV.
+    </div>
+
+    <div class="cat-title">Тариф интернета</div>
+    <div class="cards">
+      <div class="card selected" onclick="selCard(this,'ii-inet',441,'Интернет 100 Мбит/с (пакет)')">
+        <div class="card-ribbon ribbon-popular">Популярно</div>
+        <div class="badge badge-green">100 Мбит/с</div>
+        <div class="card-name">Старт</div>
+        <div class="card-desc">Для одного устройства</div>
+        <div class="card-price">
+          <span class="price-old">490 ₽/мес</span>
+          <span class="price-new">441 <span class="price-suffix">₽/мес</span></span>
+          <span class="price-discount">−10%</span>
+        </div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'ii-inet',621,'Интернет 300 Мбит/с (пакет)')">
+        <div class="card-ribbon ribbon-optimal">Оптимально</div>
+        <div class="badge badge-green">300 Мбит/с</div>
+        <div class="card-name">Комфорт</div>
+        <div class="card-desc">Для семьи с несколькими устройствами</div>
+        <div class="card-price">
+          <span class="price-old">690 ₽/мес</span>
+          <span class="price-new">621 <span class="price-suffix">₽/мес</span></span>
+          <span class="price-discount">−10%</span>
+        </div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'ii-inet',801,'Интернет 600 Мбит/с (пакет)')">
+        <div class="badge badge-green">600 Мбит/с</div>
+        <div class="card-name">Максимум</div>
+        <div class="card-desc">Для активных пользователей и геймеров</div>
+        <div class="card-price">
+          <span class="price-old">890 ₽/мес</span>
+          <span class="price-new">801 <span class="price-suffix">₽/мес</span></span>
+          <span class="price-discount">−10%</span>
+        </div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+    </div>
+
+    <div class="cat-title">Пакет IPTV (Смотрёшка)</div>
+    <div class="cards">
+      <div class="card selected" onclick="selCard(this,'ii-iptv',190,'IPTV Комбо Лайт')">
+        <div class="badge badge-blue">60+ каналов</div>
+        <div class="card-name">Комбо Лайт</div>
+        <div class="card-desc">Основные федеральные и развлекательные</div>
+        <div class="card-price"><span class="price-new">190 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'ii-iptv',290,'IPTV Стандарт')">
+        <div class="card-ribbon ribbon-popular">Популярно</div>
+        <div class="badge badge-blue">100+ HD</div>
+        <div class="card-name">Стандарт</div>
+        <div class="card-desc">Расширенный пакет с детскими и спортом</div>
+        <div class="card-price"><span class="price-new">290 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'ii-iptv',390,'IPTV Оптима')">
+        <div class="badge badge-blue">120+ HD</div>
+        <div class="card-name">Оптима</div>
+        <div class="card-desc">+ документальные и познавательные</div>
+        <div class="card-price"><span class="price-new">390 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'ii-iptv',490,'IPTV Эксклюзив + Кино')">
+        <div class="card-ribbon ribbon-optimal">Выгодно</div>
+        <div class="badge badge-blue">150+ HD/4K</div>
+        <div class="card-name">Эксклюзив + Кино</div>
+        <div class="card-desc">Максимум + онлайн-кинотеатр</div>
+        <div class="card-price"><span class="price-new">490 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+    </div>
+
+    <!-- TEL Premium -->
+    <div class="cat-title" style="color:#c45000">⭐ TEL Premium — максимум возможностей</div>
+    <div class="cards">
+      <div class="card premium" onclick="selCard(this,'ii-inet',801,'Интернет 600 Мбит/с Premium (пакет)');selCard(document.querySelector('#tab-ii .iptv-excl'),'ii-iptv',490,'IPTV Эксклюзив + Кино');selPremium('ii-prem-1')">
+        <div id="ii-prem-1" class="premium-card-ref" style="display:none"></div>
+        <span class="premium-crown">👑</span>
+        <div class="badge badge-orange">Premium</div>
+        <div class="card-name">Premium Стандарт</div>
+        <div class="card-desc">600 Мбит/с + Эксклюзив + Кино + персональный менеджер</div>
+        <div class="card-price">
+          <span class="price-old">1 291 ₽/мес</span>
+          <span class="price-new orange">2 791 <span class="price-suffix">₽/мес</span></span>
+        </div>
+        <div class="premium-manager"><i class="fa-solid fa-user-tie"></i> Персональный менеджер включён</div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card premium" onclick="selPremiumFull(this,'ii-prem-2')">
+        <div id="ii-prem-2" class="premium-card-ref" style="display:none"></div>
+        <span class="premium-crown">👑</span>
+        <div class="badge badge-orange">Premium Max</div>
+        <div class="card-name">Premium Максимум</div>
+        <div class="card-desc">600 Мбит/с + Эксклюзив + Кино + менеджер + бесплатный выезд</div>
+        <div class="card-price">
+          <span class="price-old">1 291 ₽/мес</span>
+          <span class="price-new orange">3 291 <span class="price-suffix">₽/мес</span></span>
+        </div>
+        <div class="premium-manager"><i class="fa-solid fa-user-tie"></i> Менеджер + бесплатный выезд</div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+    </div>
+    <!-- hidden marker for iptv excl sel -->
+    <div id="ii-iptv-excl-marker" style="display:none" data-iptv="490" data-label="IPTV Эксклюзив + Кино"></div>
+
+    <!-- Router -->
+    <div class="eq-block">
+      <div class="eq-block-title"><i class="fa-solid fa-wifi"></i> Роутер</div>
+      <div class="eq-tabs">
+        <button class="eq-tab active" onclick="switchEqTab(this,'ii-r-none')">Без роутера</button>
+        <button class="eq-tab" onclick="switchEqTab(this,'ii-r-rent')">Аренда</button>
+        <button class="eq-tab" onclick="switchEqTab(this,'ii-r-buy')">Покупка</button>
+      </div>
+      <div id="ii-r-none" class="eq-panel visible"><div class="eq-none">Роутер не нужен — у меня уже есть. <strong>+0 ₽</strong></div></div>
+      <div id="ii-r-rent" class="eq-panel"><div class="eq-cards" id="ii-r-rent-cards"></div></div>
+      <div id="ii-r-buy" class="eq-panel"><div class="eq-cards" id="ii-r-buy-cards"></div></div>
+    </div>
+
+    <!-- STB -->
+    <div class="eq-block">
+      <div class="eq-block-title"><i class="fa-solid fa-tv"></i> Приставка для IPTV</div>
+      <div class="eq-tabs">
+        <button class="eq-tab active" onclick="switchEqTab(this,'ii-stb-none')">Без приставки</button>
+        <button class="eq-tab" onclick="switchEqTab(this,'ii-stb-rent')">Аренда</button>
+        <button class="eq-tab" onclick="switchEqTab(this,'ii-stb-buy')">Покупка</button>
+      </div>
+      <div id="ii-stb-none" class="eq-panel visible"><div class="eq-none">Приложение Смотрёшка на Smart TV — бесплатно. <strong>+0 ₽</strong></div></div>
+      <div id="ii-stb-rent" class="eq-panel"><div class="eq-cards" id="ii-stb-rent-cards"></div></div>
+      <div id="ii-stb-buy" class="eq-panel"><div class="eq-cards" id="ii-stb-buy-cards"></div></div>
+    </div>
+
+    <div class="summary">
+      <div class="summary-title">Итого</div>
+      <div id="sum-ii-rows"></div>
+      <div class="sum-total">
+        <span class="sum-total-label">В месяц</span>
+        <span class="sum-total-val" id="sum-ii-mo">631 ₽</span>
+      </div>
+      <div class="sum-once-row" id="sum-ii-once-row">
+        <div class="sum-row" style="margin-top:4px"><span>Единовременно</span><span class="val" id="sum-ii-once"></span></div>
+      </div>
+      <div class="sum-promo" id="sum-ii-promo"></div>
+      <button class="cta-btn">Оформить заявку →</button>
+    </div>
+  </div>
+
+  <!-- ===== ТОЛЬКО КТВ ===== -->
+  <div id="tab-co" class="section">
+    <div class="hint">
+      <i class="fa-solid fa-circle-info"></i>
+      Кабельное ТВ не требует интернета и дополнительного оборудования — сигнал идёт напрямую через коаксиальный кабель.
+    </div>
+    <div class="cat-title">Тарифный план</div>
+    <div class="cards">
+      <div class="card selected" onclick="selCard(this,'co-ctv',290,'КТВ Базовый')">
+        <div class="badge badge-amber">59 каналов</div>
+        <div class="card-name">КТВ Базовый</div>
+        <div class="card-desc">Аналоговые каналы для любого телевизора, без приставки</div>
+        <div class="card-price"><span class="price-new">290 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'co-ctv',390,'КТВ Расширенный')">
+        <div class="card-ribbon ribbon-promo">Выгодно</div>
+        <div class="badge badge-amber">100+ каналов</div>
+        <div class="card-name">КТВ Расширенный</div>
+        <div class="card-desc">Аналог + цифровые DVB-C для современных ТВ</div>
+        <div class="card-price"><span class="price-new">390 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+    </div>
+    <div class="summary">
+      <div class="sum-total">
+        <span class="sum-total-label">В месяц</span>
+        <span class="sum-total-val">290 ₽</span>
+      </div>
+      <button class="cta-btn">Оформить заявку →</button>
+    </div>
+  </div>
+
+  <!-- ===== ТОЛЬКО ИНТЕРНЕТ ===== -->
+  <div id="tab-io" class="section">
+    <div class="cat-title">Тариф интернета</div>
+    <div class="cards">
+      <div class="card selected" onclick="selCard(this,'io-inet',490,'Интернет 100 Мбит/с')">
+        <div class="card-ribbon ribbon-popular">Популярно</div>
+        <div class="badge badge-green">100 Мбит/с</div>
+        <div class="card-name">Старт</div>
+        <div class="card-desc">Для одного устройства</div>
+        <div class="card-price"><span class="price-new">490 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'io-inet',690,'Интернет 300 Мбит/с')">
+        <div class="card-ribbon ribbon-optimal">Оптимально</div>
+        <div class="badge badge-green">300 Мбит/с</div>
+        <div class="card-name">Комфорт</div>
+        <div class="card-desc">Для семьи с несколькими устройствами</div>
+        <div class="card-price"><span class="price-new">690 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'io-inet',890,'Интернет 600 Мбит/с')">
+        <div class="badge badge-green">600 Мбит/с</div>
+        <div class="card-name">Максимум</div>
+        <div class="card-desc">Для активных пользователей и геймеров</div>
+        <div class="card-price"><span class="price-new">890 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+    </div>
+
+    <div class="eq-block">
+      <div class="eq-block-title"><i class="fa-solid fa-wifi"></i> Роутер</div>
+      <div class="eq-tabs">
+        <button class="eq-tab active" onclick="switchEqTab(this,'io-r-none')">Без роутера</button>
+        <button class="eq-tab" onclick="switchEqTab(this,'io-r-rent')">Аренда</button>
+        <button class="eq-tab" onclick="switchEqTab(this,'io-r-buy')">Покупка</button>
+      </div>
+      <div id="io-r-none" class="eq-panel visible"><div class="eq-none">Роутер не нужен — у меня уже есть. <strong>+0 ₽</strong></div></div>
+      <div id="io-r-rent" class="eq-panel"><div class="eq-cards" id="io-r-rent-cards"></div></div>
+      <div id="io-r-buy" class="eq-panel"><div class="eq-cards" id="io-r-buy-cards"></div></div>
+    </div>
+
+    <div class="summary">
+      <div id="sum-io-rows"></div>
+      <div class="sum-total">
+        <span class="sum-total-label">В месяц</span>
+        <span class="sum-total-val" id="sum-io-mo">490 ₽</span>
+      </div>
+      <div class="sum-once-row" id="sum-io-once-row">
+        <div class="sum-row" style="margin-top:4px"><span>Единовременно</span><span class="val" id="sum-io-once"></span></div>
+      </div>
+      <div class="sum-promo" id="sum-io-promo"></div>
+      <button class="cta-btn">Оформить заявку →</button>
+    </div>
+  </div>
+
+  <!-- ===== ТЕЛЕФОНИЯ ===== -->
+  <div id="tab-ph" class="section">
+    <div class="hint">
+      <i class="fa-solid fa-circle-info"></i>
+      Городской номер (499) через VoIP. Требуется интернет от TEL и VoIP-телефон или ATA-адаптер.
+    </div>
+    <div class="cat-title">Тарифный план</div>
+    <div class="cards">
+      <div class="card selected" onclick="selCard(this,'ph-t',190,'Телефония Базовый')">
+        <div class="badge badge-purple">Базовый</div>
+        <div class="card-name">Номер (499)</div>
+        <div class="card-desc">Звонки по Москве включены</div>
+        <div class="card-price"><span class="price-new">190 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'ph-t',390,'Телефония + Россия')">
+        <div class="card-ribbon ribbon-optimal">Выгодно</div>
+        <div class="badge badge-purple">Безлимит МГ</div>
+        <div class="card-name">Номер + Россия</div>
+        <div class="card-desc">Звонки по всей России включены</div>
+        <div class="card-price"><span class="price-new">390 <span class="price-suffix">₽/мес</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+    </div>
+
+    <div class="eq-block">
+      <div class="eq-block-title"><i class="fa-solid fa-phone"></i> VoIP-телефон (продажа)</div>
+      <div class="eq-tabs">
+        <button class="eq-tab active" onclick="switchEqTab(this,'ph-none')">Без телефона</button>
+        <button class="eq-tab" onclick="switchEqTab(this,'ph-buy')">Выбрать телефон</button>
+      </div>
+      <div id="ph-none" class="eq-panel visible"><div class="eq-none">Использую существующий телефон с ATA-адаптером. <strong>+0 ₽</strong></div></div>
+      <div id="ph-buy" class="eq-panel"><div class="eq-cards" id="ph-buy-cards"></div></div>
+    </div>
+
+    <div class="summary">
+      <div id="sum-ph-rows"></div>
+      <div class="sum-total">
+        <span class="sum-total-label">В месяц</span>
+        <span class="sum-total-val" id="sum-ph-mo">190 ₽</span>
+      </div>
+      <div class="sum-once-row" id="sum-ph-once-row">
+        <div class="sum-row" style="margin-top:4px"><span>Единовременно</span><span class="val" id="sum-ph-once"></span></div>
+      </div>
+      <button class="cta-btn">Оформить заявку →</button>
+    </div>
+  </div>
+
+  <!-- ===== ДОМОФОНИЯ ===== -->
+  <div id="tab-dm" class="section">
+    <div class="hint">
+      <i class="fa-solid fa-circle-info"></i>
+      Выберите тип и модель домофона. Монтаж и подключение выполняются специалистами TEL. Если затрудняетесь с выбором — оставьте заявку менеджеру.
+    </div>
+
+    <div class="cat-title">Тип домофона</div>
+    <div class="cards">
+      <div class="card selected" onclick="selCard(this,'dm-type',0,'Аудиодомофон');showDmCat('audio')">
+        <div class="badge badge-blue">Аудио</div>
+        <div class="card-name">Аудиодомофон</div>
+        <div class="card-desc">Голосовая связь с входной панелью</div>
+        <div class="card-price"><span class="price-new">— <span class="price-suffix">выберите модель</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'dm-type',0,'Видеодомофон');showDmCat('video')">
+        <div class="badge badge-teal">Видео</div>
+        <div class="card-name">Видеодомофон</div>
+        <div class="card-desc">Цветной экран, видеопанель при входе</div>
+        <div class="card-price"><span class="price-new">— <span class="price-suffix">выберите модель</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'dm-type',0,'Смарт-домофон');showDmCat('smart')">
+        <div class="badge badge-purple">Смарт</div>
+        <div class="card-name">Смарт-домофон</div>
+        <div class="card-desc">Видео + ответ с мобильного телефона</div>
+        <div class="card-price"><span class="price-new">— <span class="price-suffix">выберите модель</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+    </div>
+
+    <div class="eq-block" style="margin-top:1.25rem">
+      <div class="eq-block-title"><i class="fa-solid fa-door-open"></i> Выберите модель (продажа)</div>
+      <div id="dm-audio" class="eq-panel visible"><div class="eq-cards" id="dm-audio-cards"></div></div>
+      <div id="dm-video" class="eq-panel"><div class="eq-cards" id="dm-video-cards"></div></div>
+      <div id="dm-smart" class="eq-panel"><div class="eq-cards" id="dm-smart-cards"></div></div>
+    </div>
+
+    <!-- Downloads -->
+    <div class="downloads">
+      <a class="dl-btn" href="#" onclick="fakeDownload(event,'Схема_разводки_домофона_TEL.pdf')">
+        <i class="fa-solid fa-file-pdf"></i>
+        Схема разводки (для прораба)
+      </a>
+      <a class="dl-btn" href="#" onclick="fakeDownload(event,'Каталог_домофонов_TEL.pdf')">
+        <i class="fa-solid fa-file-pdf"></i>
+        Каталог домофонов PDF
+      </a>
+    </div>
+
+    <!-- Manager form -->
+    <div class="manager-form-block">
+      <div class="manager-form-title">
+        <i class="fa-solid fa-headset"></i>
+        Не знаете, какой домофон выбрать?
+      </div>
+      <div class="manager-form-sub">Оставьте заявку — менеджер перезвонит и подберёт оптимальное решение для вашего дома.</div>
+      <div class="form-row">
+        <input class="form-input" type="text" placeholder="Ваше имя" id="dm-form-name"/>
+        <input class="form-input" type="tel" placeholder="Телефон" id="dm-form-phone"/>
+      </div>
+      <div class="form-row single">
+        <textarea class="form-textarea" placeholder="Опишите задачу: количество входов, этаж, тип дома..." id="dm-form-msg"></textarea>
+      </div>
+      <button class="form-submit" onclick="submitDmForm()">Жду звонка от менеджера</button>
+      <div class="form-success" id="dm-form-success"><i class="fa-solid fa-circle-check"></i> Заявка принята! Перезвоним в ближайшее время.</div>
+    </div>
+
+    <div class="summary">
+      <div id="sum-dm-rows"></div>
+      <div class="sum-total">
+        <span class="sum-total-label">Единовременно</span>
+        <span class="sum-total-val" id="sum-dm-once">— ₽</span>
+      </div>
+      <button class="cta-btn">Оформить заявку →</button>
+    </div>
+  </div>
+
+  <!-- ===== ВИДЕОНАБЛЮДЕНИЕ ===== -->
+  <div id="tab-vi" class="section">
+    <div class="hint">
+      <i class="fa-solid fa-circle-info"></i>
+      Запись хранится на SD-карте внутри камеры. Абонентская плата отсутствует — оплачивается только стоимость оборудования.
+    </div>
+
+    <div class="cat-title">Тип камеры</div>
+    <div class="cards">
+      <div class="card selected" onclick="selCard(this,'vi-type',0,'Внутренняя камера');showViCat('indoor')">
+        <div class="badge badge-blue">Интерьер</div>
+        <div class="card-name">Внутренняя</div>
+        <div class="card-desc">Для помещений, WiFi или PoE</div>
+        <div class="card-price"><span class="price-new">— <span class="price-suffix">выберите модель</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'vi-type',0,'Уличная камера');showViCat('outdoor')">
+        <div class="badge badge-amber">Улица</div>
+        <div class="card-name">Уличная</div>
+        <div class="card-desc">IP65, ночное видение, антивандал</div>
+        <div class="card-price"><span class="price-new">— <span class="price-suffix">выберите модель</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="card" onclick="selCard(this,'vi-type',0,'PTZ-камера');showViCat('ptz')">
+        <div class="badge badge-teal">PTZ</div>
+        <div class="card-name">Поворотная</div>
+        <div class="card-desc">Управление 360°, оптический зум</div>
+        <div class="card-price"><span class="price-new">— <span class="price-suffix">выберите модель</span></span></div>
+        <div class="card-check"><i class="fa-solid fa-check"></i></div>
+      </div>
+    </div>
+
+    <div class="eq-block" style="margin-top:1.25rem">
+      <div class="eq-block-title"><i class="fa-solid fa-camera"></i> Выберите модель (продажа)</div>
+      <div id="vi-indoor" class="eq-panel visible"><div class="eq-cards" id="vi-indoor-cards"></div></div>
+      <div id="vi-outdoor" class="eq-panel"><div class="eq-cards" id="vi-outdoor-cards"></div></div>
+      <div id="vi-ptz" class="eq-panel"><div class="eq-cards" id="vi-ptz-cards"></div></div>
+    </div>
+
+    <div class="summary">
+      <div id="sum-vi-rows"></div>
+      <div class="sum-total">
+        <span class="sum-total-label">Единовременно</span>
+        <span class="sum-total-val" id="sum-vi-once">— ₽</span>
+      </div>
+      <div class="sum-note">Абонентская плата отсутствует. Запись на SD-карту внутри камеры.</div>
+      <button class="cta-btn">Оформить заявку →</button>
+    </div>
+  </div>
+
+</div><!-- /card-main -->
+
+<footer class="footer">
+  <p>© 2008–2026 ТЕЛ · <a href="tel:+74957874207">+7 495 787-42-07</a> · <a href="mailto:home@tel.ru">home@tel.ru</a> · <a href="https://home.tel.ru">home.tel.ru</a></p>
+</footer>
+
+<script>
+/* ---- DATA ---- */
+const DATA = {
+  routers_rent: [
+    {name:'TP-Link TL-WR940N', desc:'2.4 GHz, 450 Мбит/с, 3 антенны', price:100, unit:'₽/мес', vpn:false},
+    {name:'TP-Link Archer C20',  desc:'Двухдиап. 2.4+5 GHz, 733 Мбит/с', price:150, unit:'₽/мес', vpn:false},
+    {name:'Keenetic Start',      desc:'2.4 GHz, 300 Мбит/с, USB 2.0', price:130, unit:'₽/мес', vpn:true},
+    {name:'Keenetic Extra',      desc:'Двухдиап. 867 Мбит/с, USB 3.0', price:170, unit:'₽/мес', vpn:true},
+    {name:'ASUS RT-N12+',        desc:'2.4 GHz, 300 Мбит/с, 3 режима', price:120, unit:'₽/мес', vpn:false},
+    {name:'D-Link DIR-615',      desc:'2.4 GHz, 300 Мбит/с, 4×LAN', price:100, unit:'₽/мес', vpn:false},
+  ],
+  routers_buy: [
+    {name:'TP-Link TL-WR940N',     desc:'2.4 GHz, 450 Мбит/с, 3 антенны', price:1800, unit:'₽', vpn:false},
+    {name:'TP-Link Archer C54',    desc:'Двухдиап. AC1200, 4×LAN', price:2500, unit:'₽', vpn:false},
+    {name:'Keenetic Start KN-1110',desc:'2.4 GHz, 300 Мбит/с, USB', price:2200, unit:'₽', vpn:true},
+    {name:'Keenetic Extra KN-1711',desc:'Двухдиап. AC1200, USB 3.0', price:3200, unit:'₽', vpn:true},
+    {name:'ASUS RT-AX53U',         desc:'WiFi 6, двухдиап., AX1800', price:4500, unit:'₽', vpn:true},
+    {name:'Xiaomi Router AX3200',  desc:'WiFi 6, трёхдиап., AX3200', price:5500, unit:'₽', vpn:true},
+  ],
+  stb_rent: [
+    {name:'MAG 250 Micro',     desc:'IPTV-приставка, HDMI, LAN 100M', price:100, unit:'₽/мес'},
+    {name:'Android TV Box X96',desc:'Android 9, WiFi, 4K, 2 GB RAM',  price:150, unit:'₽/мес'},
+    {name:'Formuler Z8',       desc:'Android, 4K HDR, Dual WiFi',      price:200, unit:'₽/мес'},
+  ],
+  stb_buy: [
+    {name:'MAG 250 Micro',          desc:'IPTV-приставка, HDMI, LAN 100M',       price:2900, unit:'₽'},
+    {name:'Android TV Box X96 Mini',desc:'Android 9, 4K, WiFi, 1 GB RAM',        price:2500, unit:'₽'},
+    {name:'Formuler Z8 Pro',        desc:'Android, 4K HDR, Dual WiFi, 2 GB RAM', price:5900, unit:'₽'},
+  ],
+  voip: [
+    {name:'Grandstream GXP1610',desc:'1 SIP-линия, ЖК-дисплей, HD-звук',       price:2200, unit:'₽'},
+    {name:'Yealink SIP-T19P E2',desc:'1 SIP-линия, HD Voice, PoE',              price:3500, unit:'₽'},
+    {name:'Fanvil X3SG',        desc:'2 SIP-линии, цветной дисплей, PoE',       price:4200, unit:'₽'},
+    {name:'Cisco CP-6821',      desc:'2 линии, 3.5" дисплей, WiFi, Bluetooth',  price:7500, unit:'₽'},
+    {name:'Snom 300',           desc:'6 SIP-линий, XML-браузер, BLF, PoE',      price:6800, unit:'₽'},
+  ],
+  domophones_audio: [
+    {name:'Commax DP-LA01',        desc:'Аудиотрубка, металлическая панель',    price:3500,  unit:'₽'},
+    {name:'Vizit БВД-434FCP',      desc:'Цветная аудиотрубка, встроенный БП',   price:4200,  unit:'₽'},
+    {name:'Eltis DP300-RW16',      desc:'Вызывная панель + трубка, антивандал', price:5800,  unit:'₽'},
+    {name:'Falcon Eye FE-2057AHD', desc:'Аудиодомофон, 2 трубки в комплекте',  price:4800,  unit:'₽'},
+  ],
+  domophones_video: [
+    {name:'Commax CDV-35HM',          desc:'3.5" TFT, угол обзора 92°',            price:5500,  unit:'₽'},
+    {name:'Tantos Amelie HD',         desc:'7" TFT, Full HD панель, SD-запись',     price:9800,  unit:'₽'},
+    {name:'Hikvision DS-KV6113-WPE1', desc:'2 Мп IP-панель, PoE, приложение',      price:12000, unit:'₽'},
+    {name:'Slinex ML-20HD',           desc:'2 Мп панель, HDMI, 10" монитор',       price:14500, unit:'₽'},
+  ],
+  domophones_smart: [
+    {name:'Beward DS06M',          desc:'2 Мп, SIP, мобильное приложение iOS/Android', price:9500,  unit:'₽'},
+    {name:'Dahua DHI-VTO2111D-WP', desc:'2 Мп, WiFi, приложение Dahua DMSS',           price:11500, unit:'₽'},
+    {name:'Hikvision DS-KIS603-P', desc:'2 Мп IP видеодомофон, приложение iVMS',        price:15000, unit:'₽'},
+  ],
+  cameras_indoor: [
+    {name:'Xiaomi Mi Camera 2K',      desc:'2K 3MP, PTZ 360°, SD до 64 ГБ, WiFi',   price:3500, unit:'₽'},
+    {name:'TP-Link Tapo C200',        desc:'1080p, PTZ 360°, SD до 128 ГБ, WiFi',    price:2800, unit:'₽'},
+    {name:'Hikvision DS-2CD2143G2-I', desc:'4 Мп, SD, IR 40 м, PoE, WDR',           price:5500, unit:'₽'},
+    {name:'Dahua IPC-HDW2831T-AS',    desc:'8 Мп 4K, SD, встроенный микрофон, PoE', price:7200, unit:'₽'},
+  ],
+  cameras_outdoor: [
+    {name:'TP-Link Tapo C320WS',      desc:'4 Мп, IP67, SD до 128 ГБ, цветная ночь',    price:4200,  unit:'₽'},
+    {name:'Reolink RLC-810A',         desc:'4K 8 Мп, PoE, SD, смарт-детектор людей',    price:6800,  unit:'₽'},
+    {name:'Hikvision DS-2CD2T47G2-L', desc:'4 Мп ColorVu, SD, IP67, PoE, 60 м',        price:8500,  unit:'₽'},
+    {name:'Dahua IPC-HFW2849S-S-IL',  desc:'8 Мп 4K, Smart Dual Light, SD, IP67',      price:10500, unit:'₽'},
+  ],
+  cameras_ptz: [
+    {name:'TP-Link Tapo C500',          desc:'1080p PTZ, IP65, 360°, SD до 128 ГБ', price:5500,  unit:'₽'},
+    {name:'Hikvision DS-2DE4425IWG-E',  desc:'4 Мп, 25× оптика, SD, PoE, IR 100 м', price:32000, unit:'₽'},
+    {name:'Dahua SD49425XB-HNR',        desc:'4 Мп, 25× оптика, AI, SD, IP66',       price:38000, unit:'₽'},
+  ],
+};
+
+/* ---- STATE ---- */
+const SEL = {};
+let promoDiscount = 0;
+let promoCode = '';
+
+SEL['ic-inet'] = {price:441, label:'Интернет 100 Мбит/с (пакет)', mo:true};
+SEL['ic-ctv']  = {price:290, label:'КТВ Базовый', mo:true};
+SEL['ii-inet'] = {price:441, label:'Интернет 100 Мбит/с (пакет)', mo:true};
+SEL['ii-iptv'] = {price:190, label:'IPTV Комбо Лайт', mo:true};
+SEL['io-inet'] = {price:490, label:'Интернет 100 Мбит/с', mo:true};
+SEL['ph-t']    = {price:190, label:'Телефония Базовый', mo:true};
+
+/* ---- TAB / CARD LOGIC ---- */
+function selCard(el, group, price, label) {
+  el.closest('.cards').querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  SEL[group] = {price, label, mo:true};
+  recalcAll();
+}
+
+function selPremiumFull(el, refId) {
+  el.closest('.cards').querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  SEL['ii-inet'] = {price:801, label:'Интернет 600 Мбит/с Premium (пакет)', mo:true};
+  SEL['ii-iptv'] = {price:490, label:'IPTV Эксклюзив + Кино', mo:true};
+  SEL['ii-prem'] = {price:1500, label:'Персональный менеджер + выезд', mo:true};
+  recalcAll();
+}
+
+function selPremium(refId) {
+  SEL['ii-prem'] = {price:1500, label:'Персональный менеджер TEL Premium', mo:true};
+  recalcAll();
+}
+
+function showTab(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('visible');
+  el.classList.add('active');
+}
+
+function switchEqTab(el, panelId) {
+  const block = el.closest('.eq-block');
+  block.querySelectorAll('.eq-tab').forEach(t => t.classList.remove('active'));
+  block.querySelectorAll('.eq-panel').forEach(p => p.classList.remove('visible'));
+  el.classList.add('active');
+  document.getElementById(panelId).classList.add('visible');
+  recalcAll();
+}
+
+function showDmCat(cat) {
+  ['audio','video','smart'].forEach(c => document.getElementById('dm-'+c).classList.remove('visible'));
+  document.getElementById('dm-'+cat).classList.add('visible');
+  delete SEL['dm-dev'];
+  updateDmSum();
+}
+
+function showViCat(cat) {
+  ['indoor','outdoor','ptz'].forEach(c => document.getElementById('vi-'+c).classList.remove('visible'));
+  document.getElementById('vi-'+cat).classList.add('visible');
+  delete SEL['vi-cam'];
+  updateViSum();
+}
+
+/* ---- EQUIPMENT CARDS ---- */
+function makeEqCards(containerId, items, groupKey) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = items.map((item, i) => {
+    const vpnTag = item.vpn ? `<div class="eq-vpn"><i class="fa-solid fa-shield-halved"></i> Поддержка VPN</div>` : '';
+    return `<div class="eq-card${i===0?' selected':''}" onclick="selEq(this,'${groupKey}',${item.price},'${item.name}','${item.unit}')">
+      <div class="eq-name">${item.name}</div>
+      <div class="eq-desc">${item.desc}</div>
+      ${vpnTag}
+      <div class="eq-price">${item.price.toLocaleString('ru-RU')} <span>${item.unit}</span></div>
+      <div class="card-check"><i class="fa-solid fa-check"></i></div>
+    </div>`;
+  }).join('');
+  if (items.length) {
+    SEL[groupKey] = {price:items[0].price, label:items[0].name, mo:items[0].unit.includes('мес')};
+  }
+}
+
+function selEq(el, group, price, label, unit) {
+  el.closest('.eq-cards').querySelectorAll('.eq-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  SEL[group] = {price, label, mo:unit.includes('мес')};
+  recalcAll();
+}
+
+/* ---- PROMO CODE ---- */
+const PROMOS = {
+  'TELWELCOME': {discount:0.05, text:'Скидка 5% на первый месяц'},
+  'TEL2026':    {discount:0.10, text:'Скидка 10% — акция 2026'},
+  'PREMIUM10':  {discount:0.10, text:'Скидка 10% на Premium'},
+};
+
+function applyPromo() {
+  const val = document.getElementById('promo-input').value.trim().toUpperCase();
+  const okEl  = document.getElementById('promo-ok');
+  const errEl = document.getElementById('promo-err');
+  okEl.style.display = 'none';
+  errEl.style.display = 'none';
+  if (!val) return;
+  if (PROMOS[val]) {
+    promoDiscount = PROMOS[val].discount;
+    promoCode = val;
+    document.getElementById('promo-ok-text').textContent = PROMOS[val].text;
+    okEl.style.display = 'flex';
+    recalcAll();
+  } else {
+    promoDiscount = 0;
+    promoCode = '';
+    errEl.style.display = 'flex';
+    recalcAll();
+  }
+}
+
+/* ---- SUMMARY CALC ---- */
+function getVisibleEqSel(panelPrefix, groupKey) {
+  const panel = document.querySelector(`[id^="${panelPrefix}"].eq-panel.visible`);
+  if (!panel || panel.id.endsWith('-none')) return null;
+  return SEL[groupKey] || null;
+}
+
+function updateSum(prefix, moKeys, eqKeys, showPromo) {
+  const rowsEl    = document.getElementById('sum-'+prefix+'-rows');
+  const moEl      = document.getElementById('sum-'+prefix+'-mo');
+  const onceRowEl = document.getElementById('sum-'+prefix+'-once-row');
+  const onceEl    = document.getElementById('sum-'+prefix+'-once');
+  const promoEl   = document.getElementById('sum-'+prefix+'-promo');
+  if (!rowsEl || !moEl) return;
+
+  let moTotal = 0, onceTotal = 0, html = '';
+
+  moKeys.forEach(k => {
+    const s = SEL[k];
+    if (s && s.price > 0) {
+      html += `<div class="sum-row"><span>${s.label}</span><span class="val">${s.price.toLocaleString('ru-RU')} ₽</span></div>`;
+      moTotal += s.price;
+    }
+  });
+
+  eqKeys.forEach(k => {
+    const s = SEL[k];
+    if (s && s.price > 0) {
+      if (s.mo) {
+        html += `<div class="sum-row"><span>${s.label}</span><span class="val">${s.price.toLocaleString('ru-RU')} ₽/мес</span></div>`;
+        moTotal += s.price;
+      } else {
+        onceTotal += s.price;
+      }
+    }
+  });
+
+  rowsEl.innerHTML = html;
+
+  if (promoEl && showPromo && promoDiscount > 0) {
+    const disc = Math.round(moTotal * promoDiscount);
+    promoEl.style.display = 'block';
+    promoEl.textContent = `Промокод ${promoCode}: −${disc.toLocaleString('ru-RU')} ₽/мес`;
+    moTotal = moTotal - disc;
+  } else if (promoEl) {
+    promoEl.style.display = 'none';
+  }
+
+  moEl.textContent = moTotal.toLocaleString('ru-RU') + ' ₽';
+
+  if (onceTotal > 0 && onceRowEl && onceEl) {
+    onceRowEl.style.display = 'block';
+    onceEl.textContent = onceTotal.toLocaleString('ru-RU') + ' ₽';
+  } else if (onceRowEl) {
+    onceRowEl.style.display = 'none';
+  }
+}
+
+function recalcAll() {
+  // ic
+  const icRouter = getVisibleEqSel('ic-r-', 'ic-router');
+  updateSum('ic', ['ic-inet','ic-ctv'], icRouter ? ['ic-router'] : [], true);
+
+  // ii — check if premium selected
+  const iiPrem = SEL['ii-prem'];
+  const iiRouter = getVisibleEqSel('ii-r-', 'ii-router');
+  const iiStb    = getVisibleEqSel('ii-stb-', 'ii-stb');
+  const iiEq = [];
+  if (iiRouter) iiEq.push('ii-router');
+  if (iiStb)    iiEq.push('ii-stb');
+  if (iiPrem)   iiEq.push('ii-prem');
+  updateSum('ii', ['ii-inet','ii-iptv'], iiEq, true);
+
+  // io
+  const ioRouter = getVisibleEqSel('io-r-', 'io-router');
+  updateSum('io', ['io-inet'], ioRouter ? ['io-router'] : [], true);
+
+  // ph
+  const phVoip = getVisibleEqSel('ph-', 'ph-voip');
+  updateSum('ph', ['ph-t'], phVoip ? ['ph-voip'] : [], false);
+
+  updateDmSum();
+  updateViSum();
+}
+
+function updateDmSum() {
+  const el = document.getElementById('sum-dm-once');
+  const rowsEl = document.getElementById('sum-dm-rows');
+  const s = SEL['dm-dev'];
+  if (s && s.price > 0) {
+    if (rowsEl) rowsEl.innerHTML = `<div class="sum-row"><span>${s.label}</span><span class="val">${s.price.toLocaleString('ru-RU')} ₽</span></div>`;
+    if (el) el.textContent = s.price.toLocaleString('ru-RU') + ' ₽';
+  } else {
+    if (rowsEl) rowsEl.innerHTML = '';
+    if (el) el.textContent = '— ₽';
+  }
+}
+
+function updateViSum() {
+  const el = document.getElementById('sum-vi-once');
+  const rowsEl = document.getElementById('sum-vi-rows');
+  const s = SEL['vi-cam'];
+  if (s && s.price > 0) {
+    if (rowsEl) rowsEl.innerHTML = `<div class="sum-row"><span>${s.label}</span><span class="val">${s.price.toLocaleString('ru-RU')} ₽</span></div>`;
+    if (el) el.textContent = s.price.toLocaleString('ru-RU') + ' ₽';
+  } else {
+    if (rowsEl) rowsEl.innerHTML = '';
+    if (el) el.textContent = '— ₽';
+  }
+}
+
+/* ---- MANAGER FORM ---- */
+function submitDmForm() {
+  const name  = document.getElementById('dm-form-name').value.trim();
+  const phone = document.getElementById('dm-form-phone').value.trim();
+  if (!name || !phone) { alert('Пожалуйста, заполните имя и телефон.'); return; }
+  document.getElementById('dm-form-success').style.display = 'flex';
+  document.getElementById('dm-form-name').disabled = true;
+  document.getElementById('dm-form-phone').disabled = true;
+  document.getElementById('dm-form-msg').disabled = true;
+  document.querySelector('.form-submit').disabled = true;
+}
+
+/* ---- FAKE PDF DOWNLOAD ---- */
+function fakeDownload(e, filename) {
+  e.preventDefault();
+  // Generate minimal PDF-like blob for demo
+  const content = `%PDF-1.4\n1 0 obj<</Type /Catalog /Pages 2 0 R>>endobj\n2 0 obj<</Type /Pages /Kids [3 0 R] /Count 1>>endobj\n3 0 obj<</Type /Page /Parent 2 0 R /MediaBox [0 0 595 842]>>endobj\nxref\n0 4\n0000000000 65535 f\n0000000009 00000 n\n0000000058 00000 n\n0000000115 00000 n\ntrailer<</Size 4 /Root 1 0 R>>\nstartxref\n197\n%%EOF`;
+  const blob = new Blob([content], {type:'application/pdf'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ---- INIT ---- */
+makeEqCards('ic-r-rent-cards',  DATA.routers_rent,     'ic-router');
+makeEqCards('ic-r-buy-cards',   DATA.routers_buy,      'ic-router');
+makeEqCards('ii-r-rent-cards',  DATA.routers_rent,     'ii-router');
+makeEqCards('ii-r-buy-cards',   DATA.routers_buy,      'ii-router');
+makeEqCards('io-r-rent-cards',  DATA.routers_rent,     'io-router');
+makeEqCards('io-r-buy-cards',   DATA.routers_buy,      'io-router');
+makeEqCards('ii-stb-rent-cards',DATA.stb_rent,         'ii-stb');
+makeEqCards('ii-stb-buy-cards', DATA.stb_buy,          'ii-stb');
+makeEqCards('ph-buy-cards',     DATA.voip,             'ph-voip');
+makeEqCards('dm-audio-cards',   DATA.domophones_audio, 'dm-dev');
+makeEqCards('dm-video-cards',   DATA.domophones_video, 'dm-dev');
+makeEqCards('dm-smart-cards',   DATA.domophones_smart, 'dm-dev');
+makeEqCards('vi-indoor-cards',  DATA.cameras_indoor,   'vi-cam');
+makeEqCards('vi-outdoor-cards', DATA.cameras_outdoor,  'vi-cam');
+makeEqCards('vi-ptz-cards',     DATA.cameras_ptz,      'vi-cam');
+
+recalcAll();
+</script>
+</body>
+</html>
