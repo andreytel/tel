@@ -99,6 +99,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .chip-off{background:#F0EDE8;color:#5A5550;border:1px solid rgba(0,0,0,.08)}
 .chip-vac{background:#FEF3DC;color:#8A4F00}.chip-sick{background:#FCE8E8;color:#8B2020}
 .chip-in{background:#E8F4EE;color:#1B4332;border:1px solid rgba(45,106,79,.2)}
+
+/* ABSENT CARDS — prominent design */
+.card-absent{border:none!important;padding:0!important;overflow:hidden;background:var(--surface)}
+.card-absent-vac{box-shadow:0 0 0 2px #F5A623,var(--shlg)!important}
+.card-absent-sick{box-shadow:0 0 0 2px #D85A5A,var(--shlg)!important}
+.abs-card-header{display:flex;align-items:center;gap:10px;padding:10px 14px 8px}
+.abs-header-vac{background:linear-gradient(135deg,#FEF3DC 0%,#FDE9B0 100%)}
+.abs-header-sick{background:linear-gradient(135deg,#FCE8E8 0%,#F8C8C8 100%)}
+.abs-card-icon{font-size:20px;line-height:1}
+.abs-card-lbl{font-size:11px;font-weight:500;color:var(--text);margin-bottom:1px}
+.abs-header-vac .abs-card-lbl{color:#7C4A00}
+.abs-header-sick .abs-card-lbl{color:#7A1D1D}
+.abs-card-until{font-size:10px;color:var(--text3)}
+.abs-header-vac .abs-card-until{color:#A06000}
+.abs-header-sick .abs-card-until{color:#A03030}
+.abs-card-body{display:flex;align-items:center;gap:10px;padding:10px 14px 6px}
+.abs-card-body .av{margin-bottom:0}
+.abs-sub-row{font-size:10px;color:var(--text3);padding:0 14px 10px;border-top:1px solid var(--border);margin-top:6px;padding-top:6px}
 .bw .bl{font-size:10px;color:var(--text3);margin-bottom:4px}
 .bt{height:3px;background:var(--surface2);border-radius:2px;overflow:hidden}
 .bf{height:100%;border-radius:2px;background:var(--green)}
@@ -449,6 +467,13 @@ function fmtUntil(s){return fmtD(s,{day:'numeric',month:'long'})}
 function ini(n){return n.split(' ').map(function(w){return w[0]}).join('').slice(0,2)}
 function acol(id){return AVC[(id-1)%AVC.length]}
 function isInOffice(e){var ranges=OFFICE_IPS[e.office]||[];return ranges.some(function(r){return e.lastSeenIP&&e.lastSeenIP.indexOf(r)===0})}
+function getSubstitutes(e){
+  if(absEdits[e.id]&&absEdits[e.id].substitutes!==undefined)return absEdits[e.id].substitutes;
+  if(!e.absence)return [];
+  var s=e.absence.substitute;
+  if(!s)return [];
+  return Array.isArray(s)?s:[s];
+}
 function getContacts(e){return contactEdits[e.id]||{phones:e.phones.slice(),internals:e.internals.slice(),tg:e.tg,vk:e.vk,email:e.email,emailAliases:e.emailAliases.slice()}}
 
 function daysUntil(s){
@@ -517,24 +542,47 @@ function cardHtml(e){
   var ev=evOf(e);
   var cls='';
   if(ev.jd&&ev.jw)cls='ev-both';else if(ev.jd)cls='ev-jubday';else if(ev.jw)cls='ev-jubwork';else if(ev.bs)cls='ev-bday';
-  if(e.absence)cls+=' absent';
   var badges='';
   if(ev.jd&&ev.jw)badges='<span class="rb rb-jubday">юбилей '+ev.jd+' лет</span><span class="rb rb-jubwork">с нами '+ev.jw.years+' лет</span>';
   else if(ev.jd)badges='<span class="rb rb-jubday">юбилей '+ev.jd+' лет — '+dlbl(ev.bD)+'</span>';
   else if(ev.jw)badges='<span class="rb rb-jubwork">с нами '+ev.jw.years+' лет — '+dlbl(ev.jw.days)+'</span>';
   else if(ev.bs)badges='<span class="rb rb-bday">ДР — '+dlbl(ev.bD)+'</span>';
   var cc=CO_CLS[e.co]||'';
-  var strip=e.absence?'<div class="abs-strip '+e.absence.type+'"></div>':'';
-  var absChip='';
-  if(e.absence&&e.absence.type==='vacation')absChip='<span class="chip chip-vac">отпуск</span>';
-  else if(e.absence&&e.absence.type==='sick')absChip='<span class="chip chip-sick">больничный</span>';
   var inChip=isInOffice(e)&&!e.absence?'<span class="chip chip-in">в офисе</span>':'';
+
+  if(e.absence){
+    var isV=e.absence.type==='vacation';
+    var icon=isV?'✈':'🤒';
+    var abslbl=isV?'В отпуске':'На больничном';
+    var subs=getSubstitutes(e);
+    var subLine=subs.length?subs.map(function(n){return '<span>'+n+'</span>'}).join(', '):'—';
+    return '<div class="card card-absent card-absent-'+(isV?'vac':'sick')+'" onclick="openModal('+e.id+')">'+
+      '<div class="crib">'+badges+'</div>'+
+      '<div class="abs-card-header abs-header-'+(isV?'vac':'sick')+'">'+
+        '<span class="abs-card-icon">'+icon+'</span>'+
+        '<div class="abs-card-info">'+
+          '<div class="abs-card-lbl">'+abslbl+'</div>'+
+          '<div class="abs-card-until">до '+fmtUntil(e.absence.until)+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="abs-card-body">'+
+        avHtml(e,40,14)+
+        '<div>'+
+          '<div class="cn">'+e.name+'</div>'+
+          '<div class="cr">'+e.role+'</div>'+
+          '<div class="chips"><span class="chip '+cc+'">'+e.co+'</span><span class="chip chip-off">'+e.office+'</span></div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="abs-sub-row">Замещает: '+subLine+'</div>'+
+    '</div>';
+  }
+
   return '<div class="card'+(cls?' '+cls:'')+'" onclick="openModal('+e.id+')">'+
-    strip+'<div class="crib">'+badges+'</div>'+
+    '<div class="crib">'+badges+'</div>'+
     avHtml(e,44,15)+
     '<div class="cn">'+e.name+'</div>'+
     '<div class="cr">'+e.role+'</div>'+
-    '<div class="chips"><span class="chip '+cc+'">'+e.co+'</span><span class="chip chip-off">'+e.office+'</span>'+inChip+absChip+'</div>'+
+    '<div class="chips"><span class="chip '+cc+'">'+e.co+'</span><span class="chip chip-off">'+e.office+'</span>'+inChip+'</div>'+
     '<div class="bw"><div class="bl">'+e.dept+' · '+fmtY(y)+'</div><div class="bt"><div class="bf" style="width:'+pct+'%"></div></div></div>'+
   '</div>';
 }
@@ -665,22 +713,28 @@ function renderModal(id){
   var absBlock='';
   if(e.absence){
     var isV=e.absence.type==='vacation';
-    var sub=(absEdits[e.id]&&absEdits[e.id].substitute!==undefined)?absEdits[e.id].substitute:e.absence.substitute;
-    var subEmp=EMP.find(function(x){return x.name===sub});
-    var subLink=subEmp
-      ?'<a class="sub-link" href="#" onclick="event.preventDefault();closeModal();setTimeout(function(){openModal('+subEmp.id+')},50)">'+sub+'</a>'
-      :'<span>'+sub+'</span>';
+    var subs=getSubstitutes(e);
+    var subsHtml=subs.length
+      ?subs.map(function(n){
+          var se=EMP.find(function(x){return x.name===n});
+          return se?'<a class="sub-link" href="#" onclick="event.preventDefault();closeModal();setTimeout(function(){openModal('+se.id+')},50)">'+n+'</a>':'<span>'+n+'</span>';
+        }).join(', <wbr>')
+      :'<span style="color:var(--text3)">не назначен</span>';
+    var subsEditHtml='<div id="subs-edit-'+e.id+'" style="display:none">'+
+      '<div id="subs-list-'+e.id+'">'+
+        subs.map(function(n,i){return '<div class="sub-edit-row" id="subs-row-'+e.id+'-'+i+'"><input id="sub-inp-'+e.id+'-'+i+'" value="'+n+'" placeholder="Имя Фамилия" list="emp-names-list"><button class="sub-cancel" onclick="rmSub('+e.id+','+i+')">✕</button></div>';}).join('')+
+      '</div>'+
+      '<div style="display:flex;gap:6px;margin:6px 0">'+
+        '<button class="sub-cancel" onclick="addSubRow('+e.id+')">+ Добавить</button>'+
+        '<button class="sub-save" onclick="saveSubs('+e.id+')">Сохранить</button>'+
+        '<button class="sub-cancel" onclick="closeSubEdit('+e.id+')">Отмена</button>'+
+      '</div>'+
+    '</div>';
     absBlock='<div class="abs-block '+e.absence.type+'" id="abs-block-'+e.id+'">'+
       '<div class="abs-block-title">'+(isV?'✈ В отпуске':'🤒 На больничном')+'</div>'+
       '<div class="abs-block-row">До: <b>'+fmtUntil(e.absence.until)+'</b></div>'+
-      '<div class="abs-block-row" id="sub-view-'+e.id+'">Замещает: <b>'+subLink+'</b><span class="sub-pencil" onclick="openSubEdit('+e.id+')" title="Изменить">✏️</span></div>'+
-      '<div id="sub-edit-'+e.id+'" style="display:none">'+
-        '<div class="sub-edit-row">'+
-          '<input id="sub-inp-'+e.id+'" value="'+sub+'" placeholder="Имя Фамилия" list="emp-names-list">'+
-          '<button class="sub-save" onclick="saveSubstitute('+e.id+')">Сохранить</button>'+
-          '<button class="sub-cancel" onclick="closeSubEdit('+e.id+')">✕</button>'+
-        '</div>'+
-      '</div>'+
+      '<div class="abs-block-row" id="sub-view-'+e.id+'">Замещают: <b>'+subsHtml+'</b><span class="sub-pencil" onclick="openSubEdit('+e.id+')" title="Изменить">✏️</span></div>'+
+      subsEditHtml+
     '</div>';
   }
 
@@ -718,7 +772,7 @@ function renderModal(id){
         '<div><div class="il">Стаж</div><div class="iv">'+fmtY(y)+'</div></div>'+
         '<div><div class="il">Компания</div><div class="iv">'+e.co+'</div></div>'+
         '<div><div class="il">Офис</div><div class="iv">'+e.office+'</div></div>'+
-        '<div class="full"><div class="il">Руководитель</div><div class="iv">'+e.manager+'</div></div>'+
+        '<div class="full"><div class="il">Руководитель</div><div class="iv">'+mgrLink(e.manager)+'</div></div>'+
       '</div>'+
       '<div class="hb" id="hb-block-'+e.id+'">'+renderHobbies(e)+'</div>'+
       '<div class="macts"><button class="btn pr" id="btn-cong">Написать поздравление</button><button class="btn" id="btn-game">Игра «Угадай»</button></div>'+
@@ -826,38 +880,72 @@ function removeHobby(eid,idx){
   renderAll();
 }
 
-// ── SUBSTITUTE EDITING ─────────────────────────────────────────────────────
+function mgrLink(name){
+  if(!name||name==='—')return name||'—';
+  var me=EMP.find(function(x){return x.name===name});
+  if(!me)return name;
+  return '<a class="sub-link" href="#" onclick="event.preventDefault();closeModal();setTimeout(function(){openModal('+me.id+')},60)">'+name+'</a>';
+}
+
+// ── SUBSTITUTE EDITING (multiple) ──────────────────────────────────────────
 function openSubEdit(eid){
-  var view=document.getElementById('sub-view-'+eid);
-  var edit=document.getElementById('sub-edit-'+eid);
-  if(view)view.style.display='none';
-  if(edit)edit.style.display='block';
-  var inp=document.getElementById('sub-inp-'+eid);
-  if(inp){inp.focus();inp.select();}
+  document.getElementById('sub-view-'+eid).style.display='none';
+  document.getElementById('subs-edit-'+eid).style.display='block';
 }
-
 function closeSubEdit(eid){
-  var view=document.getElementById('sub-view-'+eid);
-  var edit=document.getElementById('sub-edit-'+eid);
-  if(view)view.style.display='';
-  if(edit)edit.style.display='none';
+  document.getElementById('sub-view-'+eid).style.display='';
+  document.getElementById('subs-edit-'+eid).style.display='none';
 }
-
-function saveSubstitute(eid){
-  var inp=document.getElementById('sub-inp-'+eid);
-  if(!inp)return;
-  var val=inp.value.trim();
-  if(!val)return;
+function addSubRow(eid){
+  var subs=collectSubs(eid);
+  subs.push('');
   if(!absEdits[eid])absEdits[eid]={};
-  absEdits[eid].substitute=val;
-  // rebuild the substitute row
-  var subEmp=EMP.find(function(x){return x.name===val});
-  var subLink=subEmp
-    ?'<a class="sub-link" href="#" onclick="event.preventDefault();closeModal();setTimeout(function(){openModal('+subEmp.id+')},50)">'+val+'</a>'
-    :'<span>'+val+'</span>';
+  absEdits[eid].substitutes=subs;
+  var list=document.getElementById('subs-list-'+eid);
+  var i=subs.length-1;
+  var row=document.createElement('div');
+  row.className='sub-edit-row';row.id='subs-row-'+eid+'-'+i;
+  row.innerHTML='<input id="sub-inp-'+eid+'-'+i+'" value="" placeholder="Имя Фамилия" list="emp-names-list"><button class="sub-cancel" onclick="rmSub('+eid+','+i+')">✕</button>';
+  list.appendChild(row);
+  document.getElementById('sub-inp-'+eid+'-'+i).focus();
+}
+function rmSub(eid,idx){
+  var subs=collectSubs(eid);
+  subs.splice(idx,1);
+  if(!absEdits[eid])absEdits[eid]={};
+  absEdits[eid].substitutes=subs;
+  var list=document.getElementById('subs-list-'+eid);
+  var row=document.getElementById('subs-row-'+eid+'-'+idx);
+  if(row)list.removeChild(row);
+  // re-index remaining rows
+  var rows=list.querySelectorAll('.sub-edit-row');
+  rows.forEach(function(r,i){
+    r.id='subs-row-'+eid+'-'+i;
+    var inp=r.querySelector('input');if(inp)inp.id='sub-inp-'+eid+'-'+i;
+    var btn=r.querySelector('button');if(btn)btn.setAttribute('onclick','rmSub('+eid+','+i+')');
+  });
+}
+function collectSubs(eid){
+  var i=0,result=[];
+  while(true){var inp=document.getElementById('sub-inp-'+eid+'-'+i);if(!inp)break;var v=inp.value.trim();if(v)result.push(v);i++;}
+  return result;
+}
+function saveSubs(eid){
+  var subs=collectSubs(eid);
+  if(!absEdits[eid])absEdits[eid]={};
+  absEdits[eid].substitutes=subs;
+  // rebuild view row
+  var e=EMP.find(function(x){return x.id===eid});
+  var subsHtml=subs.length
+    ?subs.map(function(n){
+        var se=EMP.find(function(x){return x.name===n});
+        return se?'<a class="sub-link" href="#" onclick="event.preventDefault();closeModal();setTimeout(function(){openModal('+se.id+')},50)">'+n+'</a>':'<span>'+n+'</span>';
+      }).join(', <wbr>')
+    :'<span style="color:var(--text3)">не назначен</span>';
   var view=document.getElementById('sub-view-'+eid);
-  if(view)view.innerHTML='Замещает: <b>'+subLink+'</b><span class="sub-pencil" onclick="openSubEdit('+eid+')" title="Изменить">✏️</span>';
+  if(view)view.innerHTML='Замещают: <b>'+subsHtml+'</b><span class="sub-pencil" onclick="openSubEdit('+eid+')" title="Изменить">✏️</span>';
   closeSubEdit(eid);
+  renderAll();
 }
 function toggleEdit(id){
   var ef=document.getElementById('contacts-edit');
