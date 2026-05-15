@@ -282,10 +282,100 @@ textarea.form-input{resize:vertical;min-height:80px}
 @media(max-width:768px){
   .sidebar{display:none}
   .main{width:100%}
-  .content{padding:16px}
+  .content{padding:14px 14px 80px}
   .grid2,.grid3,.grid4{grid-template-columns:1fr}
   .stat-row{grid-template-columns:1fr 1fr;gap:8px}
-  .topbar{padding:0 16px}
+  .topbar{padding:0 14px;height:48px}
+  .topbar-title{font-size:13px}
+  .page-header h1{font-size:17px}
+  .card-pad{padding:14px}
+  .card-sm{padding:10px 12px}
+  .stat-n{font-size:20px}
+  /* news feed: 1 col on mobile */
+  #page-home > div{grid-template-columns:1fr!important}
+  #page-home > div > div:last-child{display:none}
+  /* profile: 1 col */
+  #page-profile > .grid2{grid-template-columns:1fr}
+  /* company: 1 col */
+  #page-company > .grid2{grid-template-columns:1fr}
+  /* benefits: 1 col */
+  #page-benefits .grid2{grid-template-columns:1fr}
+  /* rooms: 1 col */
+  #page-rooms > div > div:first-child ~ div{display:none}
+  #page-rooms > div{grid-template-columns:1fr!important}
+  /* tasks: 1 col */
+  #page-tasks > div{grid-template-columns:1fr!important}
+  #page-tasks > div > div:last-child{display:none}
+  /* sales: stack */
+  #page-sales .grid2,#page-sales .grid3{grid-template-columns:1fr}
+  /* subscribers */
+  #page-subscribers .grid3{grid-template-columns:1fr}
+  /* access matrix scroll */
+  .access-matrix{overflow-x:auto}
+  .am-header,.am-row{grid-template-columns:140px repeat(4,1fr);font-size:11px}
+  .am-name{font-size:12px}
+  /* rules: 1 col */
+  #page-rules > div:last-child{grid-template-columns:1fr!important}
+  #page-rules > div:last-child > div:first-child{display:none}
+  /* charts: 1 col */
+  .charts{grid-template-columns:1fr!important}
+  .an-top{grid-template-columns:1fr 1fr}
+  /* modal full-screen */
+  .modal-bg{padding:0;align-items:flex-end}
+  .modal{max-width:100%!important;border-radius:20px 20px 0 0!important;margin:0!important;max-height:95vh}
+  /* tabs scroll */
+  .tabs,.mtabs{overflow-x:auto;flex-wrap:nowrap}
+  .tab,.mtab{white-space:nowrap;flex-shrink:0}
+  /* task modal grid */
+  #new-task-modal .form-group + .form-group + .form-group ~ div[style*="grid"]{grid-template-columns:1fr!important}
+  /* docs upload */
+  #page-docs-admin .grid2{grid-template-columns:1fr}
+  /* review */
+  #page-review .grid2{grid-template-columns:1fr}
+  /* access filter */
+  #page-access > div{flex-direction:column;align-items:stretch}
+  #page-access > div select{width:100%}
+  /* rooms calendar scroll */
+  #page-rooms [style*="grid-template-columns:80px"]{overflow-x:auto;display:block}
+  .tbl{font-size:11px}
+}
+
+/* BOTTOM NAV — mobile only */
+.bottom-nav{display:none}
+@media(max-width:768px){
+  .bottom-nav{
+    display:flex;position:fixed;bottom:0;left:0;right:0;z-index:100;
+    background:#fff;border-top:1px solid var(--bd);
+    height:60px;align-items:stretch;
+    box-shadow:0 -4px 20px rgba(0,0,0,.08);
+    padding-bottom:env(safe-area-inset-bottom,0);
+  }
+  .bn-item{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:2px;cursor:pointer;transition:color .15s;color:var(--tx3);
+    font-family:'Golos Text',sans-serif;font-size:9px;font-weight:500;
+    -webkit-tap-highlight-color:transparent;border:none;background:transparent;
+    position:relative;padding-bottom:2px;
+  }
+  .bn-item.active{color:var(--red)}
+  .bn-item .bn-ico{font-size:20px;line-height:1}
+  .bn-item .bn-dot{position:absolute;top:6px;right:calc(50% - 14px);width:7px;height:7px;border-radius:50%;background:var(--red);border:1.5px solid #fff;display:none}
+  .bn-item .bn-dot.show{display:block}
+  /* hamburger opens sidebar drawer */
+  .mob-menu-btn{display:flex}
+}
+.mob-menu-btn{display:none;align-items:center;justify-content:center;width:36px;height:36px;border:none;background:transparent;cursor:pointer;font-size:20px;color:var(--tx);flex-shrink:0}
+
+/* SIDEBAR DRAWER on mobile */
+@media(max-width:768px){
+  .sidebar{
+    display:flex;position:fixed;inset:0;z-index:300;
+    transform:translateX(-100%);transition:transform .28s cubic-bezier(.32,.72,0,1);
+    width:80%;max-width:280px;height:100%;
+  }
+  .sidebar.mob-open{transform:translateX(0)}
+  .sidebar-overlay{display:none;position:fixed;inset:0;z-index:299;background:rgba(0,0,0,.45)}
+  .sidebar-overlay.show{display:block}
 }
 
 /* ═══ EMPLOYEE PORTAL EMBEDDED ════════════════════════════════════════ */
@@ -627,7 +717,18 @@ textarea.form-input{resize:vertical;min-height:80px}
 .task-filters{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .tf{font-size:12px;padding:5px 14px;border-radius:40px;border:1px solid var(--bd2);background:#fff;color:var(--tx2);cursor:pointer;transition:all .15s}
 .tf:hover,.tf.active{background:var(--red);color:#fff;border-color:var(--red)}
-/* KB styles */
+.home-layout{display:grid;grid-template-columns:1fr 320px;gap:20px}
+.rooms-layout{display:grid;grid-template-columns:1fr 320px;gap:20px}
+.tasks-layout{display:grid;grid-template-columns:1fr 300px;gap:20px}
+@media(max-width:768px){
+  .home-layout,.rooms-layout,.tasks-layout{grid-template-columns:1fr}
+  .home-layout > div:last-child{display:none}
+  .rooms-layout > div:last-child{display:none}
+  .tasks-layout > div:last-child{display:none}
+}
+/* Rooms calendar horizontal scroll on mobile */
+.rooms-calendar{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.rooms-calendar > div{min-width:600px}
 .kb-cat{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-radius:var(--rs);font-size:13px;color:var(--tx2);cursor:pointer;transition:all .15s}
 .kb-cat:hover,.kb-cat.active{background:var(--red-soft);color:var(--red)}
 .kb-count{font-size:10px;padding:1px 6px;border-radius:20px;background:var(--beige2);color:var(--tx3)}
@@ -709,6 +810,7 @@ textarea.form-input{resize:vertical;min-height:80px}
 <!-- ── MAIN ─────────────────────────────────────────────── -->
 <div class="main">
 <div class="topbar">
+  <button class="mob-menu-btn" onclick="openMobMenu()" aria-label="Меню">☰</button>
   <div class="topbar-title" id="topbar-title">Лента новостей</div>
 </div>
 
@@ -716,7 +818,7 @@ textarea.form-input{resize:vertical;min-height:80px}
 
 <!-- ── HOME: NEWS FEED ─────────────────────────────────── -->
 <div class="page active" id="page-home">
-  <div style="display:grid;grid-template-columns:1fr 320px;gap:20px">
+  <div class="home-layout">
     <div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
         <div class="sec-title" style="margin:0">Новости компании</div>
@@ -1583,7 +1685,7 @@ textarea.form-input{resize:vertical;min-height:80px}
     <div class="page-header" style="margin:0"><h1>Переговорные</h1><p>Бронирование переговорных комнат</p></div>
     <button class="btn btn-primary" onclick="showModal('book-room-modal')">+ Забронировать</button>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 320px;gap:20px">
+  <div class="rooms-layout">
     <div>
       <div class="card card-pad" style="margin-bottom:16px">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
@@ -1599,6 +1701,7 @@ textarea.form-input{resize:vertical;min-height:80px}
             <input type="date" class="form-input" style="width:150px;font-size:12px;padding:6px 10px" id="rooms-datepicker">
           </div>
         </div>
+        <div class="rooms-calendar">
         <div style="display:grid;grid-template-columns:80px repeat(8,1fr);gap:0;border:1px solid var(--bd);border-radius:var(--rs);overflow:hidden;font-size:11px">
           <div style="background:var(--beige2);padding:8px 6px;font-weight:600;color:var(--tx3);border-right:1px solid var(--bd)">Переговорная</div>
           <div style="background:var(--beige2);padding:8px 4px;text-align:center;color:var(--tx3);border-right:1px solid var(--bd)">09:00</div>
@@ -1641,7 +1744,8 @@ textarea.form-input{resize:vertical;min-height:80px}
           <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
           <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
           <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd);background:#E0F0FF;padding:4px;cursor:pointer;grid-column:span 3"><div style="font-size:9px;color:#0050BE;font-weight:500">Тренинг по продажам</div><div style="font-size:9px;color:#0050BE">13:00–16:00</div></div>
-        </div>
+        </div><!-- /rooms-calendar inner grid -->
+        </div><!-- /rooms-calendar -->
         <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap">
           <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx2)"><div style="width:12px;height:12px;border-radius:3px;background:#FCE8E8"></div>Занято</div>
           <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx2)"><div style="width:12px;height:12px;border-radius:3px;background:#E0FFE8"></div>Ваша бронь</div>
@@ -1690,7 +1794,7 @@ textarea.form-input{resize:vertical;min-height:80px}
 </div>
 
 <div class="page" id="page-tasks">
-  <div style="display:grid;grid-template-columns:1fr 300px;gap:20px">
+  <div class="tasks-layout">
     <div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
         <div class="page-header" style="margin:0"><h1>Задачи</h1></div>
@@ -1944,6 +2048,30 @@ textarea.form-input{resize:vertical;min-height:80px}
 </div><!-- /content -->
 </div><!-- /main -->
 </div><!-- /layout -->
+
+<!-- SIDEBAR OVERLAY (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeMobMenu()"></div>
+
+<!-- BOTTOM NAV (mobile only) -->
+<nav class="bottom-nav">
+  <button class="bn-item active" id="bn-home" onclick="showPage('home');setBnActive('bn-home')">
+    <span class="bn-ico">🏠</span><span>Лента</span>
+    <span class="bn-dot show" id="bn-home-dot"></span>
+  </button>
+  <button class="bn-item" id="bn-tasks" onclick="showPage('tasks');setBnActive('bn-tasks')">
+    <span class="bn-ico">✅</span><span>Задачи</span>
+    <span class="bn-dot" id="bn-tasks-dot"></span>
+  </button>
+  <button class="bn-item" id="bn-team" onclick="showPage('team');setBnActive('bn-team')">
+    <span class="bn-ico">👥</span><span>Команда</span>
+  </button>
+  <button class="bn-item" id="bn-hr" onclick="showPage('hr');setBnActive('bn-hr')">
+    <span class="bn-ico">📋</span><span>Заявления</span>
+  </button>
+  <button class="bn-item" id="bn-menu" onclick="openMobMenu()">
+    <span class="bn-ico">☰</span><span>Ещё</span>
+  </button>
+</nav>
 
 <!-- ── MODALS ───────────────────────────────────────────── -->
 
@@ -2864,7 +2992,42 @@ try{
 })();
 // ═══════ END EMPLOYEE PORTAL ═══════════════════════════════════════
 
-// ── NEW PAGE NAMES ────────────────────────────────────────
+// ── MOBILE MENU ───────────────────────────────────────────
+function openMobMenu(){
+  document.querySelector('.sidebar').classList.add('mob-open');
+  document.getElementById('sidebar-overlay').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeMobMenu(){
+  document.querySelector('.sidebar').classList.remove('mob-open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
+  document.body.style.overflow='';
+}
+function setBnActive(id){
+  document.querySelectorAll('.bn-item').forEach(function(b){b.classList.remove('active')});
+  var el=document.getElementById(id);if(el)el.classList.add('active');
+}
+// Override showPage to also handle mobile
+var _origShowPage=showPage;
+showPage=function(name){
+  _origShowPage(name);
+  closeMobMenu();
+  // sync bottom nav
+  var map={home:'bn-home',tasks:'bn-tasks',team:'bn-team',hr:'bn-hr'};
+  document.querySelectorAll('.bn-item').forEach(function(b){b.classList.remove('active')});
+  if(map[name]){var el=document.getElementById(map[name]);if(el)el.classList.add('active');}
+  // scroll to top on mobile
+  if(window.innerWidth<=768)window.scrollTo(0,0);
+};
+// Update tasks badge on bottom nav
+var _origUpdateStats=updateTaskStats;
+updateTaskStats=function(){
+  _origUpdateStats();
+  var b=document.getElementById('tasks-badge');
+  var dot=document.getElementById('bn-tasks-dot');
+  if(b&&dot)dot.className='bn-dot'+(b.style.display!=='none'?' show':'');
+};
+
 pageNames['rooms']='Переговорные';
 pageNames['rules']='Правила и инструкции';
 pageNames['sales']='Отдел продаж';
