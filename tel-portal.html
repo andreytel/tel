@@ -794,6 +794,7 @@ textarea.form-input{resize:vertical;min-height:80px}
     <div class="nav-item" onclick="showPage('backoffice')"><span class="ico">🎧</span>Бэк-офис<span class="lock">🔒</span></div>
 
     <div class="nav-section">Администрирование</div>
+    <div class="nav-item" onclick="showPage('software')"><span class="ico">💿</span>Корпоративный софт</div>
     <div class="nav-item" onclick="showPage('access')"><span class="ico">🛡</span>Управление доступом</div>
     <div class="nav-item" onclick="showPage('docs-admin')"><span class="ico">📤</span>Загрузка документов</div>
   </div>
@@ -988,7 +989,21 @@ textarea.form-input{resize:vertical;min-height:80px}
         <button class="btn btn-ghost btn-sm" style="margin-top:8px">✏️ Редактировать</button>
       </div>
       <div class="card card-pad">
-        <div class="sec-title">Мои документы</div>
+        <div class="sec-title">Подпись в email</div>
+        <div style="background:var(--beige);border:1px solid var(--bd);border-radius:var(--rs);padding:14px;font-size:13px;line-height:1.7;margin-bottom:10px">
+          <div style="font-weight:600;color:var(--tx)">Алексей Козлов</div>
+          <div style="color:var(--tx2)">Системный администратор</div>
+          <div style="color:var(--tx2)">ООО «ТКТЕЛ» · Группа TEL</div>
+          <div style="margin-top:4px;color:var(--tx2)">📞 +7 916 123-45-67 · ☎ вн. 301</div>
+          <div style="color:var(--red)">✉ a.kozlov@company.ru</div>
+          <div style="color:var(--tx3)">🌐 www.tktel.ru</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" onclick="copySignature()">📋 Скопировать</button>
+          <button class="btn btn-ghost btn-sm" onclick="showModal('edit-sig-modal')">✏️ Редактировать</button>
+        </div>
+        <p style="font-size:11px;color:var(--tx3);margin-top:8px">Вставьте подпись в настройки почтового клиента. Данные обновляются автоматически при изменении профиля.</p>
+      </div>
         <div class="doc-item">
           <div class="doc-icon pdf">📄</div>
           <div class="doc-info"><div class="doc-name">Заявление на отпуск</div><div class="doc-meta">12.05.2025 · PDF</div></div>
@@ -1501,17 +1516,20 @@ textarea.form-input{resize:vertical;min-height:80px}
 
 </div>
 
-<!-- MODAL -->
+
+<input type="file" accept="image/*" id="fupload" style="display:none" onchange="onUpload(event)">
+<datalist id="empnames"></datalist>
+  </div>
+</div>
+
+<!-- EP MODAL (moved outside page-team so it works on all pages) -->
 <div class="ov" id="ov" onclick="ovClick(event)">
   <div class="modal" id="modal">
     <div class="drag"></div>
     <div class="mi" id="mi"></div>
   </div>
 </div>
-<input type="file" accept="image/*" id="fupload" style="display:none" onchange="onUpload(event)">
-<datalist id="empnames"></datalist>
-  </div>
-</div>
+
 <div class="page" id="page-rules">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
     <div class="page-header" style="margin:0"><h1>Правила и инструкции</h1><p>База знаний для сотрудников</p></div>
@@ -1841,6 +1859,165 @@ textarea.form-input{resize:vertical;min-height:80px}
 </div>
 <div class="page" id="page-events"><div class="page-header"><h1>Мероприятия</h1></div><div class="grid3"><div class="card card-pad" style="cursor:pointer"><div style="background:var(--red-soft);border-radius:var(--rs);height:80px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px">🏓</div><div style="font-size:14px;font-weight:500;color:var(--tx);margin-bottom:4px">Турнир по теннису</div><div style="font-size:12px;color:var(--tx3);margin-bottom:10px">Пятница 16 мая · 18:00 · офис</div><button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">Зарегистрироваться</button></div><div class="card card-pad" style="cursor:pointer"><div style="background:#E0F0FF;border-radius:var(--rs);height:80px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px">🎓</div><div style="font-size:14px;font-weight:500;color:var(--tx);margin-bottom:4px">Тренинг по продажам</div><div style="font-size:12px;color:var(--tx3);margin-bottom:10px">Пн 19 мая · 10:00 · Zoom</div><button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center">✓ Зарегистрирован</button></div></div></div>
 <div class="page" id="page-life"><div class="page-header"><h1>TEL изнутри</h1></div><div class="grid3"><div class="card" style="overflow:hidden;cursor:pointer"><div style="height:140px;background:linear-gradient(135deg,var(--dark),var(--dark2));display:flex;align-items:center;justify-content:center;font-size:48px">🎉</div><div class="card-sm"><div style="font-size:13px;font-weight:500;color:var(--tx)">Корпоратив «Зима 2024»</div><div style="font-size:11px;color:var(--tx3)">48 фото · декабрь 2024</div></div></div><div class="card" style="overflow:hidden;cursor:pointer"><div style="height:140px;background:linear-gradient(135deg,#2D3060,#1A1835);display:flex;align-items:center;justify-content:center;font-size:48px">🏃</div><div class="card-sm"><div style="font-size:13px;font-weight:500;color:var(--tx)">Корпоративный забег</div><div style="font-size:11px;color:var(--tx3)">32 фото · октябрь 2024</div></div></div></div></div>
+<div class="page" id="page-software">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+    <div class="page-header" style="margin:0"><h1>Корпоративный софт</h1><p>Лицензионное ПО для сотрудников группы TEL</p></div>
+    <button class="btn btn-primary btn-sm" onclick="showPage('docs-admin')">+ Добавить ПО</button>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="btn btn-primary btn-sm" onclick="softFilter('all',this)">Все</button>
+    <button class="btn btn-ghost btn-sm" onclick="softFilter('comm',this)">Коммуникации</button>
+    <button class="btn btn-ghost btn-sm" onclick="softFilter('work',this)">Рабочие инструменты</button>
+    <button class="btn btn-ghost btn-sm" onclick="softFilter('sec',this)">Безопасность</button>
+    <button class="btn btn-ghost btn-sm" onclick="softFilter('it',this)">IT-инфраструктура</button>
+  </div>
+  <div class="grid3" id="software-grid">
+
+    <div class="card card-pad soft-item" data-cat="comm">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:48px;height:48px;border-radius:12px;background:#E0F0FF;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">💬</div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--tx)">Telegram Desktop</div><div style="font-size:11px;color:var(--tx3)">Корпоративная связь</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;line-height:1.5">Основной мессенджер для внутренней коммуникации. Установите официальную версию.</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span class="chip chip-green">Бесплатно</span>
+        <span style="font-size:11px;color:var(--tx3)">v5.x · Windows / Mac / Linux</span>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">⬇ Скачать</button>
+        <button class="btn btn-ghost btn-sm">Инструкция</button>
+      </div>
+    </div>
+
+    <div class="card card-pad soft-item" data-cat="comm">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:48px;height:48px;border-radius:12px;background:#E0FFE8;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">📹</div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--tx)">Zoom</div><div style="font-size:11px;color:var(--tx3)">Видеоконференции</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;line-height:1.5">Для видеосовещаний и онлайн-встреч с клиентами. Корпоративная лицензия — логин через SSO.</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span class="chip chip-blue">Корп. лицензия</span>
+        <span style="font-size:11px;color:var(--tx3)">Windows / Mac / iOS / Android</span>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">⬇ Скачать</button>
+        <button class="btn btn-ghost btn-sm">Войти через SSO</button>
+      </div>
+    </div>
+
+    <div class="card card-pad soft-item" data-cat="work">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:48px;height:48px;border-radius:12px;background:#FEF3DC;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">📊</div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--tx)">Microsoft Office 365</div><div style="font-size:11px;color:var(--tx3)">Word, Excel, PowerPoint</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;line-height:1.5">Корпоративная подписка. Активация через корпоративную почту. Установка на 5 устройств.</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span class="chip chip-blue">Корп. лицензия</span>
+        <span style="font-size:11px;color:var(--tx3)">Windows / Mac</span>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">⬇ Скачать</button>
+        <button class="btn btn-ghost btn-sm">Инструкция</button>
+      </div>
+    </div>
+
+    <div class="card card-pad soft-item" data-cat="work">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:48px;height:48px;border-radius:12px;background:#F0E8FF;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🗂</div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--tx)">1С:Предприятие</div><div style="font-size:11px;color:var(--tx3)">ERP / Бухгалтерия</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;line-height:1.5">Только для сотрудников бухгалтерии и финансового отдела. Требуется заявка в IT.</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span class="chip chip-red">По запросу</span>
+        <span style="font-size:11px;color:var(--tx3)">Windows</span>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-ghost btn-sm" style="flex:1;justify-content:center" onclick="showModal('ask-hr-modal')">Подать заявку в IT</button>
+      </div>
+    </div>
+
+    <div class="card card-pad soft-item" data-cat="sec">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:48px;height:48px;border-radius:12px;background:#FCE8E8;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🔐</div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--tx)">Cisco AnyConnect</div><div style="font-size:11px;color:var(--tx3)">VPN-клиент</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;line-height:1.5">Для безопасного удалённого доступа к корпоративной сети. Конфигурация предоставляется IT-отделом.</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span class="chip chip-gray">Бесплатно</span>
+        <span style="font-size:11px;color:var(--tx3)">Windows / Mac / iOS / Android</span>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">⬇ Скачать</button>
+        <button class="btn btn-ghost btn-sm">Инструкция</button>
+      </div>
+    </div>
+
+    <div class="card card-pad soft-item" data-cat="sec">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:48px;height:48px;border-radius:12px;background:#E0FFE8;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🛡</div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--tx)">Антивирус Kaspersky</div><div style="font-size:11px;color:var(--tx3)">Защита рабочих станций</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;line-height:1.5">Обязателен для установки на корпоративный ПК. Устанавливается IT-отделом при выдаче техники.</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span class="chip chip-blue">Корп. лицензия</span>
+        <span style="font-size:11px;color:var(--tx3)">Windows</span>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-ghost btn-sm" style="flex:1;justify-content:center" onclick="showModal('ask-hr-modal')">Запросить установку</button>
+      </div>
+    </div>
+
+    <div class="card card-pad soft-item" data-cat="it">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:48px;height:48px;border-radius:12px;background:#E0F0FF;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🖥</div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--tx)">TeamViewer</div><div style="font-size:11px;color:var(--tx3)">Удалённый доступ для IT</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;line-height:1.5">Только для сотрудников IT-отдела. Лицензионный ключ выдаётся при подключении к команде.</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span class="chip chip-red">Только IT</span>
+        <span style="font-size:11px;color:var(--tx3)">Windows / Mac</span>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">⬇ Скачать</button>
+        <button class="btn btn-ghost btn-sm">Ключ у IT</button>
+      </div>
+    </div>
+
+    <div class="card card-pad soft-item" data-cat="comm">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:48px;height:48px;border-radius:12px;background:#FEF3DC;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">📧</div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--tx)">Mozilla Thunderbird</div><div style="font-size:11px;color:var(--tx3)">Email-клиент</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;line-height:1.5">Рекомендуемый почтовый клиент. Инструкция по настройке IMAP/SMTP в разделе IT-поддержки.</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span class="chip chip-green">Бесплатно</span>
+        <span style="font-size:11px;color:var(--tx3)">Windows / Mac / Linux</span>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">⬇ Скачать</button>
+        <button class="btn btn-ghost btn-sm">Настройка IMAP</button>
+      </div>
+    </div>
+
+    <div class="card card-pad soft-item" data-cat="work">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:48px;height:48px;border-radius:12px;background:#E0F0FF;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">✅</div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--tx)">TEL Employee Portal</div><div style="font-size:11px;color:var(--tx3)">Корпоративный портал (мобильное приложение)</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;line-height:1.5">Мобильное приложение корпоративного портала. Доступны все функции: задачи, справочник, заявления.</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span class="chip chip-green">Бесплатно</span>
+        <span style="font-size:11px;color:var(--tx3)">iOS / Android</span>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center">App Store</button>
+        <button class="btn btn-ghost btn-sm">Google Play</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div class="page" id="page-surveys"><div class="page-header"><h1>Опросы КК</h1></div><div class="empty"><div class="empty-icon">📊</div><p>Активных опросов нет</p><button class="btn btn-primary" style="margin-top:12px">+ Создать опрос</button></div></div>
 <div class="page" id="page-sales">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
@@ -3029,6 +3206,27 @@ updateTaskStats=function(){
 };
 
 pageNames['rooms']='Переговорные';
+pageNames['software']='Корпоративный софт';
+
+// ── SOFTWARE FILTER ───────────────────────────────────────
+function softFilter(cat,btn){
+  document.querySelectorAll('#page-software > div:nth-child(2) .btn').forEach(function(b){
+    if(b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf('softFilter')>=0){
+      b.classList.remove('btn-primary');b.classList.add('btn-ghost');
+    }
+  });
+  if(btn){btn.classList.remove('btn-ghost');btn.classList.add('btn-primary');}
+  document.querySelectorAll('.soft-item').forEach(function(el){
+    el.style.display=(cat==='all'||el.dataset.cat===cat)?'':'none';
+  });
+}
+
+// ── EMAIL SIGNATURE COPY ──────────────────────────────────
+function copySignature(){
+  var sig='Алексей Козлов\nСистемный администратор\nООО «ТКТЕЛ» · Группа TEL\n+7 916 123-45-67 · вн. 301\na.kozlov@company.ru\nwww.tktel.ru';
+  if(navigator.clipboard){navigator.clipboard.writeText(sig).then(function(){alert('Подпись скопирована!')});}
+  else{var t=document.createElement('textarea');t.value=sig;document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(t);alert('Скопировано!');}
+}
 pageNames['rules']='Правила и инструкции';
 pageNames['sales']='Отдел продаж';
 pageNames['subscribers']='Абонентский отдел';
@@ -3595,6 +3793,21 @@ setTimeout(updateTaskStats,100);
         <input type="file" id="vt-file-add" style="display:none" multiple onchange="addFilesToTask(this)">
       </div>
     </div>
+  </div>
+</div>
+
+<!-- EDIT SIGNATURE MODAL -->
+<div class="modal-bg" id="edit-sig-modal" onclick="if(event.target===this)closeModal('edit-sig-modal')">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header"><div class="modal-title">✉️ Подпись в email</div><button class="modal-close" onclick="closeModal('edit-sig-modal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--tx2);margin-bottom:14px">Данные ФИО, должность и компания подставляются автоматически. Дополните контакты при необходимости.</p>
+      <div class="form-group"><label class="form-label">Дополнительный телефон</label><input class="form-input" value="+7 916 123-45-67" placeholder="+7 900 000-00-00"></div>
+      <div class="form-group"><label class="form-label">Сайт / ссылка</label><input class="form-input" value="www.tktel.ru" placeholder="www.company.ru"></div>
+      <div class="form-group"><label class="form-label">Слоган / приписка</label><input class="form-input" placeholder="Например: Всегда на связи 😊"></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:4px"><button class="toggle on" onclick="this.classList.toggle('on')"></button><span style="font-size:12px;color:var(--tx2)">Включить логотип компании</span></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('edit-sig-modal')">Отмена</button><button class="btn btn-primary" onclick="closeModal('edit-sig-modal');alert('Подпись сохранена!')">Сохранить</button></div>
   </div>
 </div>
 
