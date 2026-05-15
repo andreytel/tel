@@ -588,6 +588,66 @@ textarea.form-input{resize:vertical;min-height:80px}
   .grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
 }
 
+/* TASKS */
+.task-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:10px;cursor:pointer;transition:box-shadow .15s,border-color .15s;box-shadow:var(--sh)}
+.task-card:hover{box-shadow:var(--shlg);border-color:var(--bd2)}
+.task-card.priority-high{border-left:3px solid var(--red)}
+.task-card.priority-med{border-left:3px solid #E4A030}
+.task-card.priority-low{border-left:3px solid #2D6A4F}
+.task-card.done{opacity:.6}
+.task-title{font-size:14px;font-weight:500;color:var(--tx);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.task-title .tdone{font-size:14px;cursor:pointer}
+.task-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.task-due{font-size:11px;padding:2px 8px;border-radius:20px}
+.task-due.overdue{background:#FCE8E8;color:#8B2020}
+.task-due.soon{background:#FEF3DC;color:#8A4F00}
+.task-due.ok{background:#E0FFE8;color:#006B23}
+.task-people{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.tp-av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;border:2px solid #fff;margin-left:-4px}
+.tp-av:first-child{margin-left:0}
+.task-attach{font-size:11px;color:var(--tx3);display:flex;align-items:center;gap:4px}
+
+/* TASK MODAL */
+.task-modal-body{padding:20px 24px}
+.task-section{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--bd)}
+.task-section:last-child{border:none;margin-bottom:0}
+.ts-label{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--tx3);margin-bottom:8px;font-weight:600}
+.person-chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 10px;border-radius:20px;background:var(--beige2);color:var(--tx2);border:1px solid var(--bd);margin:3px}
+.person-chip .rm{cursor:pointer;opacity:.6;margin-left:2px}
+.person-chip .rm:hover{opacity:1;color:var(--red)}
+.attach-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--bd);font-size:12px;color:var(--tx2)}
+.attach-item:last-child{border:none}
+.task-chat{height:200px;overflow-y:auto;background:var(--beige);border-radius:var(--rs);padding:12px;margin-bottom:8px}
+.tc-msg{margin-bottom:10px}
+.tc-msg-header{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.tc-name{font-size:11px;font-weight:600;color:var(--tx)}
+.tc-time{font-size:10px;color:var(--tx3)}
+.tc-body{font-size:12px;color:var(--tx);background:#fff;padding:7px 10px;border-radius:0 8px 8px 8px;display:inline-block;max-width:85%;line-height:1.5}
+.tc-msg.mine .tc-body{background:var(--red);color:#fff;border-radius:8px 0 8px 8px;float:right;clear:both}
+.task-filters{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tf{font-size:12px;padding:5px 14px;border-radius:40px;border:1px solid var(--bd2);background:#fff;color:var(--tx2);cursor:pointer;transition:all .15s}
+.tf:hover,.tf.active{background:var(--red);color:#fff;border-color:var(--red)}
+/* KB styles */
+.kb-cat{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-radius:var(--rs);font-size:13px;color:var(--tx2);cursor:pointer;transition:all .15s}
+.kb-cat:hover,.kb-cat.active{background:var(--red-soft);color:var(--red)}
+.kb-count{font-size:10px;padding:1px 6px;border-radius:20px;background:var(--beige2);color:var(--tx3)}
+.kb-article{background:#fff;border:1px solid var(--bd);border-radius:var(--r);margin-bottom:10px;overflow:hidden;box-shadow:var(--sh)}
+.kb-article.hidden{display:none}
+.kb-article-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;transition:background .15s}
+.kb-article-header:hover{background:var(--beige)}
+.kb-article-title{font-size:14px;font-weight:500;color:var(--tx)}
+.kb-arrow{font-size:10px;color:var(--tx3);transition:transform .2s}
+.kb-article-body{display:none;padding:0 18px 16px;border-top:1px solid var(--bd)}
+.kb-article-body p{font-size:13px;color:var(--tx2);line-height:1.7;margin-top:10px}
+.kb-article-body ul{font-size:13px;color:var(--tx2);line-height:1.8}
+.kb-article-body b{color:var(--tx)}
+.kb-article.open .kb-article-body{display:block}
+.kb-article.open .kb-arrow{transform:rotate(180deg)}
+.kb-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.kb-useful{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--bd);font-size:12px;color:var(--tx3)}
+.kb-useful button{border:1px solid var(--bd);background:transparent;border-radius:var(--rs);padding:3px 10px;cursor:pointer;font-size:14px;transition:all .15s}
+.kb-useful button:hover{background:var(--beige);border-color:var(--bd2)}
+.kb-rate-txt{font-size:12px;color:var(--green);font-weight:500}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
@@ -606,6 +666,7 @@ textarea.form-input{resize:vertical;min-height:80px}
     <div class="nav-section">Главное</div>
     <div class="nav-item active" onclick="showPage('home')"><span class="ico">🏠</span>Лента новостей<span class="badge">5</span></div>
     <div class="nav-item" onclick="showPage('profile')"><span class="ico">👤</span>Мой профиль</div>
+    <div class="nav-item" onclick="showPage('tasks')"><span class="ico">✅</span>Задачи<span class="badge" id="tasks-badge" style="display:none">0</span></div>
     <div class="nav-item" onclick="showPage('company')"><span class="ico">🏢</span>Моя компания</div>
 
     <div class="nav-section">Команда</div>
@@ -622,6 +683,7 @@ textarea.form-input{resize:vertical;min-height:80px}
 
     <div class="nav-section">Компания</div>
     <div class="nav-item" onclick="showPage('events')"><span class="ico">📅</span>Мероприятия</div>
+    <div class="nav-item" onclick="showPage('rooms')"><span class="ico">🚪</span>Переговорные</div>
     <div class="nav-item" onclick="showPage('life')"><span class="ico">📸</span>TEL изнутри</div>
     <div class="nav-item" onclick="showPage('surveys')"><span class="ico">📊</span>Опросы КК</div>
 
@@ -648,12 +710,6 @@ textarea.form-input{resize:vertical;min-height:80px}
 <div class="main">
 <div class="topbar">
   <div class="topbar-title" id="topbar-title">Лента новостей</div>
-  <div class="topbar-actions">
-    <button class="tbtn" onclick="showPage('hr')">✍ Подать заявление</button>
-    <button class="notif-btn" onclick="showModal('notif-modal')">
-      🔔<span class="dot"></span>
-    </button>
-  </div>
 </div>
 
 <div class="content">
@@ -707,6 +763,14 @@ textarea.form-input{resize:vertical;min-height:80px}
             <button class="news-action">✅ Участвую (11)</button>
           </div>
         </div>
+        <div class="news-item" id="news-bday-block" style="display:none">
+          <div class="news-meta">
+            <div class="news-av" style="background:#FFE0E5">🎂</div>
+            <div><div class="news-author">HR-отдел · События справочника</div><div class="news-time">сегодня</div></div>
+            <div class="news-badge"><span class="chip chip-red">Дни рождения</span></div>
+          </div>
+          <div id="news-bday-content" style="font-size:13px;color:var(--tx);line-height:1.8"></div>
+        </div>
         <div class="news-item">
           <div class="news-meta">
             <div class="news-av" style="background:#FFE0E5">📢</div>
@@ -726,7 +790,7 @@ textarea.form-input{resize:vertical;min-height:80px}
     <div style="display:flex;flex-direction:column;gap:14px">
       <div class="card card-sm">
         <div class="sec-title" style="font-size:12px;margin-bottom:12px">Ближайшие события</div>
-        <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;flex-direction:column;gap:10px" id="sidebar-events">
           <div style="display:flex;gap:10px;align-items:center">
             <div style="width:36px;height:36px;background:var(--red-soft);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🏓</div>
             <div><div style="font-size:12px;font-weight:500;color:var(--tx)">Турнир по теннису</div><div style="font-size:11px;color:var(--tx3)">Пятница, 18:00</div></div>
@@ -739,6 +803,7 @@ textarea.form-input{resize:vertical;min-height:80px}
             <div style="width:36px;height:36px;background:#E0FFE8;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🚴</div>
             <div><div style="font-size:12px;font-weight:500;color:var(--tx)">Велопрогулка</div><div style="font-size:11px;color:var(--tx3)">Суббота, 09:00</div></div>
           </div>
+          <div id="sidebar-bday-events"></div>
         </div>
       </div>
 
@@ -1014,6 +1079,11 @@ textarea.form-input{resize:vertical;min-height:80px}
       <div style="font-size:28px;margin-bottom:10px">🚪</div>
       <div style="font-size:14px;font-weight:500;color:var(--tx);margin-bottom:4px">Заявление об увольнении</div>
       <div style="font-size:12px;color:var(--tx2)">Статья, дата, передача дел</div>
+    </div>
+    <div class="card card-pad" style="cursor:pointer" onclick="showModal('hr-modal','mathelp')">
+      <div style="font-size:28px;margin-bottom:10px">💛</div>
+      <div style="font-size:14px;font-weight:500;color:var(--tx);margin-bottom:4px">Заявление на материальную помощь</div>
+      <div style="font-size:12px;color:var(--tx2)">Основание, сумма, подтверждающие документы</div>
     </div>
   </div>
 </div>
@@ -1339,8 +1409,320 @@ textarea.form-input{resize:vertical;min-height:80px}
 <input type="file" accept="image/*" id="fupload" style="display:none" onchange="onUpload(event)">
 <datalist id="empnames"></datalist>
   </div>
-</div><div style="padding:20px;background:#fff;border-radius:var(--r);border:2px dashed var(--bd2);text-align:center;color:var(--tx3);font-size:14px">Здесь встроен модуль «Справочник сотрудников» (employee-portal.html)</div></div>
-<div class="page" id="page-rules"><div class="page-header"><h1>Правила и инструкции</h1></div><div class="empty"><div class="empty-icon">📖</div><p>10 обязательных статей в разработке</p><button class="btn btn-primary" style="margin-top:12px" onclick="showPage('docs-admin')">+ Добавить статью</button></div></div>
+</div>
+<div class="page" id="page-rules">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+    <div class="page-header" style="margin:0"><h1>Правила и инструкции</h1><p>База знаний для сотрудников</p></div>
+    <button class="btn btn-primary" onclick="showModal('add-article-modal')">+ Добавить статью</button>
+  </div>
+  <div style="display:grid;grid-template-columns:280px 1fr;gap:20px">
+    <div>
+      <div class="card card-pad" style="margin-bottom:12px">
+        <div style="position:relative;margin-bottom:12px">
+          <input class="form-input" id="kb-search" placeholder="Поиск по базе знаний…" oninput="kbSearch()" style="padding-left:34px;font-size:13px">
+          <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--tx3)">🔍</span>
+        </div>
+        <div class="sec-title" style="font-size:11px;margin-bottom:8px">Категории</div>
+        <div style="display:flex;flex-direction:column;gap:2px" id="kb-cats">
+          <div class="kb-cat active" onclick="kbFilter('all',this)" data-cat="all">📋 Все статьи <span class="kb-count">10</span></div>
+          <div class="kb-cat" onclick="kbFilter('hr',this)" data-cat="hr">👤 HR и персонал <span class="kb-count">4</span></div>
+          <div class="kb-cat" onclick="kbFilter('it',this)" data-cat="it">💻 IT и офис <span class="kb-count">3</span></div>
+          <div class="kb-cat" onclick="kbFilter('corp',this)" data-cat="corp">🏢 Корпоратив <span class="kb-count">3</span></div>
+        </div>
+        <div style="border-top:1px solid var(--bd);margin:12px 0"></div>
+        <div class="sec-title" style="font-size:11px;margin-bottom:8px">Популярные теги</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px">
+          <span class="chip chip-gray" style="cursor:pointer" onclick="kbTag('больничный')">больничный</span>
+          <span class="chip chip-gray" style="cursor:pointer" onclick="kbTag('паспорт')">паспорт</span>
+          <span class="chip chip-gray" style="cursor:pointer" onclick="kbTag('IT')">IT</span>
+          <span class="chip chip-gray" style="cursor:pointer" onclick="kbTag('дресс-код')">дресс-код</span>
+          <span class="chip chip-gray" style="cursor:pointer" onclick="kbTag('пропуск')">пропуск</span>
+          <span class="chip chip-gray" style="cursor:pointer" onclick="kbTag('обучение')">обучение</span>
+        </div>
+        <div style="border-top:1px solid var(--bd);margin:12px 0"></div>
+        <button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center" onclick="showModal('ask-hr-modal')">💬 Задать вопрос HR</button>
+      </div>
+    </div>
+    <div>
+      <div id="kb-articles">
+        <div class="kb-article" data-cat="hr" data-tags="больничный,больничный лист">
+          <div class="kb-article-header" onclick="kbToggle(this)">
+            <div class="kb-article-title">🤒 Что делать, если заболел</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-gray" style="font-size:10px">HR</span><span class="kb-arrow">▼</span></div>
+          </div>
+          <div class="kb-article-body">
+            <p>1. Сообщите своему руководителю о болезни до 9:00 (или как только сможете) — звонком или сообщением в Telegram.</p>
+            <p>2. В тот же день уведомите HR-отдел через форму на портале или письмом на <a href="mailto:hr@company.ru" style="color:var(--red)">hr@company.ru</a>.</p>
+            <p>3. Электронный больничный откроют в поликлинике. Закрытый больничный лист необходимо передать в HR в течение 5 рабочих дней после выхода.</p>
+            <p>4. При работе удалённо во время болезни — уточните у руководителя.</p>
+            <div class="kb-tags"><span class="chip chip-gray">больничный</span><span class="chip chip-gray">больничный лист</span><span class="chip chip-gray">HR</span></div>
+            <div class="kb-useful">Статья полезна? <button onclick="kbRate(this,1)">👍</button> <button onclick="kbRate(this,-1)">👎</button> <span class="kb-rate-txt"></span></div>
+          </div>
+        </div>
+        <div class="kb-article" data-cat="hr" data-tags="паспорт,документы,смена">
+          <div class="kb-article-header" onclick="kbToggle(this)">
+            <div class="kb-article-title">🪪 Смена паспорта</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-gray" style="font-size:10px">HR</span><span class="kb-arrow">▼</span></div>
+          </div>
+          <div class="kb-article-body">
+            <p>При смене паспорта необходимо в течение 5 рабочих дней уведомить HR и предоставить копии нового документа.</p>
+            <p><b>Что нужно предоставить:</b></p>
+            <ul style="margin-left:16px;margin-top:6px;line-height:1.8"><li>Копию разворота с фото</li><li>Копию страницы с пропиской</li><li>Заявление об изменении персональных данных (бланк в разделе «Бланки»)</li></ul>
+            <p style="margin-top:8px">HR внесёт изменения в трудовой договор и уведомит бухгалтерию.</p>
+            <div class="kb-tags"><span class="chip chip-gray">паспорт</span><span class="chip chip-gray">документы</span></div>
+            <div class="kb-useful">Статья полезна? <button onclick="kbRate(this,1)">👍</button> <button onclick="kbRate(this,-1)">👎</button> <span class="kb-rate-txt"></span></div>
+          </div>
+        </div>
+        <div class="kb-article" data-cat="hr" data-tags="прописка,адрес,регистрация">
+          <div class="kb-article-header" onclick="kbToggle(this)">
+            <div class="kb-article-title">🏠 Смена прописки / адреса</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-gray" style="font-size:10px">HR</span><span class="kb-arrow">▼</span></div>
+          </div>
+          <div class="kb-article-body">
+            <p>Об изменении адреса регистрации или фактического проживания необходимо сообщить в HR в течение 5 рабочих дней.</p>
+            <p>Заполните заявление «Изменение персональных данных» в разделе «Заявления» и приложите копию паспорта с новой пропиской.</p>
+            <div class="kb-tags"><span class="chip chip-gray">прописка</span><span class="chip chip-gray">адрес</span><span class="chip chip-gray">регистрация</span></div>
+            <div class="kb-useful">Статья полезна? <button onclick="kbRate(this,1)">👍</button> <button onclick="kbRate(this,-1)">👎</button> <span class="kb-rate-txt"></span></div>
+          </div>
+        </div>
+        <div class="kb-article" data-cat="corp" data-tags="локер,шкаф,хранение">
+          <div class="kb-article-header" onclick="kbToggle(this)">
+            <div class="kb-article-title">🗄 Пользование локерами</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-gray" style="font-size:10px">Офис</span><span class="kb-arrow">▼</span></div>
+          </div>
+          <div class="kb-article-body">
+            <p>Локеры расположены на каждом этаже у зоны отдыха. Для получения локера обратитесь к офис-менеджеру или отправьте заявку на <a href="mailto:office@company.ru" style="color:var(--red)">office@company.ru</a>.</p>
+            <p><b>Правила:</b> локер выдаётся на время работы в компании. Хранение продуктов питания запрещено. В конце рабочего дня локер должен быть закрыт.</p>
+            <div class="kb-tags"><span class="chip chip-gray">локер</span><span class="chip chip-gray">хранение</span></div>
+            <div class="kb-useful">Статья полезна? <button onclick="kbRate(this,1)">👍</button> <button onclick="kbRate(this,-1)">👎</button> <span class="kb-rate-txt"></span></div>
+          </div>
+        </div>
+        <div class="kb-article" data-cat="corp" data-tags="пропуск,доступ,турникет">
+          <div class="kb-article-header" onclick="kbToggle(this)">
+            <div class="kb-article-title">🔑 Оформление пропуска</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-gray" style="font-size:10px">Офис</span><span class="kb-arrow">▼</span></div>
+          </div>
+          <div class="kb-article-body">
+            <p>Пропуск оформляется в первый рабочий день через HR. Для этого принесите фото 3×4 (или оно будет сделано на месте).</p>
+            <p>Потеря пропуска — немедленно сообщите HR и службе безопасности. Дубликат изготавливается в течение 1 рабочего дня.</p>
+            <p>Гостевые пропуска оформляются заранее через офис-менеджера.</p>
+            <div class="kb-tags"><span class="chip chip-gray">пропуск</span><span class="chip chip-gray">доступ</span></div>
+            <div class="kb-useful">Статья полезна? <button onclick="kbRate(this,1)">👍</button> <button onclick="kbRate(this,-1)">👎</button> <span class="kb-rate-txt"></span></div>
+          </div>
+        </div>
+        <div class="kb-article" data-cat="corp" data-tags="транспорт,парковка,корпоративный">
+          <div class="kb-article-header" onclick="kbToggle(this)">
+            <div class="kb-article-title">🚗 Корпоративный транспорт / парковка</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-gray" style="font-size:10px">Офис</span><span class="kb-arrow">▼</span></div>
+          </div>
+          <div class="kb-article-body">
+            <p><b>Корпоративный транспорт:</b> маршруты от ст. м. Электрозаводская в 08:45 и 09:15. Расписание уточняйте у офис-менеджера.</p>
+            <p><b>Парковка:</b> места на парковке распределяются по заявкам. Приоритет — руководители и сотрудники с ограниченными возможностями. Заявка — через HR.</p>
+            <div class="kb-tags"><span class="chip chip-gray">транспорт</span><span class="chip chip-gray">парковка</span></div>
+            <div class="kb-useful">Статья полезна? <button onclick="kbRate(this,1)">👍</button> <button onclick="kbRate(this,-1)">👎</button> <span class="kb-rate-txt"></span></div>
+          </div>
+        </div>
+        <div class="kb-article" data-cat="it" data-tags="IT,поддержка,техника,компьютер">
+          <div class="kb-article-header" onclick="kbToggle(this)">
+            <div class="kb-article-title">💻 IT-поддержка</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-gray" style="font-size:10px">IT</span><span class="kb-arrow">▼</span></div>
+          </div>
+          <div class="kb-article-body">
+            <p><b>Для обращения в IT:</b> Telegram @tel_it_support или email <a href="mailto:it@company.ru" style="color:var(--red)">it@company.ru</a>. Время ответа: до 2 часов в рабочее время.</p>
+            <p><b>Срочные проблемы</b> (не работает ПК, нет доступа к системам): звонок +7 (495) 000-00-01.</p>
+            <p><b>Заявки:</b> на новое оборудование, программное обеспечение — через бланк «Заявка на IT-оборудование» в разделе «Бланки».</p>
+            <div class="kb-tags"><span class="chip chip-gray">IT</span><span class="chip chip-gray">поддержка</span><span class="chip chip-gray">техника</span></div>
+            <div class="kb-useful">Статья полезна? <button onclick="kbRate(this,1)">👍</button> <button onclick="kbRate(this,-1)">👎</button> <span class="kb-rate-txt"></span></div>
+          </div>
+        </div>
+        <div class="kb-article" data-cat="it" data-tags="дресс-код,одежда,внешний вид">
+          <div class="kb-article-header" onclick="kbToggle(this)">
+            <div class="kb-article-title">👔 Дресс-код</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-gray" style="font-size:10px">Корпоратив</span><span class="kb-arrow">▼</span></div>
+          </div>
+          <div class="kb-article-body">
+            <p>В компании принят стиль <b>smart casual</b>. Деловая одежда обязательна при встречах с клиентами и партнёрами.</p>
+            <p>Пятница — «casual friday»: допустима более свободная одежда, включая джинсы и кроссовки.</p>
+            <p>Не допускается: откровенная одежда, спортивные шорты, одежда с агрессивными принтами.</div>
+            <div class="kb-tags"><span class="chip chip-gray">дресс-код</span><span class="chip chip-gray">одежда</span></div>
+            <div class="kb-useful">Статья полезна? <button onclick="kbRate(this,1)">👍</button> <button onclick="kbRate(this,-1)">👎</button> <span class="kb-rate-txt"></span></div>
+          </div>
+        </div>
+        <div class="kb-article" data-cat="hr" data-tags="обучение,развитие,курсы,карьера">
+          <div class="kb-article-header" onclick="kbToggle(this)">
+            <div class="kb-article-title">🎓 Обучение и развитие</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-gray" style="font-size:10px">HR</span><span class="kb-arrow">▼</span></div>
+          </div>
+          <div class="kb-article-body">
+            <p><b>Внутреннее обучение:</b> тренинги и вебинары публикуются в разделе «Обучение». Запись через портал.</p>
+            <p><b>Внешнее обучение:</b> компания компенсирует до 30 000 ₽ в год на курсы, связанные с профессиональной деятельностью. Необходимо согласование с руководителем и HR. Бланк заявления — в разделе «Заявления».</p>
+            <p><b>Обязательное обучение:</b> охрана труда, пожарная безопасность — раз в год. Следите за дедлайнами в разделе «Мой профиль».</p>
+            <div class="kb-tags"><span class="chip chip-gray">обучение</span><span class="chip chip-gray">развитие</span><span class="chip chip-gray">курсы</span></div>
+            <div class="kb-useful">Статья полезна? <button onclick="kbRate(this,1)">👍</button> <button onclick="kbRate(this,-1)">👎</button> <span class="kb-rate-txt"></span></div>
+          </div>
+        </div>
+        <div class="kb-article" data-cat="it" data-tags="VPN,удалённая работа,доступ">
+          <div class="kb-article-header" onclick="kbToggle(this)">
+            <div class="kb-article-title">🔐 Удалённый доступ / VPN</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-gray" style="font-size:10px">IT</span><span class="kb-arrow">▼</span></div>
+          </div>
+          <div class="kb-article-body">
+            <p>Для подключения к корпоративным системам вне офиса используйте VPN-клиент (Cisco AnyConnect). Инструкция по настройке — в разделе IT-поддержка или у сотрудников IT-отдела.</p>
+            <div class="kb-tags"><span class="chip chip-gray">VPN</span><span class="chip chip-gray">удалённая работа</span></div>
+            <div class="kb-useful">Статья полезна? <button onclick="kbRate(this,1)">👍</button> <button onclick="kbRate(this,-1)">👎</button> <span class="kb-rate-txt"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MEETING ROOMS ──────────────────────────────────────── -->
+<div class="page" id="page-rooms">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+    <div class="page-header" style="margin:0"><h1>Переговорные</h1><p>Бронирование переговорных комнат</p></div>
+    <button class="btn btn-primary" onclick="showModal('book-room-modal')">+ Забронировать</button>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:20px">
+    <div>
+      <div class="card card-pad" style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+          <div class="sec-title" style="margin:0">Сегодня, <span id="rooms-date"></span></div>
+          <div style="display:flex;gap:6px;margin-left:auto;flex-wrap:wrap">
+            <select class="form-input form-select" style="width:160px;font-size:12px;padding:6px 10px" onchange="filterRooms(this.value)">
+              <option value="all">Все офисы</option>
+              <option value="mik">Микояна</option>
+              <option value="elz">Электрозаводская</option>
+              <option value="kgr">Красногорск</option>
+              <option value="eli">Элиста</option>
+            </select>
+            <input type="date" class="form-input" style="width:150px;font-size:12px;padding:6px 10px" id="rooms-datepicker">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:80px repeat(8,1fr);gap:0;border:1px solid var(--bd);border-radius:var(--rs);overflow:hidden;font-size:11px">
+          <div style="background:var(--beige2);padding:8px 6px;font-weight:600;color:var(--tx3);border-right:1px solid var(--bd)">Переговорная</div>
+          <div style="background:var(--beige2);padding:8px 4px;text-align:center;color:var(--tx3);border-right:1px solid var(--bd)">09:00</div>
+          <div style="background:var(--beige2);padding:8px 4px;text-align:center;color:var(--tx3);border-right:1px solid var(--bd)">10:00</div>
+          <div style="background:var(--beige2);padding:8px 4px;text-align:center;color:var(--tx3);border-right:1px solid var(--bd)">11:00</div>
+          <div style="background:var(--beige2);padding:8px 4px;text-align:center;color:var(--tx3);border-right:1px solid var(--bd)">12:00</div>
+          <div style="background:var(--beige2);padding:8px 4px;text-align:center;color:var(--tx3);border-right:1px solid var(--bd)">13:00</div>
+          <div style="background:var(--beige2);padding:8px 4px;text-align:center;color:var(--tx3);border-right:1px solid var(--bd)">14:00</div>
+          <div style="background:var(--beige2);padding:8px 4px;text-align:center;color:var(--tx3);border-right:1px solid var(--bd)">15:00</div>
+          <div style="background:var(--beige2);padding:8px 4px;text-align:center;color:var(--tx3)">16:00</div>
+
+          <div style="padding:10px 6px;border-top:1px solid var(--bd);border-right:1px solid var(--bd);font-weight:500;color:var(--tx);display:flex;align-items:center;gap:4px"><span>🏢</span>Альфа</div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd);background:#FCE8E8;padding:4px;cursor:pointer" title="Алексей Козлов · Планёрка"><div style="font-size:9px;color:#8B2020;font-weight:500">Планёрка</div><div style="font-size:9px;color:#8B2020">10:00–11:30</div></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd);background:#FCE8E8;padding:4px"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd);background:#E0F0FF;padding:4px;cursor:pointer" title="Мария Иванова · Встреча с клиентом"><div style="font-size:9px;color:#0050BE;font-weight:500">Встреча</div><div style="font-size:9px;color:#0050BE">15:00–16:00</div></div>
+          <div style="border-top:1px solid var(--bd)"></div>
+
+          <div style="padding:10px 6px;border-top:1px solid var(--bd);border-right:1px solid var(--bd);font-weight:500;color:var(--tx);display:flex;align-items:center;gap:4px"><span>🏢</span>Бета</div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd);background:#E0FFE8;padding:4px;cursor:pointer;grid-column:span 2" title="Вы · Разбор задач"><div style="font-size:9px;color:#006B23;font-weight:500">Разбор задач</div><div style="font-size:9px;color:#006B23">11:00–13:00</div></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd)"></div>
+
+          <div style="padding:10px 6px;border-top:1px solid var(--bd);border-right:1px solid var(--bd);font-weight:500;color:var(--tx);display:flex;align-items:center;gap:4px"><span>🏢</span>Гамма</div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd);background:#FCE8E8;padding:4px;cursor:pointer;grid-column:span 2"><div style="font-size:9px;color:#8B2020;font-weight:500">Интервью</div><div style="font-size:9px;color:#8B2020">09:00–11:00</div></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd)"></div>
+
+          <div style="padding:10px 6px;border-top:1px solid var(--bd);border-right:1px solid var(--bd);font-weight:500;color:var(--tx);display:flex;align-items:center;gap:4px"><span>🏢</span>Дельта</div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd)"></div>
+          <div style="border-top:1px solid var(--bd);border-right:1px solid var(--bd);background:#E0F0FF;padding:4px;cursor:pointer;grid-column:span 3"><div style="font-size:9px;color:#0050BE;font-weight:500">Тренинг по продажам</div><div style="font-size:9px;color:#0050BE">13:00–16:00</div></div>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx2)"><div style="width:12px;height:12px;border-radius:3px;background:#FCE8E8"></div>Занято</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx2)"><div style="width:12px;height:12px;border-radius:3px;background:#E0FFE8"></div>Ваша бронь</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx2)"><div style="width:12px;height:12px;border-radius:3px;background:#E0F0FF"></div>Другие</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx2)"><div style="width:12px;height:12px;border-radius:3px;border:1px solid var(--bd)"></div>Свободно — нажмите для брони</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card card-pad">
+        <div class="sec-title" style="margin-bottom:12px">Мои брони</div>
+        <div class="doc-item" style="padding:8px 0">
+          <div style="width:34px;height:34px;background:#E0FFE8;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🏢</div>
+          <div class="doc-info"><div class="doc-name" style="font-size:12px">Бета · сегодня 11:00–13:00</div><div class="doc-meta">Разбор задач · 4 участника</div></div>
+          <button class="doc-btn danger" style="font-size:10px">Отмена</button>
+        </div>
+        <button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;margin-top:8px" onclick="showModal('book-room-modal')">+ Новая бронь</button>
+      </div>
+      <div class="card card-pad">
+        <div class="sec-title" style="margin-bottom:12px">Переговорные комнаты</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="padding:8px 10px;background:var(--beige);border-radius:var(--rs);border:1px solid var(--bd)">
+            <div style="font-size:12px;font-weight:500;color:var(--tx)">Альфа</div>
+            <div style="font-size:11px;color:var(--tx3)">8 чел. · проектор · ТВ · доска</div>
+            <div style="font-size:11px;color:var(--tx3)">Микояна, 3 этаж</div>
+          </div>
+          <div style="padding:8px 10px;background:var(--beige);border-radius:var(--rs);border:1px solid var(--bd)">
+            <div style="font-size:12px;font-weight:500;color:var(--tx)">Бета</div>
+            <div style="font-size:11px;color:var(--tx3)">4 чел. · ТВ</div>
+            <div style="font-size:11px;color:var(--tx3)">Микояна, 2 этаж</div>
+          </div>
+          <div style="padding:8px 10px;background:var(--beige);border-radius:var(--rs);border:1px solid var(--bd)">
+            <div style="font-size:12px;font-weight:500;color:var(--tx)">Гамма</div>
+            <div style="font-size:11px;color:var(--tx3)">6 чел. · проектор · видеосвязь</div>
+            <div style="font-size:11px;color:var(--tx3)">Электрозаводская, 1 этаж</div>
+          </div>
+          <div style="padding:8px 10px;background:var(--beige);border-radius:var(--rs);border:1px solid var(--bd)">
+            <div style="font-size:12px;font-weight:500;color:var(--tx)">Дельта</div>
+            <div style="font-size:11px;color:var(--tx3)">12 чел. · проектор · доска · кухня</div>
+            <div style="font-size:11px;color:var(--tx3)">Электрозаводская, 3 этаж</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-tasks">
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:20px">
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div class="page-header" style="margin:0"><h1>Задачи</h1></div>
+        <button class="btn btn-primary" onclick="openNewTask()">+ Новая задача</button>
+      </div>
+      <div class="task-filters">
+        <button class="tf active" onclick="filterTasks('all',this)">Все</button>
+        <button class="tf" onclick="filterTasks('mine',this)">Мои задачи</button>
+        <button class="tf" onclick="filterTasks('assigned',this)">Поставил другим</button>
+        <button class="tf" onclick="filterTasks('watching',this)">Наблюдаю</button>
+        <button class="tf" onclick="filterTasks('done',this)">Завершённые</button>
+      </div>
+      <div id="tasks-list"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card card-pad">
+        <div class="sec-title" style="margin-bottom:12px">Статистика</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="background:var(--beige);border-radius:var(--rs);padding:12px;text-align:center"><div style="font-family:'Unbounded',sans-serif;font-size:22px;font-weight:300;color:var(--red)" id="stat-active">0</div><div style="font-size:11px;color:var(--tx3)">активных</div></div>
+          <div style="background:var(--beige);border-radius:var(--rs);padding:12px;text-align:center"><div style="font-family:'Unbounded',sans-serif;font-size:22px;font-weight:300;color:#2D6A4F" id="stat-done">0</div><div style="font-size:11px;color:var(--tx3)">завершено</div></div>
+          <div style="background:var(--beige);border-radius:var(--rs);padding:12px;text-align:center"><div style="font-family:'Unbounded',sans-serif;font-size:22px;font-weight:300;color:#E4A030" id="stat-overdue">0</div><div style="font-size:11px;color:var(--tx3)">просрочено</div></div>
+          <div style="background:var(--beige);border-radius:var(--rs);padding:12px;text-align:center"><div style="font-family:'Unbounded',sans-serif;font-size:22px;font-weight:300;color:var(--tx2)" id="stat-watching">0</div><div style="font-size:11px;color:var(--tx3)">наблюдаю</div></div>
+        </div>
+      </div>
+      <div class="card card-pad" id="task-notify-block">
+        <div class="sec-title" style="margin-bottom:10px">Уведомления по задачам</div>
+        <div id="task-notifs" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="page" id="page-learning"><div class="page-header"><h1>Обучение</h1></div><div class="empty"><div class="empty-icon">🎓</div><p>Каталог обучающих программ</p><button class="btn btn-primary" style="margin-top:12px" onclick="showPage('docs-admin')">+ Добавить курс</button></div></div>
 <div class="page" id="page-review"><div class="page-header"><h1>Performance Review</h1></div>
   <div class="grid2">
@@ -1356,9 +1738,208 @@ textarea.form-input{resize:vertical;min-height:80px}
 <div class="page" id="page-events"><div class="page-header"><h1>Мероприятия</h1></div><div class="grid3"><div class="card card-pad" style="cursor:pointer"><div style="background:var(--red-soft);border-radius:var(--rs);height:80px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px">🏓</div><div style="font-size:14px;font-weight:500;color:var(--tx);margin-bottom:4px">Турнир по теннису</div><div style="font-size:12px;color:var(--tx3);margin-bottom:10px">Пятница 16 мая · 18:00 · офис</div><button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">Зарегистрироваться</button></div><div class="card card-pad" style="cursor:pointer"><div style="background:#E0F0FF;border-radius:var(--rs);height:80px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px">🎓</div><div style="font-size:14px;font-weight:500;color:var(--tx);margin-bottom:4px">Тренинг по продажам</div><div style="font-size:12px;color:var(--tx3);margin-bottom:10px">Пн 19 мая · 10:00 · Zoom</div><button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center">✓ Зарегистрирован</button></div></div></div>
 <div class="page" id="page-life"><div class="page-header"><h1>TEL изнутри</h1></div><div class="grid3"><div class="card" style="overflow:hidden;cursor:pointer"><div style="height:140px;background:linear-gradient(135deg,var(--dark),var(--dark2));display:flex;align-items:center;justify-content:center;font-size:48px">🎉</div><div class="card-sm"><div style="font-size:13px;font-weight:500;color:var(--tx)">Корпоратив «Зима 2024»</div><div style="font-size:11px;color:var(--tx3)">48 фото · декабрь 2024</div></div></div><div class="card" style="overflow:hidden;cursor:pointer"><div style="height:140px;background:linear-gradient(135deg,#2D3060,#1A1835);display:flex;align-items:center;justify-content:center;font-size:48px">🏃</div><div class="card-sm"><div style="font-size:13px;font-weight:500;color:var(--tx)">Корпоративный забег</div><div style="font-size:11px;color:var(--tx3)">32 фото · октябрь 2024</div></div></div></div></div>
 <div class="page" id="page-surveys"><div class="page-header"><h1>Опросы КК</h1></div><div class="empty"><div class="empty-icon">📊</div><p>Активных опросов нет</p><button class="btn btn-primary" style="margin-top:12px">+ Создать опрос</button></div></div>
-<div class="page" id="page-sales"><div class="page-header"><h1>Отдел продаж</h1></div><div style="padding:20px;background:#fff;border-radius:var(--r);border-left:4px solid var(--red)"><div style="font-size:14px;font-weight:500;color:var(--tx);margin-bottom:4px">🔒 Закрытый раздел</div><div style="font-size:13px;color:var(--tx2)">Доступ только для сотрудников отдела продаж и руководства</div></div></div>
-<div class="page" id="page-subscribers"><div class="page-header"><h1>Абонентский отдел</h1></div><div class="empty"><div class="empty-icon">📞</div><p>Принципы работы с клиентами</p></div></div>
-<div class="page" id="page-backoffice"><div class="page-header"><h1>Бэк-офис</h1></div><div class="empty"><div class="empty-icon">🎧</div><p>Стандарты телефонного обслуживания</p></div></div>
+<div class="page" id="page-sales">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+    <div class="page-header" style="margin:0"><h1>Отдел продаж</h1><p>База знаний и материалы для менеджеров TEL</p></div>
+    <span class="chip chip-red">🔒 Доступ: Продажи + Руководство</span>
+  </div>
+  <div class="tabs" id="sales-tabs">
+    <button class="tab active" onclick="salesTab('utp',this)">💡 УТП и аргументация</button>
+    <button class="tab" onclick="salesTab('kp',this)">📄 Коммерческие предложения</button>
+    <button class="tab" onclick="salesTab('contracts',this)">📋 Договоры</button>
+  </div>
+
+  <div id="sales-utp">
+    <div class="card card-pad" style="margin-bottom:16px;border-left:4px solid var(--red)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+        <div><div class="sec-title" style="margin:0">Почему выгодно работать со средними операторами</div><div style="font-size:12px;color:var(--tx3);margin-top:4px">Актуально · <span class="ver-badge">v3.2</span> · Обновлено маркетингом 10.05.2025</div></div>
+        <button class="btn btn-ghost btn-sm">⬇ DOCX</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px">
+        <div style="background:var(--red-soft);border-radius:var(--rs);padding:14px">
+          <div style="font-size:11px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Проблема клиента</div>
+          <div style="font-size:12px;color:var(--tx2)">Крупные операторы — медленная реакция, длинные очереди, стандартные решения без гибкости</div>
+        </div>
+        <div style="background:#E0F0FF;border-radius:var(--rs);padding:14px">
+          <div style="font-size:11px;font-weight:600;color:#0050BE;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Наше решение</div>
+          <div style="font-size:12px;color:var(--tx2)">Персональный менеджер, SLA 4 часа, индивидуальные тарифы от 500 абонентов, API-интеграции</div>
+        </div>
+        <div style="background:#E0FFE8;border-radius:var(--rs);padding:14px">
+          <div style="font-size:11px;font-weight:600;color:#006B23;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Выгода в цифрах</div>
+          <div style="font-size:12px;color:var(--tx2)">Экономия 18–32% vs крупные операторы · Подключение за 3 дня vs 2–3 недели</div>
+        </div>
+      </div>
+      <div style="background:var(--beige);border-radius:var(--rs);padding:12px">
+        <div style="font-size:11px;font-weight:600;color:var(--tx);margin-bottom:6px">Ключевые аргументы</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:12px;color:var(--tx2)">✓ Отклик персонального менеджера — в течение 15 минут в рабочее время</div>
+          <div style="font-size:12px;color:var(--tx2)">✓ Гарантированный SLA на технические проблемы — 4 часа (у крупных: 24–72 ч)</div>
+          <div style="font-size:12px;color:var(--tx2)">✓ Тарифы формируются под клиента, а не под продукт</div>
+          <div style="font-size:12px;color:var(--tx2)">✓ Масштабируемость: от 50 до 50 000 абонентов без смены оператора</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sales-kp" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div class="sec-title" style="margin:0">Библиотека шаблонов КП</div>
+      <button class="btn btn-primary btn-sm" onclick="showModal('kp-gen-modal')">✨ Заполнить онлайн</button>
+    </div>
+    <div class="card card-pad">
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">КП — Корпоративный клиент (базовый)</div><div class="doc-meta">Продажи · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ актуальная v2.1</span> · 01.05.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">DOCX</button><button class="doc-btn">PDF</button><button class="doc-btn" onclick="showModal('kp-gen-modal')">Заполнить ✨</button></div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">КП — Агентский договор (партнёры)</div><div class="doc-meta">Продажи · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ актуальная v1.4</span> · 12.04.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">DOCX</button><button class="doc-btn">PDF</button><button class="doc-btn" onclick="showModal('kp-gen-modal')">Заполнить ✨</button></div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">КП — SMB-сегмент</div><div class="doc-meta">Продажи · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ актуальная v1.0</span> · 05.05.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">DOCX</button><button class="doc-btn">PDF</button><button class="doc-btn" onclick="showModal('kp-gen-modal')">Заполнить ✨</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sales-contracts" style="display:none">
+    <div style="background:#FEF3DC;border-radius:var(--rs);padding:12px 16px;margin-bottom:16px;border-left:3px solid #E4A030;font-size:13px;color:#7C4A00">
+      ⚠ Используйте только документы с пометкой «актуальная версия». При сомнениях — обратитесь в юридический отдел.
+    </div>
+    <div class="card card-pad">
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">Договор оказания услуг связи</div><div class="doc-meta">Юр. отдел · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ актуальная v4.0</span> · 01.01.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn" onclick="confirmDownload('Договор оказания услуг связи')">DOCX + подтверждение</button></div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">Агентский договор</div><div class="doc-meta">Юр. отдел · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ актуальная v2.1</span> · 15.03.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn" onclick="confirmDownload('Агентский договор')">DOCX + подтверждение</button></div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">Партнёрский договор</div><div class="doc-meta">Юр. отдел · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ актуальная v1.3</span> · 10.02.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn" onclick="confirmDownload('Партнёрский договор')">DOCX + подтверждение</button></div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">Дополнительное соглашение (типовое)</div><div class="doc-meta">Юр. отдел · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ актуальная v1.0</span> · 01.04.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn" onclick="confirmDownload('Дополнительное соглашение')">DOCX + подтверждение</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-subscribers">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+    <div class="page-header" style="margin:0"><h1>Абонентский отдел</h1><p>Принципы работы с клиентами и партнёрами</p></div>
+    <span class="chip chip-blue">🔒 Доступ: Абонентский + HR</span>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="subsTab('principles',this)">📖 Принципы работы</button>
+    <button class="tab" onclick="subsTab('checklists',this)">✅ Чек-листы</button>
+    <button class="tab" onclick="subsTab('matrix',this)">📞 Контактная матрица</button>
+  </div>
+
+  <div id="subs-principles">
+    <div class="card card-pad" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div><div class="sec-title" style="margin:0">Принципы работы с клиентами и партнёрами TEL</div><div style="font-size:12px;color:var(--tx3);margin-top:2px"><span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ актуальный v2.0</span> · Обновлён 01.03.2025</div></div>
+        <button class="btn btn-ghost btn-sm">⬇ PDF</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="background:var(--beige);border-radius:var(--rs);padding:14px;border-left:3px solid var(--red)">
+          <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:6px">Стандарты сервиса</div>
+          <div style="font-size:12px;color:var(--tx2);line-height:1.7">
+            • Первый ответ клиенту — не позднее 15 минут в рабочее время (09:00–18:00)<br>
+            • Tone of voice: профессиональный, доброжелательный, без сленга<br>
+            • Имя клиента используется в каждом третьем предложении<br>
+            • Закрытие обращения — только с подтверждением от клиента
+          </div>
+        </div>
+        <div style="background:var(--beige);border-radius:var(--rs);padding:14px;border-left:3px solid #E4A030">
+          <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:6px">Tone of Voice</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="background:#E0FFE8;border-radius:6px;padding:8px"><div style="font-size:10px;font-weight:600;color:#006B23;margin-bottom:4px">✓ Говорим</div><div style="font-size:11px;color:var(--tx2)">«Я помогу решить этот вопрос»<br>«Уточню информацию и отвечу в течение...»</div></div>
+            <div style="background:#FCE8E8;border-radius:6px;padding:8px"><div style="font-size:10px;font-weight:600;color:#8B2020;margin-bottom:4px">✗ Не говорим</div><div style="font-size:11px;color:var(--tx2)">«Это не моя зона ответственности»<br>«Вы должны были...»</div></div>
+          </div>
+        </div>
+        <div style="background:var(--beige);border-radius:var(--rs);padding:14px;border-left:3px solid #5E4A8B">
+          <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:6px">Эскалация проблем</div>
+          <div style="font-size:12px;color:var(--tx2);line-height:1.7">
+            <b>Уровень 1</b> (решает абонентский отдел, до 2 ч): технические вопросы, счета, изменение тарифа<br>
+            <b>Уровень 2</b> (руководитель АО, до 4 ч): рекламации, возвраты, сложные технические сбои<br>
+            <b>Уровень 3</b> (директор / юр. отдел, до 24 ч): юридические претензии, VIP-клиенты
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="subs-checklists" style="display:none">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div class="card card-pad">
+        <div style="font-size:18px;margin-bottom:10px">🔌</div>
+        <div class="sec-title">Подключение нового клиента</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Проверить наличие технической возможности</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Согласовать тарифный план</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Направить договор на подпись</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Передать заявку в технический отдел</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Подтвердить подключение с клиентом</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Занести в CRM</label>
+        </div>
+      </div>
+      <div class="card card-pad">
+        <div style="font-size:18px;margin-bottom:10px">⚠️</div>
+        <div class="sec-title">Рекламация</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Зафиксировать суть претензии</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Присвоить номер обращения</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Уведомить руководителя если уровень 2+</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Подготовить ответ в течение 4 часов</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Получить подтверждение закрытия</label>
+        </div>
+      </div>
+      <div class="card card-pad">
+        <div style="font-size:18px;margin-bottom:10px">🔄</div>
+        <div class="sec-title">Пролонгация договора</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Связаться с клиентом за 30 дней до окончания</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Предложить актуальные тарифы</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Согласовать условия пролонгации</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Направить доп. соглашение</label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tx2);cursor:pointer"><input type="checkbox" style="margin-top:2px"> Обновить данные в CRM</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="subs-matrix" style="display:none">
+    <div class="card card-pad">
+      <div class="sec-title" style="margin-bottom:14px">Кто в компании решает какие вопросы клиента</div>
+      <div class="tbl" style="overflow-x:auto">
+        <table class="tbl" style="min-width:600px">
+          <thead><tr><th>Ситуация</th><th>Ответственный</th><th>Контакт</th><th>Срок</th></tr></thead>
+          <tbody>
+            <tr><td>Технический сбой</td><td>IT-поддержка</td><td>@tel_it_support · вн. 201</td><td>4 ч</td></tr>
+            <tr><td>Вопросы по счёту / оплате</td><td>Бухгалтерия</td><td>buh@company.ru · вн. 302</td><td>1 р. день</td></tr>
+            <tr><td>Изменение тарифа</td><td>Абонентский отдел</td><td>ab@company.ru</td><td>2 ч</td></tr>
+            <tr><td>Юридический вопрос / претензия</td><td>Юридический отдел</td><td>law@company.ru · вн. 401</td><td>24 ч</td></tr>
+            <tr><td>VIP-клиент / крупная сделка</td><td>Директор по продажам</td><td>direct line</td><td>1 ч</td></tr>
+            <tr><td>Подключение нового сервиса</td><td>Менеджер по продажам</td><td>sales@company.ru</td><td>1 р. день</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-backoffice"><div class="page-header"><h1>Бэк-офис</h1></div><div class="empty"><div class="empty-icon">🎧</div><p>Стандарты телефонного обслуживания</p><button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="showPage('docs-admin')">+ Добавить материал</button></div></div>
 
 </div><!-- /content -->
 </div><!-- /main -->
@@ -1846,7 +2427,7 @@ function cardH(e){
   if(e.absence){
     var isV=e.absence.type==='vacation';
     var subs=getSubs(e);
-    return '<div class="card-abs card-abs-'+(isV?'vac':'sick')+'" onclick="openModal('+e.id+')">'+
+    return '<div class="card-abs card-abs-'+(isV?'vac':'sick')+'" onclick="epOpenModal('+e.id+')">'+
       '<div class="ach ach-'+(isV?'vac':'sick')+'">'+
         '<span class="ach-ico">'+(isV?'✈':'🤒')+'</span>'+
         '<div><div class="ach-lbl">'+(isV?'В отпуске':'На больничном')+'</div>'+
@@ -1864,7 +2445,7 @@ function cardH(e){
   var ecls='';
   if(ev.jd&&ev.jw)ecls='evboth';else if(ev.jd)ecls='evjd';else if(ev.jw)ecls='evjw';else if(ev.bs)ecls='evbday';
   var inch=inOff(e)?'<span class="chip chin">в офисе</span>':'';
-  return '<div class="card'+(ecls?' '+ecls:'')+'" onclick="openModal('+e.id+')">'+
+  return '<div class="card'+(ecls?' '+ecls:'')+'" onclick="epOpenModal('+e.id+')">'+
     '<div class="crib">'+rbs+'</div>'+
     avH(e,44,15)+
     '<div class="cn">'+e.name+'</div>'+
@@ -1992,21 +2573,21 @@ function switchTab(name){
 }
 
 // ─── MODAL ────────────────────────────────────────────────────────────────
-function openModal(id){mTab='info';renderModal(id);epId('ov').classList.add('on');document.body.style.overflow='hidden'}
-function closeModal(){epId('ov').classList.remove('on');document.body.style.overflow=''}
-function ovClick(e){if(e.target===epId('ov'))closeModal()}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()})
+function epOpenModal(id){mTab='info';renderModal(id);epId('ov').classList.add('on');document.body.style.overflow='hidden'}
+function epCloseModal(){epId('ov').classList.remove('on');document.body.style.overflow=''}
+function ovClick(e){if(e.target===epId('ov'))epCloseModal()}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')epCloseModal()})
 
 function mgrLink(name){
   if(!name||name==='—')return name||'—';
   var me=empByName(name);
   if(!me)return name;
-  return '<a class="alink" href="#" onclick="event.preventDefault();closeModal();setTimeout(function(){openModal('+me.id+')},60)">'+name+'</a>';
+  return '<a class="alink" href="#" onclick="event.preventDefault();epCloseModal();setTimeout(function(){epOpenModal('+me.id+')},60)">'+name+'</a>';
 }
 function subLink(name){
   var me=empByName(name);
   if(!me)return '<span>'+name+'</span>';
-  return '<a class="alink" href="#" onclick="event.preventDefault();closeModal();setTimeout(function(){openModal('+me.id+')},60)">'+name+'</a>';
+  return '<a class="alink" href="#" onclick="event.preventDefault();epCloseModal();setTimeout(function(){epOpenModal('+me.id+')},60)">'+name+'</a>';
 }
 
 function renderModal(id){
@@ -2060,7 +2641,7 @@ function renderModal(id){
   var y=yAt(e.joined);
 
   epId('mi').innerHTML=
-    '<button class="xbtn" onclick="closeModal()">✕</button>'+
+    '<button class="xbtn" onclick="epCloseModal()">✕</button>'+
     '<div class="mh">'+
       '<div class="mav-w"><div class="mav" style="background:'+cc[0]+'" onclick="trigUp('+e.id+')">'+avIn+'<div class="mav-hint">Изменить<br>фото</div></div>'+mavDot+'</div>'+
       '<div style="min-width:0"><div class="mn">'+e.name+'</div><div class="mrole">'+e.role+'</div>'+
@@ -2255,26 +2836,604 @@ function drawChart(svgId,data,color,unit){
 function renderCharts(){
   if(chartsDrawn)return;chartsDrawn=true;
   var tot=EMP.length,avg=EMP.reduce(function(s,e){return s+yAt(e.joined)},0)/tot;
-  epId('an-total').textContent=tot;
-  epId('an-avg').textContent=avg.toFixed(1);
+  var anT=epId('an-total'),anA=epId('an-avg');
+  if(anT)anT.textContent=tot;
+  if(anA)anA.textContent=avg.toFixed(1);
   setTimeout(function(){drawChart('svg-hc',HC,'#2D6A4F',' чел.');drawChart('svg-age',AG,'#5E4A8B',' лет');drawChart('svg-tenure',TN,'#C17435',' лет')},50);
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────
 try{
-  epId('hdr-r').textContent=new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+  var hdrR=epId('hdr-r');
+  if(hdrR)hdrR.textContent=new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
   buildF();renderAll();
   var tot=EMP.length,avg=EMP.reduce(function(s,e){return s+yAt(e.joined)},0)/tot;
-  epId('an-total').textContent=tot;
-  epId('an-avg').textContent=avg.toFixed(1);
+  var anT=epId('an-total'),anA=epId('an-avg');
+  if(anT)anT.textContent=tot;
+  if(anA)anA.textContent=avg.toFixed(1);
+  // Expose EMP globally so TEL portal can use it
+  window.TEL_EMP=EMP;
+  // Inject birthday events into news feed now that EMP is ready
+  if(typeof injectBdayNews==='function')injectBdayNews();
 }catch(err){
   console.error('Init:',err);
-  epId('content').innerHTML='<div class="empty">Ошибка: '+err.message+'</div>';
+  var ec=epId('content');
+  if(ec)ec.innerHTML='<div class="empty">Ошибка: '+err.message+'</div>';
 }
 
 })();
 // ═══════ END EMPLOYEE PORTAL ═══════════════════════════════════════
 
+// ── NEW PAGE NAMES ────────────────────────────────────────
+pageNames['rooms']='Переговорные';
+pageNames['rules']='Правила и инструкции';
+pageNames['sales']='Отдел продаж';
+pageNames['subscribers']='Абонентский отдел';
+
+// ── ROOMS ─────────────────────────────────────────────────
+(function(){
+  var d=document.getElementById('rooms-date');
+  if(d)d.textContent=new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+  var dp=document.getElementById('rooms-datepicker');
+  if(dp){var n=new Date();dp.value=n.toISOString().slice(0,10);}
+})();
+function filterRooms(v){/* placeholder */}
+
+// ── KNOWLEDGE BASE ────────────────────────────────────────
+function kbToggle(header){
+  var art=header.parentElement;
+  art.classList.toggle('open');
+}
+function kbSearch(){
+  var q=document.getElementById('kb-search').value.toLowerCase().trim();
+  document.querySelectorAll('.kb-article').forEach(function(a){
+    var txt=a.textContent.toLowerCase();
+    a.classList.toggle('hidden',q&&txt.indexOf(q)<0);
+  });
+}
+function kbFilter(cat,el){
+  document.querySelectorAll('.kb-cat').forEach(function(c){c.classList.remove('active')});
+  if(el)el.classList.add('active');
+  document.querySelectorAll('.kb-article').forEach(function(a){
+    a.classList.toggle('hidden',cat!=='all'&&a.dataset.cat!==cat);
+  });
+}
+function kbTag(tag){
+  var inp=document.getElementById('kb-search');
+  if(inp){inp.value=tag;kbSearch();}
+}
+function kbRate(btn,val){
+  var txt=btn.parentElement.querySelector('.kb-rate-txt');
+  if(txt)txt.textContent=val>0?'Спасибо! Рад помочь 👍':'Спасибо за отзыв, улучшим статью';
+  btn.parentElement.querySelectorAll('button').forEach(function(b){b.disabled=true;b.style.opacity='.5'});
+}
+
+// ── SALES TABS ────────────────────────────────────────────
+function salesTab(name,btn){
+  ['utp','kp','contracts'].forEach(function(t){
+    var el=document.getElementById('sales-'+t);if(el)el.style.display=t===name?'block':'none';
+  });
+  document.querySelectorAll('#sales-tabs .tab').forEach(function(b){b.classList.remove('active')});
+  if(btn)btn.classList.add('active');
+}
+
+// ── SUBSCRIBERS TABS ──────────────────────────────────────
+function subsTab(name,btn){
+  ['principles','checklists','matrix'].forEach(function(t){
+    var el=document.getElementById('subs-'+t);if(el)el.style.display=t===name?'block':'none';
+  });
+  document.querySelectorAll('#page-subscribers .tab').forEach(function(b){b.classList.remove('active')});
+  if(btn)btn.classList.add('active');
+}
+
+// ── CONFIRM DOWNLOAD ──────────────────────────────────────
+function confirmDownload(name){
+  if(confirm('Факт получения документа «'+name+'» будет зафиксирован. Продолжить?'))
+    alert('Документ скачан. Факт получения зафиксирован: '+new Date().toLocaleString('ru-RU'));
+}
+
+// ── BIRTHDAY EVENTS IN NEWS FEED ─────────────────────────
+function injectBdayNews(){
+  var empArr=window.TEL_EMP;
+  if(!empArr||!empArr.length)return;
+  var msY2=365.25*24*3600*1000;
+  function dU(s){var now=new Date();now.setHours(0,0,0,0);var d=new Date(s);var nx=new Date(now.getFullYear(),d.getMonth(),d.getDate());if(nx<now)nx.setFullYear(now.getFullYear()+1);return Math.round((nx-now)/86400000)}
+  function dlb(d){return d===0?'Сегодня!':d===1?'Завтра':'Через '+d+' дн.'}
+  var events=[];
+  empArr.forEach(function(e){
+    var bD=dU(e.born),age=Math.floor((Date.now()-new Date(e.born))/msY2),ta=age+(bD===0?0:1);
+    if(bD<=7){var jub=ta%5===0?(' — <b>юбилей '+ta+' лет</b> 🎊'):'';events.push({name:e.name,d:bD,lbl:dlb(bD),jub:jub})}
+    var jn=new Date(e.joined),now=new Date();now.setHours(0,0,0,0);
+    var nx2=new Date(now.getFullYear(),jn.getMonth(),jn.getDate());if(nx2<now)nx2.setFullYear(now.getFullYear()+1);
+    var aD=Math.round((nx2-now)/86400000),yrs=Math.round((Date.now()-new Date(e.joined))/msY2);
+    if(aD<=7&&[1,2,3,5,7,10,15,20,25,30].indexOf(yrs)>=0)
+      events.push({name:e.name,d:aD,lbl:dlb(aD),jub:' — <b>'+yrs+' лет в компании</b> 🏆'});
+  });
+  if(!events.length)return;
+  events.sort(function(a,b){return a.d-b.d});
+  var block=document.getElementById('news-bday-block');
+  var cont=document.getElementById('news-bday-content');
+  var sidebar=document.getElementById('sidebar-bday-events');
+  if(block&&cont){
+    var html=events.map(function(ev){return '<div style="padding:4px 0;border-bottom:1px solid rgba(0,0,0,.06)">🎂 <b>'+ev.name+'</b>'+ev.jub+' — <span style="color:var(--red)">'+ev.lbl+'</span></div>'}).join('');
+    cont.innerHTML=html;block.style.display='';
+  }
+  if(sidebar){
+    var shtml=events.slice(0,3).map(function(ev){return '<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><div style="width:36px;height:36px;background:var(--red-soft);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎂</div><div><div style="font-size:12px;font-weight:500;color:var(--tx)">'+ev.name+(ev.jub.indexOf('лет в')>-1?' 🏆':'')+'</div><div style="font-size:11px;color:var(--tx3)">'+ev.lbl+'</div></div></div>'}).join('');
+    sidebar.innerHTML=shtml;
+  }
+}
+// ═══ TASKS MODULE ══════════════════════════════════════════════════════════
+pageNames['tasks']='Задачи';
+
+var TASKS=[
+  {id:1,title:'Обновить инструкцию по ОТ',desc:'Привести в соответствие с изменениями от 1 января 2025 г.',due:'2025-05-25',prio:'high',status:'progress',author:'Алексей Козлов',exec:['Мария Иванова','Сергей Новиков'],watch:['HR-отдел'],files:[{name:'ОТ_2024.pdf',size:'240 КБ'}],chat:[{from:'Мария Иванова',time:'10:30',text:'Начала работу, в понедельник пришлю черновик'},{from:'Алексей Козлов',time:'10:45',text:'Отлично, жду!',mine:true}]},
+  {id:2,title:'Подготовить отчёт по квартальным KPI',desc:'Сводный отчёт по всем отделам за Q1 2025.',due:'2025-05-31',prio:'med',status:'new',author:'Алексей Козлов',exec:['Алексей Козлов'],watch:['Роман Захаров'],files:[],chat:[]},
+  {id:3,title:'Организовать велопрогулку',desc:'Согласовать маршрут, время и состав участников.',due:'2025-05-17',prio:'low',status:'done',author:'Виктория Соколова',exec:['Алексей Козлов','Дмитрий Козлов'],watch:['Мария Иванова','Ольга Кузнецова'],files:[{name:'маршрут_велопробег.pdf',size:'80 КБ'}],chat:[{from:'Виктория Соколова',time:'09:00',text:'Маршрут готов, смотрите файл'},{from:'Алексей Козлов',time:'09:20',text:'Супер, принял!',mine:true}]},
+  {id:4,title:'Согласовать договор с новым партнёром',desc:'Проверить юридическую чистоту и передать на подпись директору.',due:'2025-05-20',prio:'high',status:'progress',author:'Ольга Кузнецова',exec:['Алексей Козлов'],watch:[],files:[{name:'договор_партнёр_v1.docx',size:'120 КБ'},{name:'реквизиты.pdf',size:'45 КБ'}],chat:[{from:'Ольга Кузнецова',time:'14:00',text:'Алексей, возьми пожалуйста на контроль'},{from:'Алексей Козлов',time:'14:15',text:'Принял в работу',mine:true}]},
+];
+var nextTaskId=10;
+var ME='Алексей Козлов';
+var curTaskFilter='all';
+var curTaskId=null;
+var ntExec=[],ntWatch=[],ntFiles=[];
+
+function taskDueClass(due){
+  if(!due)return'ok';
+  var now=new Date();now.setHours(0,0,0,0);
+  var d=new Date(due);
+  var diff=Math.round((d-now)/86400000);
+  if(diff<0)return'overdue';
+  if(diff<=3)return'soon';
+  return'ok';
+}
+function taskDueLabel(due){
+  if(!due)return'';
+  var now=new Date();now.setHours(0,0,0,0);
+  var d=new Date(due);
+  var diff=Math.round((d-now)/86400000);
+  if(diff<0)return'Просрочено на '+Math.abs(diff)+' дн.';
+  if(diff===0)return'Сегодня';
+  if(diff===1)return'Завтра';
+  return new Date(due).toLocaleDateString('ru-RU',{day:'numeric',month:'short'});
+}
+function prioLabel(p){return p==='high'?'🔴 Высокий':p==='med'?'🟡 Средний':'🟢 Низкий'}
+function statusLabel(s){return{new:'Новая',progress:'В работе',review:'На проверке',done:'✅ Завершена'}[s]||s}
+function personColor(name){var colors=['#E6F1FB','#EEE9F8','#E1F5EE','#FEF3DC','#FAECE7','#EAF3DE'];var i=name.charCodeAt(0)%colors.length;return colors[i]}
+function personInitials(n){return n.split(' ').map(function(w){return w[0]}).join('').slice(0,2)}
+
+function renderTasks(){
+  var list=TASKS.filter(function(t){
+    if(curTaskFilter==='mine')return t.exec.indexOf(ME)>=0||t.author===ME;
+    if(curTaskFilter==='assigned')return t.author===ME&&t.exec.indexOf(ME)<0;
+    if(curTaskFilter==='watching')return t.watch.indexOf(ME)>=0;
+    if(curTaskFilter==='done')return t.status==='done';
+    return true;
+  });
+  var el=document.getElementById('tasks-list');
+  if(!el)return;
+  if(!list.length){el.innerHTML='<div class="empty"><div class="empty-icon">✅</div><p>Нет задач</p></div>';return}
+  el.innerHTML=list.map(function(t){
+    var dc=taskDueClass(t.due),dl=taskDueLabel(t.due);
+    var pchips=t.exec.slice(0,3).map(function(n){return '<div class="tp-av" style="background:'+personColor(n)+'" title="'+n+'">'+personInitials(n)+'</div>'}).join('');
+    if(t.exec.length>3)pchips+='<div class="tp-av" style="background:var(--beige2);color:var(--tx3)">+'+( t.exec.length-3)+'</div>';
+    return '<div class="task-card priority-'+t.prio+(t.status==='done'?' done':'')+'" onclick="openTask('+t.id+')">'+
+      '<div class="task-title"><span class="tdone" onclick="event.stopPropagation();toggleTaskDone('+t.id+')" title="Завершить">'+(t.status==='done'?'✅':'⬜')+'</span>'+t.title+'</div>'+
+      '<div class="task-meta">'+
+        (dl?'<span class="task-due '+dc+'">📅 '+dl+'</span>':'')+
+        '<span style="font-size:11px;color:var(--tx3)">'+prioLabel(t.prio)+'</span>'+
+        '<span style="font-size:11px;color:var(--tx3)">'+statusLabel(t.status)+'</span>'+
+      '</div>'+
+      '<div style="display:flex;align-items:center;justify-content:space-between">'+
+        '<div class="task-people">'+pchips+'</div>'+
+        (t.files.length?'<div class="task-attach">📎 '+t.files.length+'</div>':'')+
+        (t.chat.length?'<div class="task-attach" style="margin-left:8px">💬 '+t.chat.length+'</div>':'')+
+      '</div>'+
+    '</div>';
+  }).join('');
+  updateTaskStats();
+}
+
+function updateTaskStats(){
+  var active=TASKS.filter(function(t){return t.status!=='done'&&(t.exec.indexOf(ME)>=0||t.author===ME)}).length;
+  var done=TASKS.filter(function(t){return t.status==='done'}).length;
+  var over=TASKS.filter(function(t){return t.status!=='done'&&t.due&&new Date(t.due)<new Date()}).length;
+  var watch=TASKS.filter(function(t){return t.watch.indexOf(ME)>=0}).length;
+  var e;
+  if(e=document.getElementById('stat-active'))e.textContent=active;
+  if(e=document.getElementById('stat-done'))e.textContent=done;
+  if(e=document.getElementById('stat-overdue'))e.textContent=over;
+  if(e=document.getElementById('stat-watching'))e.textContent=watch;
+  // badge
+  var b=document.getElementById('tasks-badge');
+  if(b){if(active>0){b.textContent=active;b.style.display='';}else b.style.display='none';}
+  renderTaskNotifs();
+}
+
+function renderTaskNotifs(){
+  var el=document.getElementById('task-notifs');if(!el)return;
+  var notifs=[];
+  TASKS.forEach(function(t){
+    if(t.status!=='done'&&t.exec.indexOf(ME)>=0){
+      var dc=taskDueClass(t.due);
+      if(dc==='overdue')notifs.push({icon:'🔴',text:'<b>'+t.title+'</b> — просрочена!',id:t.id});
+      else if(dc==='soon')notifs.push({icon:'🟡',text:'<b>'+t.title+'</b> — дедлайн скоро',id:t.id});
+    }
+    if(t.author!==ME&&t.exec.indexOf(ME)>=0&&t.status==='new')
+      notifs.push({icon:'📋',text:'Новая задача от <b>'+t.author+'</b>: '+t.title,id:t.id});
+  });
+  if(!notifs.length){el.innerHTML='<div style="font-size:12px;color:var(--tx3)">Нет новых уведомлений</div>';return}
+  el.innerHTML=notifs.slice(0,5).map(function(n){
+    return '<div style="display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--bd)" onclick="openTask('+n.id+')">'+
+      '<span style="font-size:16px;flex-shrink:0">'+n.icon+'</span>'+
+      '<div style="font-size:12px;color:var(--tx2);line-height:1.5">'+n.text+'</div></div>';
+  }).join('');
+  // Also inject into news feed
+  var newsBlock=document.getElementById('news-tasks-block');
+  if(newsBlock&&notifs.length){newsBlock.style.display='';document.getElementById('news-tasks-content').innerHTML=notifs.slice(0,3).map(function(n){return '<div style="padding:4px 0;border-bottom:1px solid rgba(0,0,0,.06)">'+n.icon+' '+n.text+'</div>'}).join('')}
+}
+
+function filterTasks(f,btn){
+  curTaskFilter=f;
+  document.querySelectorAll('.task-filters .tf').forEach(function(b){b.classList.remove('active')});
+  if(btn)btn.classList.add('active');
+  renderTasks();
+}
+function toggleTaskDone(id){
+  var t=TASKS.find(function(x){return x.id===id});
+  if(!t)return;
+  t.status=t.status==='done'?'progress':'done';
+  renderTasks();
+}
+
+function openTask(id){
+  curTaskId=id;
+  var t=TASKS.find(function(x){return x.id===id});if(!t)return;
+  document.getElementById('vt-title').textContent=t.title;
+  document.getElementById('vt-desc').textContent=t.desc||'—';
+  document.getElementById('vt-due').textContent=t.due?new Date(t.due).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'Не задан';
+  document.getElementById('vt-due').className='font-size:13px;font-weight:500;color:'+(taskDueClass(t.due)==='overdue'?'var(--red)':'var(--tx)');
+  document.getElementById('vt-prio').textContent=prioLabel(t.prio);
+  document.getElementById('vt-author').textContent=t.author;
+  document.getElementById('vt-status-sel').value=t.status;
+  document.getElementById('vt-badges').innerHTML='<span class="chip chip-gray">'+statusLabel(t.status)+'</span>';
+  document.getElementById('vt-exec').innerHTML=t.exec.map(function(n){return '<span class="person-chip" style="background:'+personColor(n)+'">'+n+'</span>'}).join('')||'<span style="font-size:12px;color:var(--tx3)">—</span>';
+  document.getElementById('vt-watch').innerHTML=t.watch.map(function(n){return '<span class="person-chip">'+n+'</span>'}).join('')||'<span style="font-size:12px;color:var(--tx3)">—</span>';
+  document.getElementById('vt-chat-cnt').textContent=t.chat.length?'('+t.chat.length+')':'';
+  document.getElementById('vt-files-cnt').textContent=t.files.length?'('+t.files.length+')':'';
+  renderTaskChat(t);renderTaskFiles(t);
+  vtTab('info',null);
+  showModal('view-task-modal');
+}
+
+function renderTaskChat(t){
+  var el=document.getElementById('vt-chat-msgs');if(!el)return;
+  el.innerHTML=t.chat.map(function(m){
+    return '<div class="tc-msg'+(m.mine?' mine':'')+'">'+
+      (!m.mine?'<div class="tc-msg-header"><div class="news-av" style="width:22px;height:22px;font-size:9px;background:'+personColor(m.from)+'">'+personInitials(m.from)+'</div><span class="tc-name">'+m.from+'</span><span class="tc-time">'+m.time+'</span></div>':'')+
+      '<div class="tc-body">'+m.text+'</div></div>';
+  }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+function renderTaskFiles(t){
+  var el=document.getElementById('vt-files-list-view');if(!el)return;
+  if(!t.files.length){el.innerHTML='<div style="font-size:12px;color:var(--tx3);padding:10px 0">Файлов нет</div>';return}
+  el.innerHTML=t.files.map(function(f){
+    var ext=f.name.split('.').pop().toLowerCase();
+    var ico=ext==='pdf'?'📄':ext==='docx'?'📝':ext==='xlsx'?'📊':'📎';
+    return '<div class="attach-item">'+ico+' <span style="flex:1">'+f.name+'</span><span style="font-size:10px;color:var(--tx3)">'+f.size+'</span><button class="doc-btn" style="font-size:10px">⬇</button></div>';
+  }).join('');
+}
+
+function vtTab(name,btn){
+  ['info','chat','files'].forEach(function(t){
+    var el=document.getElementById('vtp-'+t);if(el)el.style.display=t===name?'block':'none';
+  });
+  document.querySelectorAll('#vt-tabs .tab').forEach(function(b){b.classList.remove('active')});
+  if(btn)btn.classList.add('active');
+  else document.querySelectorAll('#vt-tabs .tab')[0].classList.add('active');
+  if(name==='chat'){var msgs=document.getElementById('vt-chat-msgs');if(msgs)msgs.scrollTop=msgs.scrollHeight}
+}
+
+function sendTaskMsg(){
+  var inp=document.getElementById('vt-chat-inp');
+  var val=inp.value.trim();if(!val||!curTaskId)return;
+  var t=TASKS.find(function(x){return x.id===curTaskId});if(!t)return;
+  t.chat.push({from:ME,time:new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}),text:val,mine:true});
+  renderTaskChat(t);
+  document.getElementById('vt-chat-cnt').textContent='('+t.chat.length+')';
+  inp.value='';
+}
+
+function updateTaskStatus(val){
+  if(!curTaskId)return;
+  var t=TASKS.find(function(x){return x.id===curTaskId});if(!t)return;
+  t.status=val;
+  document.getElementById('vt-badges').innerHTML='<span class="chip chip-gray">'+statusLabel(val)+'</span>';
+  renderTasks();
+}
+
+function addFilesToTask(inp){
+  if(!curTaskId)return;
+  var t=TASKS.find(function(x){return x.id===curTaskId});if(!t)return;
+  Array.from(inp.files).forEach(function(f){t.files.push({name:f.name,size:Math.round(f.size/1024)+' КБ'})});
+  renderTaskFiles(t);
+  document.getElementById('vt-files-cnt').textContent='('+t.files.length+')';
+  renderTasks();
+}
+
+function openNewTask(){
+  ntExec=[];ntWatch=[];ntFiles=[];
+  var ei=document.getElementById('nt-exec-chips'),wi=document.getElementById('nt-watch-chips'),fl=document.getElementById('nt-files-list');
+  var ti=document.getElementById('nt-title'),di=document.getElementById('nt-desc');
+  if(ei)ei.innerHTML='';if(wi)wi.innerHTML='';if(fl)fl.innerHTML='';
+  if(ti)ti.value='';if(di)di.value='';
+  var dd=new Date();dd.setDate(dd.getDate()+7);
+  var du=document.getElementById('nt-due');if(du)du.value=dd.toISOString().slice(0,10);
+  showModal('new-task-modal');
+}
+
+function addTaskPerson(role){
+  var inp=document.getElementById('nt-'+role+'-inp');
+  var chips=document.getElementById('nt-'+role+'-chips');
+  if(!inp||!chips)return;
+  var val=inp.value.trim();if(!val)return;
+  var arr=role==='exec'?ntExec:ntWatch;
+  if(arr.indexOf(val)>=0){inp.value='';return}
+  arr.push(val);
+  var chip=document.createElement('span');chip.className='person-chip';
+  chip.innerHTML=val+'<span class="rm" onclick="removeTaskPerson(\''+role+'\',\''+val+'\',this)">×</span>';
+  chips.appendChild(chip);inp.value='';
+}
+
+function removeTaskPerson(role,name,el){
+  var arr=role==='exec'?ntExec:ntWatch;
+  var idx=arr.indexOf(name);if(idx>=0)arr.splice(idx,1);
+  if(el&&el.parentElement)el.parentElement.parentElement.removeChild(el.parentElement);
+}
+
+function addTaskFiles(inp){
+  var list=document.getElementById('nt-files-list');if(!list)return;
+  Array.from(inp.files).forEach(function(f){
+    ntFiles.push({name:f.name,size:Math.round(f.size/1024)+' КБ'});
+    var d=document.createElement('div');d.className='attach-item';
+    d.innerHTML='📎 '+f.name+' <span style="font-size:10px;color:var(--tx3)">'+Math.round(f.size/1024)+' КБ</span>';
+    list.appendChild(d);
+  });
+}
+
+function saveNewTask(){
+  var title=document.getElementById('nt-title').value.trim();
+  if(!title){alert('Введите название задачи');return}
+  var task={
+    id:nextTaskId++,
+    title:title,
+    desc:document.getElementById('nt-desc').value.trim(),
+    due:document.getElementById('nt-due').value,
+    prio:document.getElementById('nt-prio').value,
+    status:document.getElementById('nt-status').value,
+    author:ME,
+    exec:ntExec.length?ntExec:[ME],
+    watch:ntWatch.slice(),
+    files:ntFiles.slice(),
+    chat:[]
+  };
+  TASKS.unshift(task);
+  // Add news feed notification if assigned to others
+  var others=task.exec.filter(function(n){return n!==ME});
+  if(others.length){
+    var nb=document.getElementById('news-bday-block');
+    // inject task news item
+  }
+  closeModal('new-task-modal');
+  showPage('tasks');
+  renderTasks();
+}
+
+// ── TASK NOTIFICATIONS IN NEWS FEED ───────────────────────────────────────
+// Inject a task notifications block into the news feed on init
+(function(){
+  var feed=document.getElementById('news-bday-block');
+  if(!feed)return;
+  var div=document.createElement('div');
+  div.className='news-item';div.id='news-tasks-block';div.style.display='none';
+  div.innerHTML='<div class="news-meta"><div class="news-av" style="background:#E0F0FF">✅</div><div><div class="news-author">Задачи</div><div class="news-time">сейчас</div></div><div class="news-badge"><span class="chip chip-blue">Задачи</span></div></div><div id="news-tasks-content" style="font-size:13px;color:var(--tx);line-height:1.8;margin-top:6px"></div><div class="news-actions"><button class="news-action" onclick="showPage(\'tasks\')">→ Все задачи</button></div>';
+  feed.parentElement.insertBefore(div,feed);
+})();
+setTimeout(updateTaskStats,100);
+
+// ═══ END TASKS MODULE ══════════════════════════════════════════════════════
 </script>
+<!-- BOOK ROOM MODAL -->
+<div class="modal-bg" id="book-room-modal" onclick="if(event.target===this)closeModal('book-room-modal')">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🚪 Забронировать переговорную</div><button class="modal-close" onclick="closeModal('book-room-modal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Переговорная</label><select class="form-input form-select"><option>Альфа (8 чел.) — Микояна, 3 эт.</option><option>Бета (4 чел.) — Микояна, 2 эт.</option><option>Гамма (6 чел.) — Электрозаводская, 1 эт.</option><option>Дельта (12 чел.) — Электрозаводская, 3 эт.</option></select></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group"><label class="form-label">Дата</label><input class="form-input" type="date"></div>
+        <div class="form-group"><label class="form-label">Время начала</label><input class="form-input" type="time" value="10:00"></div>
+        <div class="form-group"><label class="form-label">Продолжительность</label><select class="form-input form-select"><option>30 мин</option><option selected>1 час</option><option>1.5 часа</option><option>2 часа</option><option>3 часа</option></select></div>
+        <div class="form-group"><label class="form-label">Число участников</label><input class="form-input" type="number" value="4" min="1"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Тема встречи</label><input class="form-input" placeholder="Например: Планёрка отдела"></div>
+      <div class="form-group"><label class="form-label">Участники (email через запятую)</label><input class="form-input" placeholder="ivanov@company.ru, petrova@company.ru"></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:4px"><button class="toggle on" onclick="this.classList.toggle('on')"></button><span style="font-size:12px;color:var(--tx2)">Отправить приглашения участникам</span></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('book-room-modal')">Отмена</button><button class="btn btn-primary" onclick="closeModal('book-room-modal');alert('Переговорная забронирована! Приглашения отправлены.')">Забронировать</button></div>
+  </div>
+</div>
+
+<!-- ADD ARTICLE MODAL -->
+<div class="modal-bg" id="add-article-modal" onclick="if(event.target===this)closeModal('add-article-modal')">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">📝 Новая статья в базу знаний</div><button class="modal-close" onclick="closeModal('add-article-modal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Заголовок</label><input class="form-input" placeholder="Например: Как получить корпоративную карту"></div>
+      <div class="form-group"><label class="form-label">Категория</label><select class="form-input form-select"><option>HR и персонал</option><option>IT и офис</option><option>Корпоратив</option></select></div>
+      <div class="form-group"><label class="form-label">Теги (через запятую)</label><input class="form-input" placeholder="карта, командировка, финансы"></div>
+      <div class="form-group"><label class="form-label">Текст статьи</label><textarea class="form-input" style="min-height:160px" placeholder="Содержание статьи..."></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('add-article-modal')">Отмена</button><button class="btn btn-primary" onclick="closeModal('add-article-modal');alert('Статья отправлена на проверку HR.')">Опубликовать</button></div>
+  </div>
+</div>
+
+<!-- ASK HR MODAL -->
+<div class="modal-bg" id="ask-hr-modal" onclick="if(event.target===this)closeModal('ask-hr-modal')">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header"><div class="modal-title">💬 Вопрос в HR</div><button class="modal-close" onclick="closeModal('ask-hr-modal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--tx2);margin-bottom:16px">Не нашли ответ в базе знаний? Задайте вопрос напрямую — HR ответит в течение рабочего дня.</p>
+      <div class="form-group"><label class="form-label">Тема вопроса</label><input class="form-input" placeholder="Коротко опишите суть"></div>
+      <div class="form-group"><label class="form-label">Вопрос</label><textarea class="form-input" style="min-height:100px" placeholder="Подробности..."></textarea></div>
+      <div style="display:flex;align-items:center;gap:8px"><button class="toggle" onclick="this.classList.toggle('on')"></button><span style="font-size:12px;color:var(--tx2)">Анонимный вопрос</span></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('ask-hr-modal')">Отмена</button><button class="btn btn-primary" onclick="closeModal('ask-hr-modal');alert('Вопрос отправлен. HR ответит в течение рабочего дня.')">Отправить</button></div>
+  </div>
+</div>
+
+<!-- KP GENERATOR MODAL -->
+<div class="modal-bg" id="kp-gen-modal" onclick="if(event.target===this)closeModal('kp-gen-modal')">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header"><div class="modal-title">✨ Генератор КП</div><button class="modal-close" onclick="closeModal('kp-gen-modal')">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--tx2);margin-bottom:16px">Данные менеджера подставляются автоматически из профиля. Заполните реквизиты клиента.</p>
+      <div style="background:var(--beige);border-radius:var(--rs);padding:12px;margin-bottom:16px;font-size:12px;color:var(--tx2)"><b>Менеджер:</b> Алексей Козлов · ТКТЕЛ · a.kozlov@company.ru · +7 916 123-45-67</div>
+      <div class="form-group"><label class="form-label">Шаблон КП</label><select class="form-input form-select"><option>Корпоративный клиент (базовый)</option><option>Агентский договор (партнёры)</option><option>SMB-сегмент</option></select></div>
+      <div class="form-group"><label class="form-label">Название компании клиента</label><input class="form-input" placeholder="ООО «Клиент»"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group"><label class="form-label">ИНН клиента</label><input class="form-input" placeholder="7700000000"></div>
+        <div class="form-group"><label class="form-label">Контактное лицо</label><input class="form-input" placeholder="Иван Иванов"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email клиента</label><input class="form-input" placeholder="client@company.com"></div>
+      <div class="form-group"><label class="form-label">Формат скачивания</label><select class="form-input form-select"><option>DOCX</option><option>PDF</option></select></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('kp-gen-modal')">Отмена</button><button class="btn btn-primary" onclick="closeModal('kp-gen-modal');alert('КП сформировано и скачивается!')">⬇ Скачать КП</button></div>
+  </div>
+</div>
+
+<!-- NEW TASK MODAL -->
+<div class="modal-bg" id="new-task-modal" onclick="if(event.target===this)closeModal('new-task-modal')">
+  <div class="modal" style="max-width:620px">
+    <div class="modal-header"><div class="modal-title">✅ Новая задача</div><button class="modal-close" onclick="closeModal('new-task-modal')">✕</button></div>
+    <div class="task-modal-body">
+      <div class="form-group"><label class="form-label">Название задачи</label><input class="form-input" id="nt-title" placeholder="Что нужно сделать?"></div>
+      <div class="form-group"><label class="form-label">Описание</label><textarea class="form-input" id="nt-desc" style="min-height:70px" placeholder="Подробности..."></textarea></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div class="form-group"><label class="form-label">Срок выполнения</label><input class="form-input" type="date" id="nt-due"></div>
+        <div class="form-group"><label class="form-label">Приоритет</label>
+          <select class="form-input form-select" id="nt-prio">
+            <option value="high">🔴 Высокий</option>
+            <option value="med" selected>🟡 Средний</option>
+            <option value="low">🟢 Низкий</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Статус</label>
+          <select class="form-input form-select" id="nt-status">
+            <option value="new">Новая</option>
+            <option value="progress">В работе</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Исполнители</label>
+        <div id="nt-exec-chips" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px"></div>
+        <div style="display:flex;gap:6px">
+          <input class="form-input" id="nt-exec-inp" placeholder="Введите имя сотрудника…" list="empnames" style="flex:1" onkeydown="if(event.key==='Enter')addTaskPerson('exec')">
+          <button class="btn btn-ghost btn-sm" onclick="addTaskPerson('exec')">Добавить</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Наблюдатели</label>
+        <div id="nt-watch-chips" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px"></div>
+        <div style="display:flex;gap:6px">
+          <input class="form-input" id="nt-watch-inp" placeholder="Введите имя сотрудника…" list="empnames" style="flex:1" onkeydown="if(event.key==='Enter')addTaskPerson('watch')">
+          <button class="btn btn-ghost btn-sm" onclick="addTaskPerson('watch')">Добавить</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Прикрепить файлы</label>
+        <div class="upload-zone" style="padding:16px" onclick="document.getElementById('nt-file').click()">
+          <div style="font-size:20px">📎</div>
+          <div class="uz-text">Нажмите или перетащите файлы</div>
+        </div>
+        <input type="file" id="nt-file" style="display:none" multiple onchange="addTaskFiles(this)">
+        <div id="nt-files-list" style="margin-top:6px"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('new-task-modal')">Отмена</button>
+      <button class="btn btn-primary" onclick="saveNewTask()">Создать задачу</button>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW TASK MODAL -->
+<div class="modal-bg" id="view-task-modal" onclick="if(event.target===this)closeModal('view-task-modal')">
+  <div class="modal" style="max-width:660px">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="vt-title">Задача</div>
+        <div style="display:flex;gap:6px;margin-top:6px" id="vt-badges"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal('view-task-modal')">✕</button>
+    </div>
+    <div class="task-modal-body">
+      <div class="tabs" id="vt-tabs">
+        <button class="tab active" onclick="vtTab('info',this)">📋 Детали</button>
+        <button class="tab" onclick="vtTab('chat',this)">💬 Чат <span id="vt-chat-cnt" style="font-size:10px;color:var(--red)"></span></button>
+        <button class="tab" onclick="vtTab('files',this)">📎 Файлы <span id="vt-files-cnt" style="font-size:10px;color:var(--tx3)"></span></button>
+      </div>
+
+      <div id="vtp-info">
+        <div class="task-section">
+          <div class="ts-label">Описание</div>
+          <div style="font-size:13px;color:var(--tx2);line-height:1.7" id="vt-desc">—</div>
+        </div>
+        <div class="task-section" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+          <div><div class="ts-label">Срок</div><div style="font-size:13px;font-weight:500;color:var(--tx)" id="vt-due">—</div></div>
+          <div><div class="ts-label">Приоритет</div><div style="font-size:13px;font-weight:500" id="vt-prio">—</div></div>
+          <div><div class="ts-label">Статус</div>
+            <select class="form-input form-select" id="vt-status-sel" style="font-size:12px;padding:5px 10px" onchange="updateTaskStatus(this.value)">
+              <option value="new">Новая</option>
+              <option value="progress">В работе</option>
+              <option value="review">На проверке</option>
+              <option value="done">Завершена</option>
+            </select>
+          </div>
+        </div>
+        <div class="task-section">
+          <div class="ts-label">Исполнители</div>
+          <div id="vt-exec" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+        </div>
+        <div class="task-section">
+          <div class="ts-label">Наблюдатели</div>
+          <div id="vt-watch" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+        </div>
+        <div class="task-section">
+          <div class="ts-label">Автор</div>
+          <div style="font-size:13px;color:var(--tx)" id="vt-author">—</div>
+        </div>
+      </div>
+
+      <div id="vtp-chat" style="display:none">
+        <div class="task-chat" id="vt-chat-msgs"></div>
+        <div style="display:flex;gap:8px">
+          <input class="form-input" id="vt-chat-inp" placeholder="Сообщение…" style="flex:1" onkeydown="if(event.key==='Enter')sendTaskMsg()">
+          <button class="chat-send" onclick="sendTaskMsg()">→</button>
+        </div>
+      </div>
+
+      <div id="vtp-files" style="display:none">
+        <div id="vt-files-list-view"></div>
+        <div class="upload-zone" style="padding:14px;margin-top:10px" onclick="document.getElementById('vt-file-add').click()">
+          <div style="font-size:18px">📎</div><div class="uz-text" style="font-size:12px">Прикрепить ещё файл</div>
+        </div>
+        <input type="file" id="vt-file-add" style="display:none" multiple onchange="addFilesToTask(this)">
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
