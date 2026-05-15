@@ -48,12 +48,12 @@ body{font-family:'Golos Text',sans-serif;background:var(--beige);color:var(--tx)
 
 /* ── MAIN ─────────────────────────────────────────────── */
 .main{flex:1;min-width:0;display:flex;flex-direction:column}
-.content{flex:1;padding:28px;overflow-y:auto}
+.content{flex:1;padding:28px;overflow-y:auto;overflow-x:hidden}
 .mob-fab{display:none;position:fixed;top:12px;left:12px;z-index:90;width:40px;height:40px;border-radius:12px;background:#fff;border:1px solid var(--bd2);box-shadow:var(--sh);cursor:pointer;align-items:center;justify-content:center;font-size:20px}
 @media(max-width:768px){.mob-fab{display:flex}.mob-close-btn{display:flex!important}}
 
 /* ── PAGES ────────────────────────────────────────────── */
-.page{display:none}.page.active{display:block}
+.page{display:none;min-width:0}.page.active{display:block;padding-top:4px}
 
 /* ── SHARED COMPONENTS ───────────────────────────────── */
 .page-header{margin-bottom:24px}
@@ -111,7 +111,7 @@ body{font-family:'Golos Text',sans-serif;background:var(--beige);color:var(--tx)
 textarea.form-input{resize:vertical;min-height:80px}
 
 /* table */
-.tbl{width:100%;border-collapse:collapse}
+.tbl{width:100%;border-collapse:collapse;table-layout:auto}
 .tbl th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);padding:10px 14px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap}
 .tbl td{font-size:13px;color:var(--tx);padding:12px 14px;border-bottom:1px solid var(--bd)}
 .tbl tr:last-child td{border-bottom:none}
@@ -418,8 +418,8 @@ textarea.form-input{resize:vertical;min-height:80px}
 .htab.on{background:var(--gr);color:#fff;border-color:var(--gr)}
 .hdr-r{margin-left:auto;font-size:11px;color:var(--tx3);white-space:nowrap}
 
-/* MAIN */
-.main{max-width:1280px;margin:0 auto;padding:16px 14px 80px}
+/* EP MAIN — scoped */
+#ep-wrap .ep-main{max-width:none;margin:0;padding:16px 0 40px}
 .pane{display:none}.pane.on{display:block}
 
 /* SEARCH */
@@ -2023,13 +2023,13 @@ textarea.form-input{resize:vertical;min-height:80px}
     <button class="tab" onclick="salesTab('contracts',this)">📋 Договоры</button>
   </div>
 
-  <div id="sales-utp">
+  <div id="sales-utp" style="overflow-x:hidden">
     <div class="card card-pad" style="margin-bottom:16px;border-left:4px solid var(--red)">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
         <div><div class="sec-title" style="margin:0">Почему выгодно работать со средними операторами</div><div style="font-size:12px;color:var(--tx3);margin-top:4px">Актуально · <span class="ver-badge">v3.2</span> · Обновлено маркетингом 10.05.2025</div></div>
         <button class="btn btn-ghost btn-sm">⬇ DOCX</button>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:14px">
         <div style="background:var(--red-soft);border-radius:var(--rs);padding:14px">
           <div style="font-size:11px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Проблема клиента</div>
           <div style="font-size:12px;color:var(--tx2)">Крупные операторы — медленная реакция, длинные очереди, стандартные решения без гибкости</div>
@@ -2055,7 +2055,7 @@ textarea.form-input{resize:vertical;min-height:80px}
     </div>
   </div>
 
-  <div id="sales-kp" style="display:none">
+  <div id="sales-kp" style="display:none;overflow-x:hidden">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
       <div class="sec-title" style="margin:0">Библиотека шаблонов КП</div>
       <button class="btn btn-primary btn-sm" onclick="showModal('kp-gen-modal')">✨ Заполнить онлайн</button>
@@ -2079,7 +2079,7 @@ textarea.form-input{resize:vertical;min-height:80px}
     </div>
   </div>
 
-  <div id="sales-contracts" style="display:none">
+  <div id="sales-contracts" style="display:none;overflow-x:hidden">
     <div style="background:#FEF3DC;border-radius:var(--rs);padding:12px 16px;margin-bottom:16px;border-left:3px solid #E4A030;font-size:13px;color:#7C4A00">
       ⚠ Используйте только документы с пометкой «актуальная версия». При сомнениях — обратитесь в юридический отдел.
     </div>
@@ -2119,7 +2119,7 @@ textarea.form-input{resize:vertical;min-height:80px}
     <button class="tab" onclick="subsTab('matrix',this)">📞 Контактная матрица</button>
   </div>
 
-  <div id="subs-principles">
+  <div id="subs-principles" style="overflow-x:hidden">
     <div class="card card-pad" style="margin-bottom:16px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
         <div><div class="sec-title" style="margin:0">Принципы работы с клиентами и партнёрами TEL</div><div style="font-size:12px;color:var(--tx3);margin-top:2px"><span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ актуальный v2.0</span> · Обновлён 01.03.2025</div></div>
@@ -2154,7 +2154,7 @@ textarea.form-input{resize:vertical;min-height:80px}
     </div>
   </div>
 
-  <div id="subs-checklists" style="display:none">
+  <div id="subs-checklists" style="display:none;overflow-x:hidden">
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
       <div class="card card-pad">
         <div style="font-size:18px;margin-bottom:10px">🔌</div>
@@ -2193,7 +2193,7 @@ textarea.form-input{resize:vertical;min-height:80px}
     </div>
   </div>
 
-  <div id="subs-matrix" style="display:none">
+  <div id="subs-matrix" style="display:none;overflow-x:hidden">
     <div class="card card-pad">
       <div class="sec-title" style="margin-bottom:14px">Кто в компании решает какие вопросы клиента</div>
       <div class="tbl" style="overflow-x:auto">
