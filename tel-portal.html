@@ -45,8 +45,7 @@ body{font-family:'Golos Text',sans-serif;background:var(--beige);color:var(--tx)
 
 /* ── MAIN ─────────────────────────────────────────────── */
 .main{flex:1;min-width:0;display:flex;flex-direction:column}
-.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:0 28px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:40}
-.topbar-title{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:500;color:var(--tx);flex:1}
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:0 16px;height:48px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:40}
 .topbar-actions{display:flex;align-items:center;gap:10px}
 .tbtn{font-family:'Golos Text',sans-serif;font-size:12px;padding:6px 14px;border-radius:var(--rs);border:1px solid var(--bd2);background:transparent;color:var(--tx2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
 .tbtn:hover{border-color:var(--red);color:var(--red)}
@@ -286,7 +285,7 @@ textarea.form-input{resize:vertical;min-height:80px}
   .grid2,.grid3,.grid4{grid-template-columns:1fr}
   .stat-row{grid-template-columns:1fr 1fr;gap:8px}
   .topbar{padding:0 14px;height:48px}
-  .topbar-title{font-size:13px}
+
   .page-header h1{font-size:17px}
   .card-pad{padding:14px}
   .card-sm{padding:10px 12px}
@@ -812,7 +811,6 @@ textarea.form-input{resize:vertical;min-height:80px}
 <div class="main">
 <div class="topbar">
   <button class="mob-menu-btn" onclick="openMobMenu()" aria-label="Меню">☰</button>
-  <div class="topbar-title" id="topbar-title">Лента новостей</div>
 </div>
 
 <div class="content">
@@ -2470,7 +2468,7 @@ function showPage(name){
   document.querySelectorAll('.nav-item').forEach(function(n){
     if(n.getAttribute('onclick')&&n.getAttribute('onclick').indexOf("'"+name+"'")>=0)n.classList.add('active');
   });
-  document.getElementById('topbar-title').textContent=pageNames[name]||name;
+
 }
 
 // ── MODALS ────────────────────────────────────────────────
@@ -2881,6 +2879,21 @@ function switchTab(name){
 function epOpenModal(id){mTab='info';renderModal(id);epId('ov').classList.add('on');document.body.style.overflow='hidden'}
 function epCloseModal(){epId('ov').classList.remove('on');document.body.style.overflow=''}
 function ovClick(e){if(e.target===epId('ov'))epCloseModal()}
+// Expose globally so onclick attributes in dynamically generated HTML can call them
+window.epOpenModal=epOpenModal;
+window.epCloseModal=epCloseModal;
+window.ovClick=ovClick;
+window.swMTab=swMTab;
+window.togEdit=togEdit;
+window.addEF=addEF;window.rmEF=rmEF;window.saveEF=saveEF;
+window.addHob=addHob;window.pickHob=pickHob;window.rmHob=rmHob;
+window.filterCloud=filterCloud;window.clearCloud=clearCloud;
+window.openSubEdit=openSubEdit;window.closeSubEdit=closeSubEdit;
+window.addSubRow=addSubRow;window.rmSub=rmSub;window.saveSubs=saveSubs;
+window.addTaskPerson=addTaskPerson;window.removeTaskPerson=removeTaskPerson;
+window.sendTaskMsg=sendTaskMsg;window.addFilesToTask=addFilesToTask;
+window.vtTab=vtTab;window.updateTaskStatus=updateTaskStatus;
+window.trigUp=trigUp;
 document.addEventListener('keydown',function(e){if(e.key==='Escape')epCloseModal()})
 
 function mgrLink(name){
