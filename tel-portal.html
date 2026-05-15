@@ -14,6 +14,9 @@
   --bd:rgba(90,64,72,.12);--bd2:rgba(90,64,72,.22);
   --r:12px;--rs:8px;
   --sh:0 2px 16px rgba(26,18,21,.07);--shlg:0 8px 40px rgba(26,18,21,.14);
+  /* EP modal vars — needed since #ov is outside #ep-wrap */
+  --sf:#fff;--sf2:#F0EDE8;--bg:#F7F5F0;--bdm:rgba(0,0,0,.14);
+  --gr:#2D6A4F;--grdk:#1B4332;--grbg:#E8F4EE;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -45,16 +48,9 @@ body{font-family:'Golos Text',sans-serif;background:var(--beige);color:var(--tx)
 
 /* ── MAIN ─────────────────────────────────────────────── */
 .main{flex:1;min-width:0;display:flex;flex-direction:column}
-.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:0 16px;height:48px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:40}
-.topbar-actions{display:flex;align-items:center;gap:10px}
-.tbtn{font-family:'Golos Text',sans-serif;font-size:12px;padding:6px 14px;border-radius:var(--rs);border:1px solid var(--bd2);background:transparent;color:var(--tx2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
-.tbtn:hover{border-color:var(--red);color:var(--red)}
-.tbtn.primary{background:var(--red);color:#fff;border-color:var(--red)}
-.tbtn.primary:hover{background:var(--red2)}
-.notif-btn{width:34px;height:34px;border-radius:var(--rs);border:1px solid var(--bd);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tx2);position:relative}
-.notif-btn .dot{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--red);border:1.5px solid #fff}
-
 .content{flex:1;padding:28px;overflow-y:auto}
+.mob-fab{display:none;position:fixed;top:12px;left:12px;z-index:90;width:40px;height:40px;border-radius:12px;background:#fff;border:1px solid var(--bd2);box-shadow:var(--sh);cursor:pointer;align-items:center;justify-content:center;font-size:20px}
+@media(max-width:768px){.mob-fab{display:flex}.mob-close-btn{display:flex!important}}
 
 /* ── PAGES ────────────────────────────────────────────── */
 .page{display:none}.page.active{display:block}
@@ -281,10 +277,10 @@ textarea.form-input{resize:vertical;min-height:80px}
 @media(max-width:768px){
   .sidebar{display:none}
   .main{width:100%}
-  .content{padding:14px 14px 80px}
+  .content{padding:64px 14px 80px}
   .grid2,.grid3,.grid4{grid-template-columns:1fr}
   .stat-row{grid-template-columns:1fr 1fr;gap:8px}
-  .topbar{padding:0 14px;height:48px}
+
 
   .page-header h1{font-size:17px}
   .card-pad{padding:14px}
@@ -514,11 +510,11 @@ textarea.form-input{resize:vertical;min-height:80px}
 /* OVERLAY & MODAL */
 .ov{position:fixed;inset:0;background:rgba(20,16,10,.5);display:flex;align-items:flex-end;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:opacity .22s}
 .ov.on{opacity:1;pointer-events:all}
-.modal{background:var(--sf);border-radius:20px 20px 0 0;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;transform:translateY(30px);transition:transform .25s cubic-bezier(.32,.72,0,1);position:relative}
-.ov.on .modal{transform:translateY(0)}
-@media(min-width:640px){.ov{align-items:center}.modal{border-radius:20px;max-height:88vh;margin:20px}}
-.drag{width:36px;height:4px;background:var(--bdm);border-radius:2px;margin:12px auto 0}
-.mi{padding:18px 18px 24px}
+#ov .modal{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;transform:translateY(30px);transition:transform .25s cubic-bezier(.32,.72,0,1);position:relative}
+.ov.on #ov .modal,.ov.on .modal{transform:translateY(0)}
+@media(min-width:640px){#ov .modal{border-radius:20px;max-height:88vh;margin:20px}}
+.drag{width:36px;height:4px;background:rgba(0,0,0,.14);border-radius:2px;margin:12px auto 0}
+.mi{padding:18px 18px 24px;font-family:'Golos Text',sans-serif}
 .mh{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--bd)}
 .mav-w{position:relative;flex-shrink:0}
 .mav{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:20px;font-weight:500;overflow:hidden;cursor:pointer;position:relative}
@@ -758,7 +754,10 @@ textarea.form-input{resize:vertical;min-height:80px}
 <!-- ── SIDEBAR ─────────────────────────────────────────── -->
 <nav class="sidebar">
   <div class="sidebar-logo">
-    <div class="brand">TEL<span>.</span></div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div class="brand">TEL<span>.</span></div>
+      <button class="mob-close-btn" onclick="closeMobMenu()" style="display:none;border:none;background:rgba(255,255,255,.1);color:#fff;border-radius:8px;width:28px;height:28px;cursor:pointer;font-size:16px;align-items:center;justify-content:center">✕</button>
+    </div>
     <div class="role-badge admin">⚙ Администратор</div>
   </div>
 
@@ -809,10 +808,6 @@ textarea.form-input{resize:vertical;min-height:80px}
 
 <!-- ── MAIN ─────────────────────────────────────────────── -->
 <div class="main">
-<div class="topbar">
-  <button class="mob-menu-btn" onclick="openMobMenu()" aria-label="Меню">☰</button>
-</div>
-
 <div class="content">
 
 <!-- ── HOME: NEWS FEED ─────────────────────────────────── -->
@@ -2226,6 +2221,9 @@ textarea.form-input{resize:vertical;min-height:80px}
 
 <!-- SIDEBAR OVERLAY (mobile) -->
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeMobMenu()"></div>
+
+<!-- FLOATING HAMBURGER (mobile only) -->
+<button class="mob-fab" onclick="openMobMenu()" aria-label="Меню">☰</button>
 
 <!-- BOTTOM NAV (mobile only) -->
 <nav class="bottom-nav">
