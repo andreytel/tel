@@ -226,12 +226,15 @@ textarea.form-input{resize:vertical;min-height:80px}
 .doc-btn.danger:hover{border-color:#D85A5A;color:#D85A5A}
 
 /* profile */
-.profile-banner{height:120px;background:linear-gradient(135deg,var(--dark) 0%,var(--dark2) 50%,#3A1020 100%);border-radius:var(--r) var(--r) 0 0;position:relative;overflow:hidden}
+.profile-banner{height:120px;background:linear-gradient(135deg,var(--dark) 0%,var(--dark2) 50%,#3A1020 100%);border-radius:var(--r) var(--r) 0 0;position:relative;overflow:visible}
 .profile-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(200,16,46,.3) 0%,transparent 60%)}
-.profile-av-wrap{position:absolute;bottom:-28px;left:24px;width:72px;height:72px;border-radius:50%;border:4px solid #fff;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-size:22px;color:#fff;overflow:hidden;cursor:pointer}
+.profile-av-wrap{position:absolute;bottom:-42px;left:24px;width:100px;height:100px;border-radius:50%;border:4px solid #fff;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-size:28px;color:#fff;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.25)}
 .profile-av-wrap img{width:100%;height:100%;object-fit:cover}
-.ai-btn{position:absolute;bottom:-2px;right:-2px;width:22px;height:22px;border-radius:50%;background:var(--dark);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;z-index:5}
-.profile-info{padding:44px 24px 20px}
+.ai-btn{display:none}
+.profile-av-btns{position:absolute;bottom:-52px;left:120px;display:flex;gap:6px}
+.profile-av-btn{width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;box-shadow:var(--sh);transition:all .15s}
+.profile-av-btn:hover{background:var(--beige2);box-shadow:var(--shlg)}
+.profile-info{padding:68px 24px 20px}
 .profile-name{font-family:'Unbounded',sans-serif;font-size:17px;font-weight:500;color:var(--tx);margin-bottom:3px}
 .profile-role{font-size:13px;color:var(--tx2);margin-bottom:10px}
 
@@ -687,16 +690,16 @@ textarea.form-input{resize:vertical;min-height:80px}
 #ep-wrap .ep-card.ep-abs-vac{border-color:#F5A623;border-width:2px}
 #ep-wrap .ep-card.ep-abs-sick{border-color:#D85A5A;border-width:2px}
 /* Banner — no overflow:hidden so avatar can overlap upward */
-#ep-wrap .ep-card-banner{height:64px;position:relative;flex-shrink:0}
+#ep-wrap .ep-card-banner{height:80px;position:relative;flex-shrink:0;overflow:hidden}
 #ep-wrap .ep-card-banner-bg{position:absolute;inset:0;overflow:hidden;border-radius:0}
 #ep-wrap .ep-card-banner-bg img,#ep-wrap .ep-card-banner-bg .ep-banner-grad{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 #ep-wrap .ep-card-banner-bg .ep-banner-grad{border-radius:0}
 /* Badges top-right inside banner */
 #ep-wrap .ep-card-banner-badges{position:absolute;top:6px;right:6px;display:flex;flex-direction:column;align-items:flex-end;gap:3px;z-index:2}
 /* Avatar row — avatar overlaps banner from below */
-#ep-wrap .ep-card-av-row{padding:0 14px;margin-top:-30px;position:relative;z-index:3;margin-bottom:4px}
+#ep-wrap .ep-card-av-row{padding:0 14px;margin-top:-38px;position:relative;z-index:3;margin-bottom:4px}
 /* Avatar circle */
-#ep-wrap .ep-av-wrap{width:64px;height:64px;border-radius:50%;border:3px solid #fff;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;background:#E8F0FE;color:#1A4080}
+#ep-wrap .ep-av-wrap{width:76px;height:76px;border-radius:50%;border:4px solid #fff;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.20);display:flex;align-items:center;justify-content:center;background:#E8F0FE;color:#1A4080}
 /* Avatar image */
 #ep-wrap .ep-av-wrap img.ep-av-img{width:100%;height:100%;object-fit:cover;display:block}
 #ep-wrap .ep-badge{font-size:9px;font-weight:600;padding:2px 7px;border-radius:20px;white-space:nowrap;line-height:1.5;display:inline-block;width:fit-content}
@@ -725,6 +728,16 @@ textarea.form-input{resize:vertical;min-height:80px}
 #ep-wrap .ep-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(0,0,0,.06)}
 #ep-wrap .ep-card-dept{font-size:10px;color:#9E9994;font-weight:500;text-transform:uppercase;letter-spacing:.04em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%}
 #ep-wrap .ep-card-tenure{font-size:10px;color:#9E9994;background:#F0EDE8;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+
+.ai-style-card{border:2px solid var(--bd);border-radius:10px;padding:10px;text-align:center;cursor:pointer;transition:all .15s}
+.ai-style-card:hover,.ai-style-card.selected{border-color:var(--red);background:var(--red-bg)}
+.ai-style-icon{font-size:26px;margin-bottom:4px}
+.ai-style-lbl{font-size:11px;color:var(--tx2)}
+.ai-frame-opt{transition:border-color .15s}
+.ai-frame-opt.selected{border-color:#fff!important;box-shadow:0 0 0 2px var(--red)}
+.ai-result-item{aspect-ratio:1;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .15s;display:flex;align-items:center;justify-content:center;font-size:32px}
+.ai-result-item.selected,.ai-result-item:hover{border-color:var(--red)}
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
@@ -746,6 +759,7 @@ textarea.form-input{resize:vertical;min-height:80px}
     <div class="nav-section">Главное</div>
     <div class="nav-item active" onclick="showPage('home')"><span class="ico">🏠</span>Лента новостей<span class="badge">5</span></div>
     <div class="nav-item" onclick="showPage('profile')"><span class="ico">👤</span>Мой профиль</div>
+    <div class="nav-item" onclick="showPage('tasks')"><span class="ico">✅</span>Задачи<span class="badge" id="tasks-badge" style="display:none">0</span></div>
     <div class="nav-item" onclick="showPage('company')"><span class="ico">🏢</span>Моя компания</div>
 
     <div class="nav-section">Команда</div>
@@ -758,7 +772,6 @@ textarea.form-input{resize:vertical;min-height:80px}
     <div class="nav-item" onclick="showPage('rules')"><span class="ico">📖</span>Правила и инструкции</div>
     <div class="nav-item" onclick="showPage('benefits')"><span class="ico">🎁</span>Бенефиты</div>
     <div class="nav-item" onclick="showPage('learning')"><span class="ico">🎓</span>Обучение</div>
-    <div class="nav-item" onclick="showPage('review')"><span class="ico">⭐</span>Performance Review</div>
 
     <div class="nav-section">Компания</div>
     <div class="nav-item" onclick="showPage('events')"><span class="ico">📅</span>Мероприятия</div>
@@ -767,8 +780,10 @@ textarea.form-input{resize:vertical;min-height:80px}
     <div class="nav-item" onclick="showPage('surveys')"><span class="ico">📊</span>Опросы КК</div>
 
     <div class="nav-section">Отделы</div>
-    <div class="nav-item" onclick="showPage('sales')"><span class="ico">💼</span>Отдел продаж<span class="lock">🔒</span></div>
-    <div class="nav-item" onclick="showPage('subscribers')"><span class="ico">📞</span>Абонентский отдел<span class="lock">🔒</span></div>
+    <div class="nav-item" onclick="showPage('sales')"><span class="ico">💼</span>Корп. продажи<span class="lock">🔒</span></div>
+    <div class="nav-item" onclick="showPage('subscribers')"><span class="ico">👤</span>Физ. лица<span class="lock">🔒</span></div>
+    <div class="nav-item" onclick="showPage('techsupport')"><span class="ico">🛠</span>Тех. поддержка<span class="lock">🔒</span></div>
+    <div class="nav-item" onclick="showPage('installers')"><span class="ico">🔧</span>Монтажники<span class="lock">🔒</span></div>
     <div class="nav-item" onclick="showPage('backoffice')"><span class="ico">🎧</span>Бэк-офис<span class="lock">🔒</span></div>
 
     <div class="nav-section">Администрирование</div>
@@ -928,9 +943,15 @@ textarea.form-input{resize:vertical;min-height:80px}
     <div>
       <div class="card" style="margin-bottom:16px">
         <div class="profile-banner">
-          <div class="profile-av-wrap" onclick="showModal('avatar-modal')">
-            АК
-            <div class="ai-btn" title="ИИ-аватар">✨</div>
+          <div class="profile-av-wrap" id="profile-av-wrap">
+            <span id="profile-av-initials">АК</span>
+            <img id="profile-av-img" src="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:50%">
+          </div>
+          <!-- Upload & AI buttons below avatar -->
+          <div class="profile-av-btns">
+            <label class="profile-av-btn" title="Загрузить фото" onclick="document.getElementById('profile-photo-input').click()">📷</label>
+            <input type="file" id="profile-photo-input" accept="image/*" style="display:none" onchange="uploadProfilePhoto(this)">
+            <label class="profile-av-btn" title="ИИ-аватар" onclick="showModal('ai-avatar-modal')">✨</label>
           </div>
         </div>
         <div class="profile-info">
@@ -995,7 +1016,7 @@ textarea.form-input{resize:vertical;min-height:80px}
         <p style="font-size:11px;color:var(--tx3);margin-top:8px">Данные подставляются автоматически из профиля.</p>
       </div>
       <div class="card card-pad">
-        <div class="sec-title">Мои документы</div>
+        <div class="sec-title">Мои уведомления</div>
         <div class="doc-item">
           <div class="doc-icon pdf">📄</div>
           <div class="doc-info"><div class="doc-name">Заявление на отпуск</div><div class="doc-meta">12.05.2025 · PDF</div></div>
@@ -1927,23 +1948,12 @@ textarea.form-input{resize:vertical;min-height:80px}
   </div>
 </div>
 <div class="page" id="page-learning"><div class="page-header"><h1>Обучение</h1></div><div class="empty"><div class="empty-icon">🎓</div><p>Каталог обучающих программ</p><button class="btn btn-primary" style="margin-top:12px" onclick="showPage('docs-admin')">+ Добавить курс</button></div></div>
-<div class="page" id="page-review"><div class="page-header"><h1>Performance Review</h1></div>
-  <div class="grid2">
-    <div class="card card-pad"><div class="sec-title">Моя оценка Q1 2025</div><div class="perf-score">4.2</div><div style="font-size:12px;color:var(--tx3);margin-bottom:10px">из 5.0 · Оценка руководителя: 4.4</div>
-      <div class="skill-item"><span class="skill-name">Качество работы</span><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div><span class="skill-score">4.4</span></div>
-      <div class="skill-item"><span class="skill-name">Коммуникация</span><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div><span class="skill-score">3.9</span></div>
-      <div class="skill-item"><span class="skill-name">Инициативность</span><div class="skill-bar"><div class="skill-fill" style="width:84%"></div></div><span class="skill-score">4.2</span></div>
-      <div class="skill-item"><span class="skill-name">Командная работа</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div><span class="skill-score">4.5</span></div>
-    </div>
-    <div class="card card-pad"><div class="sec-title">Self-review Q2 2025</div><p style="font-size:13px;color:var(--tx2);margin-bottom:12px">Дедлайн: 15 июня 2025</p><button class="btn btn-primary" style="width:100%;justify-content:center">Начать самооценку</button></div>
-  </div>
-</div>
 <div class="page" id="page-events"><div class="page-header"><h1>Мероприятия</h1></div><div class="grid3"><div class="card card-pad" style="cursor:pointer"><div style="background:var(--red-soft);border-radius:var(--rs);height:80px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px">🏓</div><div style="font-size:14px;font-weight:500;color:var(--tx);margin-bottom:4px">Турнир по теннису</div><div style="font-size:12px;color:var(--tx3);margin-bottom:10px">Пятница 16 мая · 18:00 · офис</div><button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">Зарегистрироваться</button></div><div class="card card-pad" style="cursor:pointer"><div style="background:#E0F0FF;border-radius:var(--rs);height:80px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px">🎓</div><div style="font-size:14px;font-weight:500;color:var(--tx);margin-bottom:4px">Тренинг по продажам</div><div style="font-size:12px;color:var(--tx3);margin-bottom:10px">Пн 19 мая · 10:00 · Zoom</div><button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center">✓ Зарегистрирован</button></div></div></div>
 <div class="page" id="page-life"><div class="page-header"><h1>TEL изнутри</h1></div><div class="grid3"><div class="card" style="overflow:hidden;cursor:pointer"><div style="height:140px;background:linear-gradient(135deg,var(--dark),var(--dark2));display:flex;align-items:center;justify-content:center;font-size:48px">🎉</div><div class="card-sm"><div style="font-size:13px;font-weight:500;color:var(--tx)">Корпоратив «Зима 2024»</div><div style="font-size:11px;color:var(--tx3)">48 фото · декабрь 2024</div></div></div><div class="card" style="overflow:hidden;cursor:pointer"><div style="height:140px;background:linear-gradient(135deg,#2D3060,#1A1835);display:flex;align-items:center;justify-content:center;font-size:48px">🏃</div><div class="card-sm"><div style="font-size:13px;font-weight:500;color:var(--tx)">Корпоративный забег</div><div style="font-size:11px;color:var(--tx3)">32 фото · октябрь 2024</div></div></div></div></div>
 <div class="page" id="page-surveys"><div class="page-header"><h1>Опросы КК</h1></div><div class="empty"><div class="empty-icon">📊</div><p>Активных опросов нет</p><button class="btn btn-primary" style="margin-top:12px">+ Создать опрос</button></div></div>
 <div class="page" id="page-sales">
   <div class="page-top">
-    <div class="page-header" style="margin:0"><h1>Отдел продаж</h1><p>База знаний и материалы для менеджеров TEL</p></div>
+    <div class="page-header" style="margin:0"><h1>Отдел корпоративных продаж</h1><p>База знаний и материалы для менеджеров TEL</p></div>
     <span class="chip chip-red">🔒 Доступ: Продажи + Руководство</span>
   </div>
   <div class="tabs" id="sales-tabs">
@@ -2038,7 +2048,7 @@ textarea.form-input{resize:vertical;min-height:80px}
 </div>
 <div class="page" id="page-subscribers">
   <div class="page-top">
-    <div class="page-header" style="margin:0"><h1>Абонентский отдел</h1><p>Принципы работы с клиентами и партнёрами</p></div>
+    <div class="page-header" style="margin:0"><h1>Отдел по работе с физ. лицами</h1><p>Принципы работы с клиентами и партнёрами</p></div>
     <span class="chip chip-blue">🔒 Доступ: Абонентский + HR</span>
   </div>
   <div class="tabs">
@@ -2138,6 +2148,124 @@ textarea.form-input{resize:vertical;min-height:80px}
         </table>
       </div>
     </div>
+  </div>
+</div>
+<div class="page" id="page-techsupport">
+  <div class="page-top">
+    <div class="page-header" style="margin:0"><h1>Техническая поддержка</h1><p>Скрипты и регламенты для сотрудников тех. поддержки</p></div>
+    <span class="chip chip-blue">🔒 Доступ: Тех. поддержка + HR</span>
+  </div>
+  <div class="tabs" id="techsupport-tabs">
+    <button class="tab active" onclick="deptTab('techsupport','scripts',this)">📝 Скрипты</button>
+    <button class="tab" onclick="deptTab('techsupport','regs',this)">📋 Регламенты</button>
+    <button class="tab" onclick="deptTab('techsupport','docs',this)">📁 Документы</button>
+  </div>
+  <div id="techsupport-scripts">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div class="sec-title" style="margin:0">Скрипты</div>
+      <button class="btn btn-primary btn-sm" onclick="showPage('docs-admin')">+ Добавить</button>
+    </div>
+    <div class="card card-pad">
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">Скрипт входящего обращения</div><div class="doc-meta">Актуально · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ v1.2</span> · 01.04.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">⬇ DOCX</button></div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">Скрипт исходящего звонка</div><div class="doc-meta">Актуально · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ v1.0</span> · 15.03.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">⬇ DOCX</button></div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">Скрипт работы с возражениями</div><div class="doc-meta">Актуально · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ v2.1</span> · 20.04.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">⬇ DOCX</button></div>
+      </div>
+    </div>
+  </div>
+  <div id="techsupport-regs" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div class="sec-title" style="margin:0">Регламенты</div>
+      <button class="btn btn-primary btn-sm" onclick="showPage('docs-admin')">+ Добавить</button>
+    </div>
+    <div class="card card-pad">
+      <div class="doc-item">
+        <div class="doc-icon pdf">📄</div>
+        <div class="doc-info"><div class="doc-name">Регламент работы отдела</div><div class="doc-meta">Актуально · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ v3.0</span> · 01.01.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">⬇ PDF</button></div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon pdf">📄</div>
+        <div class="doc-info"><div class="doc-name">Регламент эскалации</div><div class="doc-meta">Актуально · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ v1.1</span> · 15.02.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">⬇ PDF</button></div>
+      </div>
+    </div>
+  </div>
+  <div id="techsupport-docs" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div class="sec-title" style="margin:0">Документы отдела</div>
+      <button class="btn btn-primary btn-sm" onclick="showPage('docs-admin')">+ Добавить</button>
+    </div>
+    <div class="empty"><div class="empty-icon">📁</div><p>Добавьте первый документ</p></div>
+  </div>
+</div>
+<div class="page" id="page-installers">
+  <div class="page-top">
+    <div class="page-header" style="margin:0"><h1>Монтажники</h1><p>Регламенты и инструкции для монтажной бригады</p></div>
+    <span class="chip chip-green">🔒 Доступ: Монтажники + HR</span>
+  </div>
+  <div class="tabs" id="installers-tabs">
+    <button class="tab active" onclick="deptTab('installers','scripts',this)">📝 Скрипты</button>
+    <button class="tab" onclick="deptTab('installers','regs',this)">📋 Регламенты</button>
+    <button class="tab" onclick="deptTab('installers','docs',this)">📁 Документы</button>
+  </div>
+  <div id="installers-scripts">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div class="sec-title" style="margin:0">Скрипты</div>
+      <button class="btn btn-primary btn-sm" onclick="showPage('docs-admin')">+ Добавить</button>
+    </div>
+    <div class="card card-pad">
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">Скрипт входящего обращения</div><div class="doc-meta">Актуально · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ v1.2</span> · 01.04.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">⬇ DOCX</button></div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">Скрипт исходящего звонка</div><div class="doc-meta">Актуально · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ v1.0</span> · 15.03.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">⬇ DOCX</button></div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon docx">📄</div>
+        <div class="doc-info"><div class="doc-name">Скрипт работы с возражениями</div><div class="doc-meta">Актуально · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ v2.1</span> · 20.04.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">⬇ DOCX</button></div>
+      </div>
+    </div>
+  </div>
+  <div id="installers-regs" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div class="sec-title" style="margin:0">Регламенты</div>
+      <button class="btn btn-primary btn-sm" onclick="showPage('docs-admin')">+ Добавить</button>
+    </div>
+    <div class="card card-pad">
+      <div class="doc-item">
+        <div class="doc-icon pdf">📄</div>
+        <div class="doc-info"><div class="doc-name">Регламент работы отдела</div><div class="doc-meta">Актуально · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ v3.0</span> · 01.01.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">⬇ PDF</button></div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon pdf">📄</div>
+        <div class="doc-info"><div class="doc-name">Регламент эскалации</div><div class="doc-meta">Актуально · <span class="ver-badge" style="background:#E0FFE8;color:#006B23;border-color:#006B23">✓ v1.1</span> · 15.02.2025</div></div>
+        <div class="doc-actions"><button class="doc-btn">⬇ PDF</button></div>
+      </div>
+    </div>
+  </div>
+  <div id="installers-docs" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div class="sec-title" style="margin:0">Документы отдела</div>
+      <button class="btn btn-primary btn-sm" onclick="showPage('docs-admin')">+ Добавить</button>
+    </div>
+    <div class="empty"><div class="empty-icon">📁</div><p>Добавьте первый документ</p></div>
   </div>
 </div>
 <div class="page" id="page-backoffice"><div class="page-header"><h1>Бэк-офис</h1></div><div class="empty"><div class="empty-icon">🎧</div><p>Стандарты телефонного обслуживания</p><button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="showPage('docs-admin')">+ Добавить материал</button></div></div>
@@ -2355,8 +2483,8 @@ var pageNames={
   'team':'Справочник','circles':'Кружки по интересам','hr':'Заявления',
   'blanks':'Бланки','rules':'Правила и инструкции','benefits':'Бенефиты',
   'learning':'Обучение','review':'Performance Review','events':'Мероприятия',
-  'life':'TEL изнутри','surveys':'Опросы КК','sales':'Отдел продаж',
-  'subscribers':'Абонентский отдел','backoffice':'Бэк-офис',
+  'life':'TEL изнутри','surveys':'Опросы КК','sales':'Отдел корпоративных продаж',
+  'subscribers':'Отдел по работе с физ. лицами','backoffice':'Бэк-офис',
   'access':'Управление доступом','docs-admin':'Загрузка документов'
 };
 function showPage(name){
@@ -2500,6 +2628,8 @@ updateTaskStats=function(){
 
 pageNames['rooms']='Переговорные';
 pageNames['software']='Корпоративный софт';
+pageNames['techsupport']='Техническая поддержка';
+pageNames['installers']='Монтажники';
 
 // ── SOFTWARE FILTER ───────────────────────────────────────
 function softFilter(cat,btn){
@@ -2514,6 +2644,116 @@ function softFilter(cat,btn){
   });
 }
 
+
+
+// ── AI AVATAR ─────────────────────────────────────────────────────────────
+var _aiStyle='corporate', _aiFrame='tel-red', _aiSelected=null;
+function selectAiStyle(el,style){
+  document.querySelectorAll('.ai-style-card').forEach(function(c){c.classList.remove('selected')});
+  el.classList.add('selected'); _aiStyle=style;
+}
+function selectAiFrame(el,frame){
+  document.querySelectorAll('.ai-frame-opt').forEach(function(c){c.classList.remove('selected')});
+  el.classList.add('selected'); _aiFrame=frame;
+}
+function previewAiPhoto(input){
+  var file=input.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var prev=document.getElementById('ai-photo-preview');
+    if(prev)prev.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+  };
+  reader.readAsDataURL(file);
+}
+var AI_AVATARS={
+  'corporate':['👔','🧑‍💼','👨‍💼','🙂'],
+  'creative':['🎨','🖌','✍','🎭'],
+  'tech':['🤖','💻','⚙️','🚀'],
+  'minimal':['⚪','◯','✦','◈']
+};
+var FRAME_COLORS={
+  'tel-red':'linear-gradient(135deg,#C8102E,#8B0020)',
+  'tel-dark':'linear-gradient(135deg,#1A1215,#3A1020)',
+  'tel-beige':'linear-gradient(135deg,#FAF7F4,#E8DFD8)',
+  'tel-gradient':'linear-gradient(135deg,#C8102E,#1A1215)'
+};
+function generateAiAvatar(){
+  var btn=document.getElementById('ai-gen-btn');
+  if(btn)btn.textContent='Генерирую...';
+  setTimeout(function(){
+    var icons=AI_AVATARS[_aiStyle]||AI_AVATARS['corporate'];
+    var bg=FRAME_COLORS[_aiFrame]||FRAME_COLORS['tel-red'];
+    var grid=document.getElementById('ai-results-grid');
+    if(grid){
+      grid.innerHTML=icons.map(function(ico,i){
+        return '<div class="ai-result-item'+(i===0?' selected':'')+'" onclick="selectAiResult(this,'+i+')" style="background:'+bg+';font-size:36px">'+
+          '<div style="text-align:center"><div>'+ico+'</div><div style="font-size:8px;color:rgba(255,255,255,.7);margin-top:4px;font-weight:600;letter-spacing:.1em">TEL</div></div></div>';
+      }).join('');
+    }
+    _aiSelected=0;
+    var block=document.getElementById('ai-result-block');
+    if(block)block.style.display='';
+    if(btn)btn.textContent='✨ Сгенерировать аватар';
+  },1500);
+}
+function selectAiResult(el,idx){
+  document.querySelectorAll('.ai-result-item').forEach(function(c){c.classList.remove('selected')});
+  el.classList.add('selected'); _aiSelected=idx;
+}
+function downloadAiAvatar(){
+  // Create canvas and download
+  var canvas=document.createElement('canvas');
+  canvas.width=500;canvas.height=500;
+  var ctx=canvas.getContext('2d');
+  var bg=FRAME_COLORS[_aiFrame]||FRAME_COLORS['tel-red'];
+  var icons=AI_AVATARS[_aiStyle]||AI_AVATARS['corporate'];
+  var ico=icons[_aiSelected||0];
+  // Draw gradient
+  var parts=bg.match(/#[0-9A-Fa-f]{6}/g)||['#C8102E','#8B0020'];
+  var grad=ctx.createLinearGradient(0,0,500,500);
+  grad.addColorStop(0,parts[0]);grad.addColorStop(1,parts[1]||parts[0]);
+  ctx.fillStyle=grad;ctx.fillRect(0,0,500,500);
+  // Draw circle
+  ctx.beginPath();ctx.arc(250,220,150,0,Math.PI*2);
+  ctx.fillStyle='rgba(255,255,255,.15)';ctx.fill();
+  // Draw emoji
+  ctx.font='120px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(ico,250,220);
+  // TEL logo
+  ctx.font='bold 48px sans-serif';ctx.fillStyle='rgba(255,255,255,.9)';
+  ctx.fillText('TEL',250,420);
+  // Download
+  var a=document.createElement('a');a.download='tel-avatar.png';a.href=canvas.toDataURL('image/png');a.click();
+}
+function applyAiToProfile(){
+  var icons=AI_AVATARS[_aiStyle]||AI_AVATARS['corporate'];
+  var ico=icons[_aiSelected||0];
+  var wrap=document.getElementById('profile-av-wrap');
+  var ini=document.getElementById('profile-av-initials');
+  if(wrap&&ini){
+    ini.textContent=ico;
+    ini.style.fontSize='40px';
+    wrap.style.background=FRAME_COLORS[_aiFrame]||'linear-gradient(135deg,#C8102E,#8B0020)';
+    wrap.style.fontFamily='serif';
+  }
+  closeModal('ai-avatar-modal');
+}
+// ── PROFILE PHOTO ─────────────────────────────────────────────────────────
+function uploadProfilePhoto(input){
+  var file=input.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var img=document.getElementById('profile-av-img');
+    var ini=document.getElementById('profile-av-initials');
+    if(img){img.src=e.target.result;img.style.display='block';}
+    if(ini)ini.style.display='none';
+    // Also update sidebar avatar
+    var sav=document.querySelector('.sidebar-user .uav');
+    if(sav){sav.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';}
+  };
+  reader.readAsDataURL(file);
+  input.value='';
+}
 // ── EMAIL SIGNATURE COPY ──────────────────────────────────
 function copySignature(){
   var sig='Алексей Козлов\nСистемный администратор\nООО «ТКТЕЛ» · Группа TEL\n+7 916 123-45-67 · вн. 301\na.kozlov@company.ru\nwww.tktel.ru';
@@ -2521,8 +2761,8 @@ function copySignature(){
   else{var t=document.createElement('textarea');t.value=sig;document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(t);alert('Скопировано!');}
 }
 pageNames['rules']='Правила и инструкции';
-pageNames['sales']='Отдел продаж';
-pageNames['subscribers']='Абонентский отдел';
+pageNames['sales']='Отдел корпоративных продаж';
+pageNames['subscribers']='Отдел по работе с физ. лицами';
 
 // ── ROOMS ─────────────────────────────────────────────────
 (function(){
@@ -2584,6 +2824,17 @@ function subsTab(name,btn){
   if(btn)btn.classList.add('active');
 }
 
+
+// ── DEPARTMENT TABS ───────────────────────────────────────────────────────
+function deptTab(pid,name,btn){
+  ['scripts','regs','docs'].forEach(function(t){
+    var el=document.getElementById(pid+'-'+t);
+    if(el)el.style.display=t===name?'block':'none';
+  });
+  var tabs=document.querySelectorAll('#'+pid+'-tabs .tab');
+  tabs.forEach(function(b){b.classList.remove('active')});
+  if(btn)btn.classList.add('active');
+}
 // ── CONFIRM DOWNLOAD ──────────────────────────────────────
 function confirmDownload(name){
   if(confirm('Факт получения документа «'+name+'» будет зафиксирован. Продолжить?'))
@@ -3132,12 +3383,11 @@ function cardH(e){
   // Avatar circle — always clean, no badges on top
   var avatarHTML=photo
     ?'<div class="ep-av-wrap"><img src="'+photo+'" class="ep-av-img" data-ini="'+ini(e.name)+'" data-bg="'+c[0]+'" data-col="'+c[1]+'"></div>'
-    :'<div class="ep-av-wrap" style="background:'+c[0]+';color:'+c[1]+'"><span style="font-size:20px;font-weight:600">'+ini(e.name)+'</span></div>';
+    :'<div class="ep-av-wrap" style="background:'+c[0]+';color:'+c[1]+'"><span style="font-size:24px;font-weight:600">'+ini(e.name)+'</span></div>';
 
   // Banner background (contained) — avatar sits on top via z-index
-  var bannerBg=photo
-    ?'<div class="ep-card-banner-bg"><img src="'+photo+'" onerror="this.style.display=\'none\'"></div>'
-    :'<div class="ep-card-banner-bg"><div class="ep-banner-grad" style="background:linear-gradient(140deg,'+c[0]+','+c[0]+'bb)"></div></div>';
+  // Banner is always a gradient — photo only in the avatar circle
+  var bannerBg='<div class="ep-card-banner-bg"><div class="ep-banner-grad" style="background:linear-gradient(140deg,'+c[0]+' 0%,'+c[0]+'99 100%)"></div></div>';
 
   return '<div class="ep-card'+(ecls?' '+ecls:'')+'" onclick="epOpenModal('+e.id+')">'+
     '<div class="ep-card-banner">'+
