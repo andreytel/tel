@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Чат поддержки — Home.Tel</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f5f7fa; --surface: #fff; --border: #e5e7eb;
+  --text: #1f2937; --muted: #6b7280;
+  --blue: #0056a3;        /* фирменный цвет Home.Tel */
+  --blue-dark: #004080;
+  --blue-light: #e8f0fa;
+  --green: #059669; --bot-bg: #f3f4f6;
+  --user-bg: #0056a3; --user-text: #fff;
+}
+
+/* ── Floating button ── */
+#chat-launcher {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9998;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--blue); color: #fff; font-size: 26px;
+  border: none; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,86,163,.45);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .2s, box-shadow .2s;
+}
+#chat-launcher:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(0,86,163,.55); }
+#chat-launcher .badge {
+  position: absolute; top: -4px; right: -4px;
+  width: 20px; height: 20px; background: #ef4444;
+  border-radius: 50%; font-size: 11px; font-weight: 700;
+  display: none; align-items: center; justify-content: center;
+  border: 2px solid #fff; color: #fff;
+}
+
+/* ── Chat window ── */
+#chat-window {
+  position: fixed; bottom: 96px; right: 24px; z-index: 9999;
+  width: 370px; max-height: 600px;
+  background: var(--surface); border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18);
+  display: none; flex-direction: column; overflow: hidden;
+  border: 1px solid var(--border);
+}
+#chat-window.open { display: flex; }
+
+/* Header */
+.chat-header {
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  color: #fff; padding: 16px 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.chat-logo {
+  width: 42px; height: 42px; border-radius: 10px;
+  background: rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 700; letter-spacing: -1px;
+}
+.chat-header-info { flex: 1; }
+.chat-header-name { font-weight: 700; font-size: 15px; }
+.chat-header-sub  { font-size: 11px; opacity: .75; margin-top: 1px; }
+.chat-header-status { font-size: 12px; opacity: .85; display: flex; align-items: center; gap: 5px; }
+.chat-header-status::before {
+  content: ""; display: inline-block;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #4ade80;
+}
+.chat-close {
+  background: none; border: none; color: #fff; font-size: 20px;
+  cursor: pointer; opacity: .7; padding: 4px; line-height: 1;
+}
+.chat-close:hover { opacity: 1; }
+
+/* Messages */
+.chat-messages {
+  flex: 1; overflow-y: auto; padding: 16px;
+  display: flex; flex-direction: column; gap: 10px;
+  min-height: 200px; max-height: 400px;
+  background: #fafbff;
+}
+.chat-messages::-webkit-scrollbar { width: 4px; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.msg { display: flex; flex-direction: column; max-width: 85%; }
+.msg.bot      { align-self: flex-start; }
+.msg.user     { align-self: flex-end; }
+.msg.operator { align-self: flex-start; }
+
+.msg-bubble {
+  padding: 10px 14px; border-radius: 14px;
+  font-size: 14px; line-height: 1.55; white-space: pre-wrap; word-break: break-word;
+}
+.msg.bot      .msg-bubble { background: var(--bot-bg); color: var(--text);
+                             border-bottom-left-radius: 4px; }
+.msg.user     .msg-bubble { background: var(--user-bg); color: var(--user-text);
+                             border-bottom-right-radius: 4px; }
+.msg.operator .msg-bubble { background: #ecfdf5; color: #065f46;
+                             border: 1px solid #a7f3d0; border-bottom-left-radius: 4px; }
+
+.msg-time  { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.msg.user .msg-time { text-align: right; }
+.msg-label { font-size: 11px; color: var(--green); font-weight: 600; margin-bottom: 2px; }
+
+/* Typing indicator */
+.typing {
+  display: flex; gap: 4px; padding: 10px 14px;
+  background: var(--bot-bg); border-radius: 14px;
+  border-bottom-left-radius: 4px; align-self: flex-start;
+}
+.typing span {
+  width: 7px; height: 7px; background: var(--muted);
+  border-radius: 50%; animation: bounce .9s infinite;
+}
+.typing span:nth-child(2) { animation-delay: .15s; }
+.typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes bounce {
+  0%,80%,100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+}
+
+/* Input form */
+.chat-form {
+  padding: 12px 14px; border-top: 1px solid var(--border);
+  display: flex; gap: 8px; background: var(--surface);
+}
+.chat-input {
+  flex: 1; border: 1px solid var(--border); border-radius: 12px;
+  padding: 10px 14px; font-size: 14px; outline: none;
+  font-family: inherit; resize: none; max-height: 80px; min-height: 42px;
+  transition: border-color .15s; line-height: 1.4;
+}
+.chat-input:focus { border-color: var(--blue); }
+.chat-send {
+  width: 42px; height: 42px; background: var(--blue); color: #fff;
+  border: none; border-radius: 12px; cursor: pointer; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background .15s;
+}
+.chat-send:hover { background: var(--blue-dark); }
+.chat-send:disabled { background: var(--border); cursor: not-allowed; }
+
+/* Name form */
+.name-form { padding: 24px 20px; display: flex; flex-direction: column; gap: 14px; }
+.name-form-title { font-size: 16px; font-weight: 600; color: var(--text); }
+.name-form p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+.name-input {
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 11px 14px; font-size: 14px; outline: none; font-family: inherit;
+  transition: border-color .15s;
+}
+.name-input:focus { border-color: var(--blue); }
+.name-btn {
+  background: var(--blue); color: #fff; border: none; border-radius: 10px;
+  padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: background .15s;
+}
+.name-btn:hover { background: var(--blue-dark); }
+
+/* Footer */
+.chat-footer {
+  text-align: center; padding: 6px 0 8px;
+  font-size: 11px; color: var(--muted);
+  border-top: 1px solid var(--border);
+  background: #fafafa;
+}
+.chat-footer a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Кнопка запуска -->
+<button id="chat-launcher" onclick="toggleChat()" title="Написать в поддержку">
+  💬
+  <span class="badge" id="unread-badge">1</span>
+</button>
+
+<!-- Окно чата -->
+<div id="chat-window">
+  <div class="chat-header">
+    <div class="chat-logo">H</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">Home.Tel — поддержка</div>
+      <div class="chat-header-status" id="chat-status">Онлайн · отвечаем быстро</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()" title="Закрыть">✕</button>
+  </div>
+
+  <!-- Форма ввода имени -->
+  <div class="name-form" id="name-form">
+    <div class="name-form-title">Добро пожаловать!</div>
+    <p>Напишите нам — ответим в течение нескольких минут. Как к вам обращаться?</p>
+    <input class="name-input" id="name-input" type="text"
+           placeholder="Ваше имя" autocomplete="name"
+           onkeydown="if(event.key==='Enter') startChat()">
+    <button class="name-btn" onclick="startChat()">Начать чат →</button>
+  </div>
+
+  <!-- Основной чат -->
+  <div id="chat-body" style="display:none; flex-direction:column; flex:1; overflow:hidden;">
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-form">
+      <textarea class="chat-input" id="chat-input"
+        placeholder="Напишите сообщение..." rows="1"
+        onkeydown="handleKey(event)"></textarea>
+      <button class="chat-send" id="send-btn" onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <div class="chat-footer">
+    Служба поддержки <a href="https://home.tel.ru" target="_blank">Home.Tel</a>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+// НАСТРОЙКА: укажите адрес вашего сервера
+// ══════════════════════════════════════════════════
+const API_BASE = (function() {
+  const s = document.currentScript || document.querySelector('script[data-api]');
+  if (s && s.dataset.api) return s.dataset.api.replace(/\/$/, '');
+  // По умолчанию — адрес сервера Home.Tel
+  return 'http://185.210.59.145:5000';
+})();
+
+let sessionId    = null;
+let userName     = null;
+let pollTimer    = null;
+let isOpen       = false;
+let waitingReply = false;
+let lastPollIdx  = 0;
+
+// Восстанавливаем сессию из localStorage
+try {
+  sessionId = localStorage.getItem('chat_session_id');
+  userName  = localStorage.getItem('chat_user_name');
+} catch(e) {}
+
+function toggleChat() {
+  isOpen = !isOpen;
+  document.getElementById('chat-window').classList.toggle('open', isOpen);
+  document.getElementById('unread-badge').style.display = 'none';
+  if (isOpen) {
+    if (sessionId && userName) {
+      showChatBody();
+      startPolling();
+    } else if (userName) {
+      document.getElementById('name-input').value = userName;
+    } else {
+      setTimeout(() => document.getElementById('name-input').focus(), 100);
+    }
+  }
+}
+
+async function startChat() {
+  const nameInput = document.getElementById('name-input');
+  const name = (nameInput ? nameInput.value.trim() : '') || userName || 'Посетитель';
+  if (!name) { if (nameInput) nameInput.focus(); return; }
+
+  userName = name;
+  try { localStorage.setItem('chat_user_name', name); } catch(e) {}
+
+  nameInput.disabled = true;
+  document.querySelector('.name-btn').disabled = true;
+
+  try {
+    const r = await fetch(`${API_BASE}/api/chat/start`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    });
+    const data = await r.json();
+    sessionId = data.session_id;
+    try { localStorage.setItem('chat_session_id', sessionId); } catch(e) {}
+    showChatBody();
+    appendMsg('bot', data.message || 'Здравствуйте! Чем можем помочь?');
+    startPolling();
+  } catch(e) {
+    appendMsg('bot', 'Не удалось подключиться. Проверьте соединение и попробуйте снова.');
+    if (nameInput) nameInput.disabled = false;
+    document.querySelector('.name-btn').disabled = false;
+  }
+}
+
+function showChatBody() {
+  document.getElementById('name-form').style.display = 'none';
+  const body = document.getElementById('chat-body');
+  body.style.display = 'flex';
+  setTimeout(() => document.getElementById('chat-input').focus(), 100);
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text  = input.value.trim();
+  if (!text || waitingReply) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+  appendMsg('user', text);
+  showTyping();
+  waitingReply = true;
+  document.getElementById('send-btn').disabled = true;
+
+  try {
+    const r = await fetch(`${API_BASE}/api/chat/message`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: sessionId, text, name: userName })
+    });
+    const data = await r.json();
+    hideTyping();
+    if (data.ok) appendMsg('bot', data.message);
+  } catch(e) {
+    hideTyping();
+    appendMsg('bot', 'Произошла ошибка. Попробуйте позже или позвоните нам:\n+7 (495) 787-42-00');
+  }
+  waitingReply = false;
+  document.getElementById('send-btn').disabled = false;
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+  const ta = e.target;
+  ta.style.height = 'auto';
+  ta.style.height = Math.min(ta.scrollHeight, 80) + 'px';
+}
+
+function appendMsg(role, text, time) {
+  const container = document.getElementById('chat-messages');
+  const now = time || new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'});
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  const labelHtml = role === 'operator'
+    ? `<div class="msg-label">👨‍💼 Оператор Home.Tel</div>` : '';
+  div.innerHTML = `${labelHtml}
+    <div class="msg-bubble">${escHtml(text)}</div>
+    <div class="msg-time">${now}</div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+
+  if (!isOpen && role !== 'user') {
+    const badge = document.getElementById('unread-badge');
+    badge.style.display = 'flex';
+    badge.textContent = '+';
+  }
+}
+
+let typingEl = null;
+function showTyping() {
+  const c = document.getElementById('chat-messages');
+  typingEl = document.createElement('div');
+  typingEl.className = 'typing';
+  typingEl.innerHTML = '<span></span><span></span><span></span>';
+  c.appendChild(typingEl);
+  c.scrollTop = c.scrollHeight;
+}
+function hideTyping() {
+  if (typingEl) { typingEl.remove(); typingEl = null; }
+}
+
+function startPolling() {
+  if (pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(async () => {
+    if (!sessionId) return;
+    try {
+      const r = await fetch(`${API_BASE}/api/chat/poll/${sessionId}?after=${lastPollIdx}`);
+      const data = await r.json();
+      if (data.messages && data.messages.length) {
+        data.messages.forEach(m => appendMsg('operator', m.text, m.time));
+        lastPollIdx = data.total || lastPollIdx + data.messages.length;
+      }
+    } catch(e) {}
+  }, 5000);
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                .replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+// Восстановить сессию при перезагрузке страницы
+if (sessionId && userName) {
+  startPolling();
+}
+</script>
+
+<!--
+════════════════════════════════════════════════════════════════════
+  ВСТРОЙКА НА САЙТ home.tel.ru
+  
+  Вариант 1 — через <iframe> (рекомендуется):
+  Вставьте перед закрывающим </body> на нужных страницах:
+
+  <script>
+    (function(){
+      var f = document.createElement('iframe');
+      f.src = 'http://185.210.59.145:5000/chat';
+      f.style.cssText = 'position:fixed;bottom:0;right:0;width:420px;height:100%;'
+        + 'border:none;z-index:9999;background:transparent;pointer-events:none;';
+      f.id = 'hometel-chat';
+      f.setAttribute('allowtransparency','true');
+      document.body.appendChild(f);
+    })();
+  </script>
+
+  Вариант 2 — прямая встройка (если сайт на том же домене):
+  Скопируйте содержимое этого файла в шаблон сайта.
+  Замените API_BASE на: 'http://185.210.59.145:5000'
+
+  Вариант 3 — с кастомным API URL:
+  <script data-api="http://185.210.59.145:5000" src="...chat.js..."></script>
+
+════════════════════════════════════════════════════════════════════
+-->
+</body>
+</html>
